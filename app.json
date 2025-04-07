@@ -14,7 +14,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#A2D2FF"
       }
     },
     "web": {
@@ -30,7 +30,7 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#A2D2FF"
         }
       ]
     ],
@@ -45,6 +45,6 @@
         "projectId": "60b4bbc6-cbff-473e-98f3-46c93bfb262e"
       }
     },
-    "owner": "hoangkianh-org"
+    "owner": "mackhendrik-org"
   }
 }
