@@ -43,18 +43,22 @@ const Button = ({
 
   const stylesBySize = {
     xs: {
+      paddingX: 8,
       paddingY: 6,
       fontSize: 12
     },
     sm: {
+      paddingX: 12,
       paddingY: 8,
       fontSize: 14
     },
     md: {
+      paddingX: 20,
       paddingY: 12,
       fontSize: 16
     },
     lg: {
+      paddingX: 24,
       paddingY: 16,
       fontSize: 18
     }
@@ -71,7 +75,7 @@ const Button = ({
         // @ts-ignore
         backgroundColor: selectedVariant.backgroundColor,
         paddingY: variant === 'ghost' ? 0 : selectedStyle.paddingY,
-        paddingX: variant === 'ghost' ? 0 : 20,
+        paddingX: variant === 'ghost' ? 0 : selectedStyle.paddingX,
         borderRadius: 25,
         alignItems: 'center',
         justifyContent: 'center',

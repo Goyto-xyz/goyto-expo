@@ -18,7 +18,8 @@ function Header({
         flexDirection: 'row',
         alignItems: 'center',
         paddingX: '$6',
-        position: 'relative'
+        position: 'relative',
+        height: 48
       }}
     >
       {showBackButton ? (

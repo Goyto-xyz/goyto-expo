@@ -4,7 +4,12 @@ type User = {
   email: string;
 };
 
-type ActionType = 'createAccount' | 'signIn' | 'linkEmail' | null;
+type ActionType =
+  | 'createAccount'
+  | 'signIn'
+  | 'linkEmail'
+  | 'linkWallet'
+  | null;
 
 type UserStore = {
   user: User | null;

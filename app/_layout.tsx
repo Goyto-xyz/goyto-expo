@@ -90,7 +90,7 @@ export default function RootLayout() {
         name="wallet/creating"
         options={{ title: 'Creating Wallet' }}
       /> */}
-          {/* <Stack.Screen name="wallet/link" options={{ title: 'Link Wallet' }} /> */}
+          <Stack.Screen name="wallet/link" options={{ headerShown: false }} />
           <Stack.Screen
             name="wallet/linked-check"
             options={{ headerShown: false }}
