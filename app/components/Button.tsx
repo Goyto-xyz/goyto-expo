@@ -3,8 +3,8 @@ import { Pressable, ActivityIndicator, Text, useDripsyTheme } from 'dripsy';
 
 type ButtonProps = {
   onPress?: () => void;
-  variant?: 'primary' | 'secondary' | 'tertiary';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   width?: number | string;
   disabled?: boolean;
   loading?: boolean;
@@ -34,10 +34,18 @@ const Button = ({
     tertiary: {
       backgroundColor: '#fff',
       color: theme.colors?.primary ?? '#003049'
+    },
+    ghost: {
+      backgroungColor: 'transparent',
+      color: theme.colors?.primary ?? '#003049'
     }
   };
 
   const stylesBySize = {
+    xs: {
+      paddingY: 6,
+      fontSize: 12
+    },
     sm: {
       paddingY: 8,
       fontSize: 14
@@ -60,9 +68,10 @@ const Button = ({
       onPress={onPress}
       disabled={disabled || loading}
       sx={{
-        backgroundColor: selectedVariant.backgroundColor as ColorValue,
-        paddingY: 16,
-        paddingX: 20,
+        // @ts-ignore
+        backgroundColor: selectedVariant.backgroundColor,
+        paddingY: variant === 'ghost' ? 0 : selectedStyle.paddingY,
+        paddingX: variant === 'ghost' ? 0 : 20,
         borderRadius: 25,
         alignItems: 'center',
         justifyContent: 'center',

@@ -13,7 +13,14 @@ function Header({
   rightButton?: React.ReactNode;
 }) {
   return (
-    <View sx={{ flexDirection: 'row', alignItems: 'center', paddingX: '$6' }}>
+    <View
+      sx={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingX: '$6',
+        position: 'relative'
+      }}
+    >
       {showBackButton ? (
         <Pressable onPress={() => router.back()}>
           <ArrowLeft size={24} />
@@ -26,12 +33,17 @@ function Header({
           flex: 1,
           textAlign: 'center',
           fontFamily: 'InterBold',
-          fontSize: 18
+          fontSize: 18,
+          position: 'absolute',
+          left: 0,
+          right: 0
         }}
       >
         {title}
       </Text>
-      {rightButton ? <>{rightButton}</> : <Box sx={{ width: 24 }} />}
+      {rightButton && (
+        <View sx={{ position: 'absolute', right: 24 }}>{rightButton}</View>
+      )}
     </View>
   );
 }
