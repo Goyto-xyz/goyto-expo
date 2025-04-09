@@ -1,32 +1,58 @@
 import { Stack } from 'expo-router';
-import { useEffect, useState } from 'react';
+import SplashScreen from 'expo-splash-screen';
+import React, { useCallback, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, ActivityIndicator } from 'react-native';
-import { DripsyProvider, makeTheme } from 'dripsy';
+import { ActivityIndicator, DripsyProvider, View } from 'dripsy';
+import {
+  useFonts,
+  BalsamiqSans_700Bold
+} from '@expo-google-fonts/balsamiq-sans';
+import {
+  Inter_400Regular,
+  Inter_600SemiBold,
+  Inter_700Bold
+} from '@expo-google-fonts/inter';
+
 import theme from './theme';
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    BalsamiqSans: BalsamiqSans_700Bold,
+    InterRegular: Inter_400Regular,
+    InterMSemiBold: Inter_600SemiBold,
+    InterBold: Inter_700Bold
+  });
+
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
     const checkToken = async () => {
       const token = await AsyncStorage.getItem('auth_token');
       setIsLoggedIn(!!token);
     };
-    checkToken();
+
+    const prepare = async () => {
+      await checkToken();
+      setAppIsReady(true);
+    };
+
+    prepare();
   }, []);
 
-  if (isLoggedIn === null) {
-    return (
-      <View className="flex-1 items-center justify-center">
-        <ActivityIndicator size="large" />
-      </View>
-    );
+  const onLayoutRootView = useCallback(() => {
+    if (appIsReady && fontsLoaded) {
+      SplashScreen.hide();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
   }
 
   return (
     <DripsyProvider theme={theme}>
-      <Stack>
+      <Stack onLayout={onLayoutRootView}>
         {/* Home or Splash screen */}
         <Stack.Screen
           name={isLoggedIn ? 'home' : 'welcome'}

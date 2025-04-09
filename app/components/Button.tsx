@@ -67,9 +67,6 @@ const Button = ({
         alignItems: 'center',
         justifyContent: 'center',
         opacity: disabled ? 0.6 : 1,
-        fontSize: 16,
-        fontFamily: 'BalsamiqSans_400Regular',
-        textTransform: 'uppercase',
         width
       })}
     >
@@ -81,9 +78,10 @@ const Button = ({
         <Text
           sx={{
             color: selectedVariant.color as ColorValue,
+            textTransform: 'uppercase',
             fontSize: selectedStyle.fontSize,
-            fontWeight: 'bold',
-            textTransform: 'uppercase'
+            fontFamily: 'BalsamiqSans',
+            fontWeight: 'bold'
           }}
         >
           {children}
