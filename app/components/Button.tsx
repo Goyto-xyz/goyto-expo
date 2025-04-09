@@ -66,7 +66,7 @@ const Button = ({
         borderRadius: 25,
         alignItems: 'center',
         justifyContent: 'center',
-        opacity: disabled ? 0.6 : 1,
+        opacity: disabled ? 0.3 : 1,
         width
       })}
     >

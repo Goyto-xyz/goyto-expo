@@ -1,13 +1,13 @@
 import React from 'react';
-import { Text, View, Box } from 'dripsy';
+import { View, Box } from 'dripsy';
 import LogoSVG from '@/assets/images/logo.svg';
-import { useNavigation } from 'expo-router';
+import { useRouter } from 'expo-router';
 import Button from './components/Button';
 import SafeAreaWrapper from './components/SafeAreaWrapper';
 import theme from './theme';
 
 function Welcome() {
-  const navigation = useNavigation();
+  const router = useRouter();
 
   return (
     <SafeAreaWrapper
@@ -41,21 +41,19 @@ function Welcome() {
           }}
         >
           <Button
-            onPress={() => navigation.navigate('/sign-in')}
+            // onPress={() => router.push('/auth/sign-in')}
             variant="secondary"
             width="100%"
           >
             Sign In
           </Button>
           <Button
-            onPress={() => navigation.navigate('/sign-in')}
+            onPress={() => router.push('/create-account')}
             variant="primary"
             width="100%"
           >
             Create Account
           </Button>
-          {/* <Pressable onPress={() => navigation.navigate('/create-account')}> */}
-          {/* </Pressable> */}
         </Box>
       </View>
     </SafeAreaWrapper>

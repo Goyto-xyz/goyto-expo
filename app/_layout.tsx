@@ -2,7 +2,9 @@ import { Stack } from 'expo-router';
 import SplashScreen from 'expo-splash-screen';
 import React, { useCallback, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ActivityIndicator, DripsyProvider, View } from 'dripsy';
+import { DripsyProvider } from 'dripsy';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Toasts } from '@backpackapp-io/react-native-toast';
 import {
   useFonts,
   BalsamiqSans_700Bold
@@ -52,64 +54,67 @@ export default function RootLayout() {
 
   return (
     <DripsyProvider theme={theme}>
-      <Stack onLayout={onLayoutRootView}>
-        {/* Home or Splash screen */}
-        <Stack.Screen
-          name={isLoggedIn ? 'home' : 'welcome'}
-          options={{ headerShown: false }}
-        />
-        {/* Auth */}
-        {/* <Stack.Screen
-        name="create-account"
-        options={{ title: 'Create Account' }}
-      /> */}
-        {/* <Stack.Screen name="sign-in" options={{ title: 'Sign In' }} /> */}
-        {/* <Stack.Screen
+      <GestureHandlerRootView>
+        <Stack onLayout={onLayoutRootView}>
+          {/* Home or Splash screen */}
+          <Stack.Screen
+            name={isLoggedIn ? 'home' : 'welcome'}
+            options={{ headerShown: false }}
+          />
+          {/* Auth */}
+          <Stack.Screen
+            name="create-account/index"
+            options={{ headerShown: false }}
+          />
+          {/* <Stack.Screen name="sign-in" options={{ title: 'Sign In' }} /> */}
+          {/* <Stack.Screen
         name="sign-in/email"
         options={{ title: 'Sign In with Email' }}
       /> */}
-        {/* <Stack.Screen
+          {/* <Stack.Screen
         name="sign-in/wallet"
         options={{ title: 'Sign In with Wallet' }}
       /> */}
-        {/* <Stack.Screen
+          {/* <Stack.Screen
         name="sign-up/wallet"
         options={{ title: 'Sign Up with Wallet' }}
       /> */}
-        {/* <Stack.Screen name="auth/otp" options={{ title: 'OTP Verification' }} /> */}
+          {/* <Stack.Screen name="auth/otp" options={{ title: 'OTP Verification' }} /> */}
 
-        {/* Wallet + Email linking */}
-        {/* <Stack.Screen
+          {/* Wallet + Email linking */}
+          {/* <Stack.Screen
         name="email/linked-check"
         options={{ title: 'Email Linked Check' }}
       /> */}
-        {/* <Stack.Screen name="email/link" options={{ title: 'Link Email' }} /> */}
-        {/* <Stack.Screen
+          {/* <Stack.Screen name="email/link" options={{ title: 'Link Email' }} /> */}
+          {/* <Stack.Screen
         name="wallet/creating"
         options={{ title: 'Creating Wallet' }}
       /> */}
-        {/* <Stack.Screen name="wallet/link" options={{ title: 'Link Wallet' }} /> */}
-        {/* <Stack.Screen
+          {/* <Stack.Screen name="wallet/link" options={{ title: 'Link Wallet' }} /> */}
+          {/* <Stack.Screen
         name="wallet/linked-check"
         options={{ title: 'Wallet Linked Check' }}
       /> */}
-        {/* <Stack.Screen name="wallet/new" options={{ title: 'New Wallet' }} /> */}
-        {/* <Stack.Screen
+          {/* <Stack.Screen name="wallet/new" options={{ title: 'New Wallet' }} /> */}
+          {/* <Stack.Screen
         name="wallet/recovery-phrase"
         options={{ title: 'Recovery Phrase' }}
       /> */}
-        {/* <Stack.Screen
+          {/* <Stack.Screen
         name="wallet/verify-phrase"
         options={{ title: 'Verify Phrase' }}
       /> */}
 
-        {/* Permissions */}
-        {/* <Stack.Screen name="allow-access" options={{ title: 'Allow Access' }} /> */}
-        {/* <Stack.Screen
+          {/* Permissions */}
+          {/* <Stack.Screen name="allow-access" options={{ title: 'Allow Access' }} /> */}
+          {/* <Stack.Screen
         name="find-contacts"
         options={{ title: 'Find My Friends' }}
       /> */}
-      </Stack>
+        </Stack>
+        <Toasts />
+      </GestureHandlerRootView>
     </DripsyProvider>
   );
 }
