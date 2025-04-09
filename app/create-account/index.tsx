@@ -65,8 +65,10 @@ function CreateAccount() {
             borderRadius: 16,
             padding: '$2',
             width: '100%',
-            height: 48
+            height: 48,
+            paddingX: '$5'
           }}
+          autoFocus
           keyboardType="email-address"
           autoCapitalize="none"
           placeholder="hello@goyto.xyz"

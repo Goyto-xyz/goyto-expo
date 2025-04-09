@@ -14,7 +14,7 @@ import {
   Inter_600SemiBold,
   Inter_700Bold
 } from '@expo-google-fonts/inter';
-
+import 'expo-router/entry';
 import theme from '../theme';
 
 export default function RootLayout() {
@@ -76,7 +76,7 @@ export default function RootLayout() {
         name="sign-up/wallet"
         options={{ title: 'Sign Up with Wallet' }}
       /> */}
-          {/* <Stack.Screen name="auth/otp" options={{ title: 'OTP Verification' }} /> */}
+          <Stack.Screen name="auth/otp" options={{ headerShown: false }} />
 
           {/* Wallet + Email linking */}
           {/* <Stack.Screen

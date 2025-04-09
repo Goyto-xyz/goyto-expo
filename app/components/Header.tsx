@@ -14,10 +14,12 @@ function Header({
 }) {
   return (
     <View sx={{ flexDirection: 'row', alignItems: 'center', paddingX: '$6' }}>
-      {showBackButton && (
+      {showBackButton ? (
         <Pressable onPress={() => router.back()}>
           <ArrowLeft size={24} />
         </Pressable>
+      ) : (
+        <Box sx={{ width: 24 }} />
       )}
       <Text
         sx={{

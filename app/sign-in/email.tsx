@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 import { Pressable, View, Text, Box, TextInput } from 'dripsy';
 
 import SafeAreaWrapper from '../components/SafeAreaWrapper';
@@ -13,7 +13,6 @@ import Header from '../components/Header';
 
 function SignInWithEmail() {
   const { setUser, setAction } = useUserStore();
-  const router = useRouter();
   const [email, setEmail] = useState('');
   const [emailIsValid, setEmailIsValid] = useState(false);
 
@@ -30,7 +29,7 @@ function SignInWithEmail() {
   const onContinue = () => {
     if (validateEmail(email)) {
       setUser({ email });
-      setAction('createAccount');
+      setAction('signIn');
       router.push('/auth/otp');
     } else {
       toast.error('Please enter a valid email address');
@@ -65,8 +64,10 @@ function SignInWithEmail() {
             borderRadius: 16,
             padding: '$2',
             width: '100%',
-            height: 48
+            height: 48,
+            paddingX: '$5'
           }}
+          autoFocus
           keyboardType="email-address"
           autoCapitalize="none"
           placeholder="hello@goyto.xyz"
@@ -106,7 +107,7 @@ function SignInWithEmail() {
           <Text>Don't have an account? </Text>
           <Pressable onPress={() => router.push('/create-account')}>
             <Text sx={{ textDecorationLine: 'underline', fontWeight: 'bold' }}>
-              Sign up here
+              Sign up now
             </Text>
           </Pressable>
         </View>
