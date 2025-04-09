@@ -3,7 +3,6 @@ import { useRouter } from 'expo-router';
 import { Pressable, View, Text, Box, TextInput } from 'dripsy';
 
 import SafeAreaWrapper from '../components/SafeAreaWrapper';
-import { ArrowLeft } from 'phosphor-react-native';
 import { toast } from '@backpackapp-io/react-native-toast';
 
 import theme from '../../theme';
@@ -105,14 +104,22 @@ function CreateAccount() {
           Connect wallet
         </Button>
 
-        <Text sx={{ fontSize: 14, textAlign: 'center' }}>
-          Already have an account?{' '}
+        <View
+          sx={{
+            fontSize: 14,
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
+          }}
+        >
+          <Text>Already have an account? </Text>
           <Pressable onPress={() => router.push('/sign-in')}>
             <Text sx={{ textDecorationLine: 'underline', fontWeight: 'bold' }}>
               Sign in here
             </Text>
           </Pressable>
-        </Text>
+        </View>
 
         <Text sx={{ fontSize: 12, textAlign: 'center', mt: 2 }}>
           By using Goyoto you agree to{' '}
