@@ -70,10 +70,10 @@ export default function RootLayout() {
           />
           <Stack.Screen name="sign-in/index" options={{ headerShown: false }} />
           <Stack.Screen name="sign-in/email" options={{ headerShown: false }} />
-          {/* <Stack.Screen
-        name="sign-in/wallet"
-        options={{ title: 'Sign In with Wallet' }}
-      /> */}
+          <Stack.Screen
+            name="sign-in/wallet"
+            options={{ headerShown: false }}
+          />
           {/* <Stack.Screen
         name="sign-up/wallet"
         options={{ title: 'Sign Up with Wallet' }}

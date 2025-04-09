@@ -6,8 +6,11 @@ import { CaretRight, EnvelopeOpen, Wallet } from 'phosphor-react-native';
 import theme from '@/theme';
 import SafeAreaWrapper from '../components/SafeAreaWrapper';
 import Header from '../components/Header';
+import { useUserStore } from '@/stores/userStore';
 
 function SignIn() {
+  const { setAction } = useUserStore();
+
   return (
     <SafeAreaWrapper
       backgroundColor={theme.colors.$secondary}
@@ -17,7 +20,10 @@ function SignIn() {
 
       <View sx={{ padding: 16 }}>
         <Pressable
-          onPress={() => router.push('/sign-in/wallet')}
+          onPress={() => {
+            router.push('/sign-in/wallet');
+            setAction('signIn');
+          }}
           sx={{
             flexDirection: 'row',
             alignItems: 'center',

@@ -1,5 +1,11 @@
 import { ColorValue } from 'react-native';
-import { Pressable, ActivityIndicator, Text, useDripsyTheme } from 'dripsy';
+import {
+  Pressable,
+  ActivityIndicator,
+  Text,
+  useDripsyTheme,
+  View
+} from 'dripsy';
 
 type ButtonProps = {
   onPress?: () => void;
@@ -8,6 +14,8 @@ type ButtonProps = {
   width?: number | string;
   disabled?: boolean;
   loading?: boolean;
+  icon?: React.ReactNode;
+  iconPosition?: 'left' | 'right';
   children: React.ReactNode;
 };
 
@@ -18,6 +26,8 @@ const Button = ({
   width = '100%',
   disabled = false,
   loading = false,
+  icon,
+  iconPosition = 'left',
   children
 }: ButtonProps) => {
   const { theme } = useDripsyTheme();
@@ -88,16 +98,20 @@ const Button = ({
           sx={{ color: selectedVariant.color as ColorValue }}
         />
       ) : (
-        <Text
-          sx={{
-            color: selectedVariant.color as ColorValue,
-            textTransform: 'uppercase',
-            fontSize: selectedStyle.fontSize,
-            fontFamily: 'BalsamiqSans'
-          }}
-        >
-          {children}
-        </Text>
+        <View sx={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+          {icon && iconPosition === 'left' && <>{icon}</>}
+          <Text
+            sx={{
+              color: selectedVariant.color as ColorValue,
+              textTransform: 'uppercase',
+              fontSize: selectedStyle.fontSize,
+              fontFamily: 'BalsamiqSans'
+            }}
+          >
+            {children}
+          </Text>
+          {icon && iconPosition === 'right' && <>{icon}</>}
+        </View>
       )}
     </Pressable>
   );
