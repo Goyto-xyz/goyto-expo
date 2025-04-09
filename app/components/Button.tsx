@@ -80,8 +80,7 @@ const Button = ({
             color: selectedVariant.color as ColorValue,
             textTransform: 'uppercase',
             fontSize: selectedStyle.fontSize,
-            fontFamily: 'BalsamiqSans',
-            fontWeight: 'bold'
+            fontFamily: 'BalsamiqSans'
           }}
         >
           {children}

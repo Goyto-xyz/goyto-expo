@@ -101,10 +101,10 @@ function OTPVerification() {
               fontWeight: '600'
             }
           }}
-          onTextChange={text => console.log(text)}
+          onTextChange={onOtpChange}
         />
 
-        <Button width="100%" onPress={() => router.push('/sign-in/wallet')}>
+        <Button width="100%" onPress={onVerifyOTP} disabled={disabled}>
           Verify
         </Button>
 

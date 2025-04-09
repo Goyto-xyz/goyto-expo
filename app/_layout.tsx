@@ -14,7 +14,8 @@ import {
   Inter_600SemiBold,
   Inter_700Bold
 } from '@expo-google-fonts/inter';
-import 'expo-router/entry';
+import { SpaceGrotesk_400Regular } from '@expo-google-fonts/space-grotesk';
+
 import theme from '../theme';
 
 export default function RootLayout() {
@@ -22,7 +23,8 @@ export default function RootLayout() {
     BalsamiqSans: BalsamiqSans_700Bold,
     InterRegular: Inter_400Regular,
     InterMSemiBold: Inter_600SemiBold,
-    InterBold: Inter_700Bold
+    InterBold: Inter_700Bold,
+    SpaceGrotesk: SpaceGrotesk_400Regular
   });
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -89,10 +91,10 @@ export default function RootLayout() {
         options={{ title: 'Creating Wallet' }}
       /> */}
           {/* <Stack.Screen name="wallet/link" options={{ title: 'Link Wallet' }} /> */}
-          {/* <Stack.Screen
-        name="wallet/linked-check"
-        options={{ title: 'Wallet Linked Check' }}
-      /> */}
+          <Stack.Screen
+            name="wallet/linked-check"
+            options={{ headerShown: false }}
+          />
           {/* <Stack.Screen name="wallet/new" options={{ title: 'New Wallet' }} /> */}
           {/* <Stack.Screen
         name="wallet/recovery-phrase"

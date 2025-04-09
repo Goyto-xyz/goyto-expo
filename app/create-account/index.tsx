@@ -55,9 +55,7 @@ function CreateAccount() {
           paddingX: '$4'
         }}
       >
-        <Text sx={{ fontSize: 16, textAlign: 'center' }}>
-          Enter your email address to continue
-        </Text>
+        <Text>Enter your email address to continue</Text>
 
         <TextInput
           sx={{
