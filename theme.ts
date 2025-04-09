@@ -2,9 +2,10 @@ import { makeTheme } from 'dripsy';
 
 const theme = makeTheme({
   colors: {
-    $primary: '#A2D2FF',
-    $secondary: '#003049',
-    $blue100: '#BDE0FE'
+    $primary: '#003049',
+    $secondary: '#A2D2FF',
+    $blue100: '#BDE0FE',
+    $primary200: 'rgba(0, 48, 73, 0.2)'
   },
   space: {
     $0: 0,

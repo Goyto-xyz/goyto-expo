@@ -9,11 +9,8 @@ import { toast } from '@backpackapp-io/react-native-toast';
 import theme from '../../theme';
 import Button from '../components/Button';
 import { Linking } from 'react-native';
-import { useUserStore } from '@/stores/userStore';
-import Header from '../components/Header';
 
 function CreateAccount() {
-  const { setUser, setAction } = useUserStore();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [emailIsValid, setEmailIsValid] = useState(false);
@@ -30,9 +27,10 @@ function CreateAccount() {
 
   const onContinue = () => {
     if (validateEmail(email)) {
-      setUser({ email });
-      setAction('createAccount');
-      router.push('/auth/otp');
+      //   router.push(
+      //     Href,
+      //     { email, action: 'createAccount' }
+      //   );
     } else {
       toast.error('Please enter a valid email address');
       setEmailIsValid(false);
@@ -41,10 +39,26 @@ function CreateAccount() {
 
   return (
     <SafeAreaWrapper
-      backgroundColor={theme.colors.$secondary}
-      sx={{ backgroundColor: '$secondary' }}
+      backgroundColor={theme.colors.$primary}
+      sx={{ backgroundColor: '$primary' }}
     >
-      <Header title="Create account" />
+      <View sx={{ flexDirection: 'row', alignItems: 'center', paddingX: '$6' }}>
+        <Pressable onPress={() => router.back()}>
+          <ArrowLeft size={24} />
+        </Pressable>
+        <Text
+          sx={{
+            flex: 1,
+            textAlign: 'center',
+            fontFamily: 'InterBold',
+            fontSize: 18
+          }}
+        >
+          Create account
+        </Text>
+        <Box sx={{ width: 24 }} />
+      </View>
+
       <View
         sx={{
           flex: 1,
@@ -53,7 +67,8 @@ function CreateAccount() {
           alignItems: 'center',
           justifyContent: 'start',
           paddingTop: 64,
-          paddingX: '$4'
+          paddingX: '$4',
+          width: 400
         }}
       >
         <Text sx={{ fontSize: 16, textAlign: 'center' }}>

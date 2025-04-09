@@ -15,7 +15,7 @@ import {
   Inter_700Bold
 } from '@expo-google-fonts/inter';
 
-import theme from './theme';
+import theme from '../theme';
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -66,7 +66,7 @@ export default function RootLayout() {
             name="create-account/index"
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen name="sign-in" options={{ title: 'Sign In' }} /> */}
+          <Stack.Screen name="sign-in/index" options={{ headerShown: false }} />
           {/* <Stack.Screen
         name="sign-in/email"
         options={{ title: 'Sign In with Email' }}

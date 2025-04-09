@@ -24,16 +24,16 @@ const Button = ({
 
   const stylesByVariant = {
     primary: {
-      backgroundColor: theme.colors?.secondary ?? '#003049',
+      backgroundColor: theme.colors?.primary ?? '#003049',
       color: '#fff'
     },
     secondary: {
       backgroundColor: theme.colors?.blue100 ?? '#BDE0FE',
-      color: theme.colors?.secondary ?? '#003049'
+      color: theme.colors?.primary ?? '#003049'
     },
     tertiary: {
       backgroundColor: '#fff',
-      color: theme.colors?.secondary ?? '#003049'
+      color: theme.colors?.primary ?? '#003049'
     }
   };
 
@@ -59,7 +59,7 @@ const Button = ({
     <Pressable
       onPress={onPress}
       disabled={disabled || loading}
-      sx={theme => ({
+      sx={{
         backgroundColor: selectedVariant.backgroundColor as ColorValue,
         paddingY: 16,
         paddingX: 20,
@@ -68,7 +68,7 @@ const Button = ({
         justifyContent: 'center',
         opacity: disabled ? 0.3 : 1,
         width
-      })}
+      }}
     >
       {loading ? (
         <ActivityIndicator
