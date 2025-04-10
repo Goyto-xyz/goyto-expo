@@ -93,10 +93,10 @@ export default function RootLayout() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="wallet/new" options={{ headerShown: false }} />
-          {/* <Stack.Screen
-        name="wallet/recovery-phrase"
-        options={{ title: 'Recovery Phrase' }}
-      /> */}
+          <Stack.Screen
+            name="wallet/recovery-phrase"
+            options={{ headerShown: false }}
+          />
           {/* <Stack.Screen
         name="wallet/verify-phrase"
         options={{ title: 'Verify Phrase' }}
