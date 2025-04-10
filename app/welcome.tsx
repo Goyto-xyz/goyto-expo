@@ -48,7 +48,7 @@ function Welcome() {
             Sign In
           </Button>
           <Button
-            onPress={() => router.push('/create-account')}
+            onPress={() => router.push('/sign-up/email')}
             variant="primary"
             width="100%"
           >

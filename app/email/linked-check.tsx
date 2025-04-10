@@ -38,7 +38,10 @@ function EmailLinkedCheck() {
           }}
         />
 
-        <Button onPress={() => router.push('/settings/allow-access')}>
+        <Button
+          width="80%"
+          onPress={() => router.push('/settings/allow-access')}
+        >
           Continue
         </Button>
 

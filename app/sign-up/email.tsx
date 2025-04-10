@@ -74,7 +74,7 @@ function CreateAccount() {
           onChangeText={handleEmailChange}
         />
 
-        <Button width="100%" disabled={!emailIsValid} onPress={onContinue}>
+        <Button width="80%" disabled={!emailIsValid} onPress={onContinue}>
           Continue
         </Button>
 
@@ -97,7 +97,7 @@ function CreateAccount() {
         </View>
 
         <Button
-          width="100%"
+          width="80%"
           variant="secondary"
           onPress={() => router.push('/sign-up/wallet')}
         >

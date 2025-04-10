@@ -42,7 +42,10 @@ function NewWallet() {
           }}
         />
 
-        <Button onPress={() => router.push('/wallet/recovery-phrase')}>
+        <Button
+          width="80%"
+          onPress={() => router.push('/wallet/recovery-phrase')}
+        >
           Continue
         </Button>
 

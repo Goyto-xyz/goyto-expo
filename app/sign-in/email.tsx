@@ -73,7 +73,7 @@ function SignInWithEmail() {
           onChangeText={handleEmailChange}
         />
 
-        <Button width="100%" disabled={!emailIsValid} onPress={onContinue}>
+        <Button width="80%" disabled={!emailIsValid} onPress={onContinue}>
           Continue
         </Button>
 
@@ -86,7 +86,7 @@ function SignInWithEmail() {
         />
 
         <Button
-          width="100%"
+          width="80%"
           variant="secondary"
           onPress={() => router.push('/sign-in/wallet')}
         >
@@ -103,7 +103,7 @@ function SignInWithEmail() {
           }}
         >
           <Text>Don't have an account? </Text>
-          <Pressable onPress={() => router.push('/create-account')}>
+          <Pressable onPress={() => router.push('/sign-up/email')}>
             <Text sx={{ textDecorationLine: 'underline', fontWeight: 'bold' }}>
               Sign up now
             </Text>

@@ -86,6 +86,7 @@ function EmailLink() {
         />
 
         <Button
+          width="80%"
           disabled={!emailIsValid}
           onPress={() => router.push('/email/linked-check')}
         >

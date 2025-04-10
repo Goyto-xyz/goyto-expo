@@ -104,7 +104,7 @@ function OTPVerification() {
           onTextChange={onOtpChange}
         />
 
-        <Button width="100%" onPress={onVerifyOTP} disabled={disabled}>
+        <Button width="80%" onPress={onVerifyOTP} disabled={disabled}>
           Verify
         </Button>
 

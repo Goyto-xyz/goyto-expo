@@ -76,7 +76,7 @@ function SignUpWithWallet() {
         {action !== 'linkWallet' && (
           <Button
             variant="secondary"
-            onPress={() => router.push('/create-account')}
+            onPress={() => router.push('/sign-up/email')}
           >
             Sign up with email
           </Button>

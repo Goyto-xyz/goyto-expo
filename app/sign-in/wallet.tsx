@@ -37,6 +37,7 @@ function SignInWithWallet() {
 
         <Button
           icon={<ArgentXSVG width={24} height={24} />}
+          width="80%"
           onPress={() =>
             router.push(
               action === 'linkWallet'
@@ -50,6 +51,7 @@ function SignInWithWallet() {
 
         <Button
           icon={<BraavosSVG width={24} height={24} />}
+          width="80%"
           onPress={() =>
             router.push(
               action === 'linkWallet'
@@ -72,6 +74,7 @@ function SignInWithWallet() {
         {action !== 'linkWallet' && (
           <Button
             variant="secondary"
+            width="80%"
             onPress={() => router.push('/sign-in/email')}
           >
             Sign in with email

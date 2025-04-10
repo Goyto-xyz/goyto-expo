@@ -48,6 +48,7 @@ function WalletLink() {
         </Text>
 
         <Button
+          width="80%"
           onPress={() => {
             router.push(
               action === 'createAccount' ? '/sign-up/wallet' : '/sign-in/wallet'
@@ -58,6 +59,7 @@ function WalletLink() {
           Connect Wallet
         </Button>
         <Button
+          width="80%"
           variant="secondary"
           onPress={() => router.push('/wallet/creating')}
         >

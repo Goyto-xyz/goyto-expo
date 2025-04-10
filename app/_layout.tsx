@@ -64,10 +64,7 @@ export default function RootLayout() {
             options={{ headerShown: false }}
           />
           {/* Auth */}
-          <Stack.Screen
-            name="create-account/index"
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="sign-up/email" options={{ headerShown: false }} />
           <Stack.Screen name="sign-in/index" options={{ headerShown: false }} />
           <Stack.Screen name="sign-in/email" options={{ headerShown: false }} />
           <Stack.Screen
