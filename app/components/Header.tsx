@@ -17,13 +17,13 @@ function Header({
       sx={{
         flexDirection: 'row',
         alignItems: 'center',
-        paddingX: '$6',
+        paddingX: '$4',
         position: 'relative',
         height: 48
       }}
     >
       {showBackButton ? (
-        <View sx={{ position: 'absolute', left: 24, zIndex: 1 }}>
+        <View sx={{ position: 'absolute', left: 16, zIndex: 1 }}>
           <Pressable onPress={() => router.back()}>
             <ArrowLeft size={24} />
           </Pressable>
@@ -45,7 +45,7 @@ function Header({
         {title}
       </Text>
       {rightButton && (
-        <View sx={{ position: 'absolute', right: 24, zIndex: 1 }}>
+        <View sx={{ position: 'absolute', right: 16, zIndex: 1 }}>
           {rightButton}
         </View>
       )}

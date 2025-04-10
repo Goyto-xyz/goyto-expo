@@ -95,7 +95,7 @@ export default function RootLayout() {
             name="wallet/linked-check"
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen name="wallet/new" options={{ title: 'New Wallet' }} /> */}
+          <Stack.Screen name="wallet/new" options={{ headerShown: false }} />
           {/* <Stack.Screen
         name="wallet/recovery-phrase"
         options={{ title: 'Recovery Phrase' }}

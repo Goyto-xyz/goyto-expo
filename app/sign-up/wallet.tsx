@@ -56,6 +56,15 @@ function SignUpWithWallet() {
           <Text sx={{ textTransform: 'none' }}>Braavos</Text>
         </Button>
 
+        {action !== 'linkWallet' && (
+          <Button
+            variant="secondary"
+            onPress={() => router.push('/wallet/creating')}
+          >
+            Create new wallet
+          </Button>
+        )}
+
         <View
           sx={{
             width: '100%',
