@@ -74,10 +74,10 @@ export default function RootLayout() {
             name="sign-in/wallet"
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
-        name="sign-up/wallet"
-        options={{ title: 'Sign Up with Wallet' }}
-      /> */}
+          <Stack.Screen
+            name="sign-up/wallet"
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="auth/otp" options={{ headerShown: false }} />
 
           {/* Wallet + Email linking */}
@@ -86,10 +86,10 @@ export default function RootLayout() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="email/link" options={{ headerShown: false }} />
-          {/* <Stack.Screen
-        name="wallet/creating"
-        options={{ title: 'Creating Wallet' }}
-      /> */}
+          <Stack.Screen
+            name="wallet/creating"
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="wallet/link" options={{ headerShown: false }} />
           <Stack.Screen
             name="wallet/linked-check"
