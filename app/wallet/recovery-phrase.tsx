@@ -166,15 +166,17 @@ function RecoveryPhrase() {
             </Text>
           </View>
 
-          <Button onPress={handleNext} disabled={countdown > 0}>
-            <Text>
-              {revealed
-                ? 'Next'
-                : `I understood. Show my phrase ${
-                    countdown > 0 ? `(${countdown})` : ''
-                  }`}
-            </Text>
-          </Button>
+          <View sx={{ flex: 1, alignItems: 'center' }}>
+            <Button width="80%" onPress={handleNext} disabled={countdown > 0}>
+              <Text>
+                {revealed
+                  ? 'Next'
+                  : `I understood. Show my phrase ${
+                      countdown > 0 ? `(${countdown})` : ''
+                    }`}
+              </Text>
+            </Button>
+          </View>
         </ScrollView>
       </View>
     </SafeAreaWrapper>

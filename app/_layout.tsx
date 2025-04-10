@@ -97,10 +97,10 @@ export default function RootLayout() {
             name="wallet/recovery-phrase"
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
-        name="wallet/verify-phrase"
-        options={{ title: 'Verify Phrase' }}
-      /> */}
+          <Stack.Screen
+            name="wallet/verify-phrase"
+            options={{ headerShown: false }}
+          />
 
           {/* Permissions */}
           {/* <Stack.Screen name="allow-access" options={{ title: 'Allow Access' }} /> */}
