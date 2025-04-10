@@ -59,7 +59,7 @@ function WalletLinkedCheck() {
               textDecorationLine: 'underline'
             }}
           >
-            Connect other wallet
+            Connect another wallet
           </Text>
         </Pressable>
       </View>

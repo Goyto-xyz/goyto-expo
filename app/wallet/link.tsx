@@ -11,8 +11,6 @@ function WalletLink() {
   const { connectNewWallet } = useGlobalSearchParams();
   const { action, setAction } = useUserStore();
 
-  console.log('connectNewWallet', connectNewWallet);
-
   return (
     <SafeAreaWrapper
       backgroundColor={theme.colors.$secondary}

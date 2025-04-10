@@ -81,11 +81,11 @@ export default function RootLayout() {
           <Stack.Screen name="auth/otp" options={{ headerShown: false }} />
 
           {/* Wallet + Email linking */}
-          {/* <Stack.Screen
-        name="email/linked-check"
-        options={{ title: 'Email Linked Check' }}
-      /> */}
-          {/* <Stack.Screen name="email/link" options={{ title: 'Link Email' }} /> */}
+          <Stack.Screen
+            name="email/linked-check"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="email/link" options={{ headerShown: false }} />
           {/* <Stack.Screen
         name="wallet/creating"
         options={{ title: 'Creating Wallet' }}
