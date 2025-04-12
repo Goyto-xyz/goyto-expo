@@ -5,7 +5,8 @@ const theme = makeTheme({
     $primary: '#003049',
     $secondary: '#A2D2FF',
     $blue100: '#BDE0FE',
-    $primary200: 'rgba(0, 48, 73, 0.2)'
+    $primary200: 'rgba(0, 48, 73, 0.2)',
+    $success: '#01B34E'
   },
   space: {
     $0: 0,

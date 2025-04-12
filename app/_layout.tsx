@@ -103,7 +103,10 @@ export default function RootLayout() {
           />
 
           {/* Permissions */}
-          {/* <Stack.Screen name="allow-access" options={{ title: 'Allow Access' }} /> */}
+          <Stack.Screen
+            name="settings/allow-access"
+            options={{ headerShown: false }}
+          />
           {/* <Stack.Screen
         name="find-contacts"
         options={{ title: 'Find My Friends' }}

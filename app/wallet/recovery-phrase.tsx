@@ -167,7 +167,7 @@ function RecoveryPhrase() {
           </View>
 
           <View sx={{ flex: 1, alignItems: 'center' }}>
-            <Button width="80%" onPress={handleNext} disabled={countdown > 0}>
+            <Button onPress={handleNext} disabled={countdown > 0}>
               <Text>
                 {revealed
                   ? 'Next'
