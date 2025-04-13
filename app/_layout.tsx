@@ -107,10 +107,10 @@ export default function RootLayout() {
             name="settings/allow-access"
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
-        name="find-contacts"
-        options={{ title: 'Find My Friends' }}
-      /> */}
+          <Stack.Screen
+            name="settings/find-contacts"
+            options={{ headerShown: false }}
+          />
         </Stack>
         <Toasts />
       </GestureHandlerRootView>
