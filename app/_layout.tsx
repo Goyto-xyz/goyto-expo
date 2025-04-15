@@ -111,6 +111,10 @@ export default function RootLayout() {
             name="settings/find-contacts"
             options={{ headerShown: false }}
           />
+          <Stack.Screen
+            name="settings/notifications"
+            options={{ headerShown: false }}
+          />
         </Stack>
         <Toasts />
       </GestureHandlerRootView>

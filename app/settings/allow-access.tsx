@@ -31,41 +31,53 @@ function AllowAccess() {
   }, []);
 
   const handleEnableLocation = async () => {
-    const { status } = await Location.requestForegroundPermissionsAsync();
+    const { status, canAskAgain } =
+      await Location.requestForegroundPermissionsAsync();
     if (status === 'granted') {
       setLocationEnabled(true);
     } else {
-      Alert.alert(
-        'Permission denied permanently',
-        'You have denied location access. Please enable it manually in Settings.',
-        [
-          { text: 'Cancel', style: 'cancel' },
-          {
-            text: 'Open Settings',
-            onPress: () => Linking.openSettings()
-          }
-        ]
-      );
+      if (canAskAgain) {
+        const { status: newStatus } =
+          await Location.requestForegroundPermissionsAsync();
+        setLocationEnabled(newStatus === 'granted');
+      } else {
+        Alert.alert(
+          'Permission denied permanently',
+          'You have denied location access. Please enable it manually in Settings.',
+          [
+            { text: 'Cancel', style: 'cancel' },
+            {
+              text: 'Open Settings',
+              onPress: () => Linking.openSettings()
+            }
+          ]
+        );
+      }
     }
   };
 
   const handleEnableContacts = async () => {
-    const { status } = await Contacts.requestPermissionsAsync();
+    const { status, canAskAgain } = await Contacts.requestPermissionsAsync();
     if (status === 'granted') {
       setContactsEnabled(true);
       router.push('/settings/find-contacts');
     } else {
-      Alert.alert(
-        'Permission denied permanently',
-        'To connect with your friends, please enable contacts permission in Settings.',
-        [
-          { text: 'Cancel', style: 'cancel' },
-          {
-            text: 'Open Settings',
-            onPress: () => Linking.openSettings()
-          }
-        ]
-      );
+      if (canAskAgain) {
+        const { status: newStatus } = await Contacts.requestPermissionsAsync();
+        setContactsEnabled(newStatus === 'granted');
+      } else {
+        Alert.alert(
+          'Permission denied permanently',
+          'To connect with your friends, please enable contacts permission in Settings.',
+          [
+            { text: 'Cancel', style: 'cancel' },
+            {
+              text: 'Open Settings',
+              onPress: () => Linking.openSettings()
+            }
+          ]
+        );
+      }
     }
   };
 

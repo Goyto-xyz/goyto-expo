@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import * as Notifications from 'expo-notifications';
 import SafeAreaWrapper from '../components/SafeAreaWrapper';
 import Header from '../components/Header';
 import theme from '@/theme';
@@ -21,6 +22,16 @@ function FindContacts() {
       avatar: require('@/assets/images/user2.png')
     }
   ];
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+
+  useEffect(() => {
+    const checkPermission = async () => {
+      const { status: notifStatus } = await Notifications.getPermissionsAsync();
+      setNotificationsEnabled(notifStatus === 'granted');
+    };
+
+    checkPermission();
+  }, []);
 
   const handleInvite = async (contactName: string) => {
     const isAvailable = await SMS.isAvailableAsync();
@@ -49,7 +60,13 @@ function FindContacts() {
             size="sm"
             width="auto"
             variant="tertiary"
-            onPress={() => router.push('/settings/notifications')}
+            onPress={() => {
+              if (notificationsEnabled) {
+                router.push('/user/create-profile');
+              } else {
+                router.push('/settings/notifications');
+              }
+            }}
           >
             Done
           </Button>
