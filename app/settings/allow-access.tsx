@@ -3,6 +3,7 @@ import { Alert, Linking, Platform } from 'react-native';
 import { router } from 'expo-router';
 import * as Location from 'expo-location';
 import * as Contacts from 'expo-contacts';
+import * as Notifications from 'expo-notifications';
 import { View, Text } from 'dripsy';
 import { AddressBook, Check, NavigationArrow } from 'phosphor-react-native';
 import SafeAreaWrapper from '../components/SafeAreaWrapper';
@@ -15,6 +16,7 @@ function AllowAccess() {
   const [loading, setLoading] = useState(true);
   const [locationEnabled, setLocationEnabled] = useState(false);
   const [contactsEnabled, setContactsEnabled] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
   useEffect(() => {
     const checkPermissions = async () => {
@@ -23,6 +25,9 @@ function AllowAccess() {
 
       const contactStatus = await Contacts.getPermissionsAsync();
       setContactsEnabled(contactStatus.status === 'granted');
+
+      const { status: notifStatus } = await Notifications.getPermissionsAsync();
+      setNotificationsEnabled(notifStatus === 'granted');
 
       setLoading(false);
     };
@@ -93,7 +98,13 @@ function AllowAccess() {
           <Button
             size="sm"
             width="auto"
-            onPress={() => router.push('/settings/notifications')}
+            onPress={() =>
+              router.push(
+                notificationsEnabled
+                  ? '/user/create-profile'
+                  : '/settings/notifications'
+              )
+            }
           >
             Next
           </Button>

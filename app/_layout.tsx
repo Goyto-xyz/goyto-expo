@@ -60,7 +60,7 @@ export default function RootLayout() {
         <Stack onLayout={onLayoutRootView}>
           {/* Home or Splash screen */}
           <Stack.Screen
-            name={isLoggedIn ? 'home' : 'welcome'}
+            name={isLoggedIn ? 'home' : 'onboarding'}
             options={{ headerShown: false }}
           />
           {/* Auth */}
@@ -115,6 +115,13 @@ export default function RootLayout() {
             name="settings/notifications"
             options={{ headerShown: false }}
           />
+
+          {/* User */}
+          <Stack.Screen
+            name="user/create-profile"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="user/welcome" options={{ headerShown: false }} />
         </Stack>
         <Toasts />
       </GestureHandlerRootView>

@@ -61,11 +61,11 @@ function FindContacts() {
             width="auto"
             variant="tertiary"
             onPress={() => {
-              if (notificationsEnabled) {
-                router.push('/user/create-profile');
-              } else {
-                router.push('/settings/notifications');
-              }
+              router.push(
+                notificationsEnabled
+                  ? '/user/create-profile'
+                  : '/settings/notifications'
+              );
             }}
           >
             Done
