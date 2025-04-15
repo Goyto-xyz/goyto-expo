@@ -100,6 +100,7 @@ function AllowAccess() {
             width="auto"
             onPress={() =>
               router.push(
+                // TODO: Add check account logic here
                 notificationsEnabled
                   ? '/user/create-profile'
                   : '/settings/notifications'

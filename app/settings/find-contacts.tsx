@@ -123,7 +123,7 @@ function FindContacts() {
                     {item.name}
                   </Text>
 
-                  <Text sx={{ fontSize: 12, color: '#669bbc' }}>
+                  <Text sx={{ fontSize: 12, color: theme.colors.$blue200 }}>
                     knows {item.numOfContacts} poeple on Goyoto
                   </Text>
                 </View>

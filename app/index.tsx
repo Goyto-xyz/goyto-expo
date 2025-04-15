@@ -13,7 +13,7 @@ export default function Index() {
       setIsLoggedIn(!!token);
 
       if (!token) {
-        router.replace('/welcome');
+        router.replace('/onboarding');
       }
     };
     checkToken();

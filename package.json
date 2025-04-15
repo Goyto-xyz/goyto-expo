@@ -55,7 +55,8 @@
     "expo-location": "~18.0.10",
     "expo-contacts": "~14.0.5",
     "expo-sms": "~13.0.1",
-    "expo-notifications": "~0.29.14"
+    "expo-notifications": "~0.29.14",
+    "expo-image-picker": "~16.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

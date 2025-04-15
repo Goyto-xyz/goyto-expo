@@ -45,7 +45,13 @@ function Header({
         {title}
       </Text>
       {rightButton && (
-        <View sx={{ position: 'absolute', right: 16, zIndex: 1 }}>
+        <View
+          sx={{
+            position: 'absolute',
+            right: 16,
+            zIndex: 1
+          }}
+        >
           {rightButton}
         </View>
       )}
