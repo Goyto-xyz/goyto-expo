@@ -124,18 +124,18 @@ function CreateProfile() {
 
         <View sx={{ flex: 1, width: '100%', gap: 20, marginTop: 30 }}>
           <Input
+            label="Username"
+            icon={<At size={24} weight="bold" />}
+            autoFocus
+            autoCapitalize="none"
+            onChangeText={onUsernameChange}
+          />
+          <Input
             label="Display Name"
             subLabel="Optional"
             icon={<User size={24} weight="bold" />}
-            autoFocus
             autoCapitalize="none"
             onChangeText={onDisplayNameChange}
-          />
-          <Input
-            label="Username"
-            icon={<At size={24} weight="bold" />}
-            autoCapitalize="none"
-            onChangeText={onUsernameChange}
           />
         </View>
       </View>

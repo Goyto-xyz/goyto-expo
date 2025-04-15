@@ -7,7 +7,7 @@ type Props = {
   backgroundColor?: string;
 };
 
-const SafeAreaWrapper = ({ children, sx, backgroundColor }: Props) => {
+const SafeAreaWrapper = ({ children, sx, backgroundColor = '#fff' }: Props) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor }}>
       <View

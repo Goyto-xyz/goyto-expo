@@ -27,17 +27,10 @@ export default function RootLayout() {
     SpaceGrotesk: SpaceGrotesk_400Regular
   });
 
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
-    const checkToken = async () => {
-      const token = await AsyncStorage.getItem('auth_token');
-      setIsLoggedIn(!!token);
-    };
-
     const prepare = async () => {
-      await checkToken();
       setAppIsReady(true);
     };
 
@@ -59,10 +52,8 @@ export default function RootLayout() {
       <GestureHandlerRootView>
         <Stack onLayout={onLayoutRootView}>
           {/* Home or Splash screen */}
-          <Stack.Screen
-            name={isLoggedIn ? 'home' : 'onboarding'}
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="home" options={{ headerShown: false }} />
+          <Stack.Screen name={'onboarding'} options={{ headerShown: false }} />
           {/* Auth */}
           <Stack.Screen name="sign-up/email" options={{ headerShown: false }} />
           <Stack.Screen name="sign-in/index" options={{ headerShown: false }} />
