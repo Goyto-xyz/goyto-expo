@@ -14,7 +14,13 @@ export default {
       supportsTablet: true,
       bundleIdentifier: 'com.goyto.xyz',
       infoPlist: {
-        ITSAppUsesNonExemptEncryption: false
+        ITSAppUsesNonExemptEncryption: false,
+        NSLocationWhenInUseUsageDescription:
+          'This app requires access to your location when open.',
+        NSLocationAlwaysAndWhenInUseUsageDescription:
+          'This app requires access to your location even when closed.',
+        NSLocationAlwaysUsageDescription:
+          'This app requires access to your location when open.'
       }
     },
     android: {

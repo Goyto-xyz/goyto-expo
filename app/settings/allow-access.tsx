@@ -98,6 +98,7 @@ function AllowAccess() {
           <Button
             size="sm"
             width="auto"
+            // disabled={!locationEnabled && !contactsEnabled}
             onPress={() =>
               router.push(
                 // TODO: Add check account logic here
