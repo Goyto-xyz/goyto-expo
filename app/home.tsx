@@ -1,13 +1,17 @@
 import React from 'react';
 import SafeAreaWrapper from './components/SafeAreaWrapper';
 import { Text } from 'dripsy';
+import Mapbox from '@rnmapbox/maps';
+import Constants from 'expo-constants';
 
-function home() {
+Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
+
+function Home() {
   return (
     <SafeAreaWrapper>
-      <Text>Home</Text>
+      <Text>{Constants.expoConfig?.extra?.mapboxSecretKey}</Text>
     </SafeAreaWrapper>
   );
 }
 
-export default home;
+export default Home;
