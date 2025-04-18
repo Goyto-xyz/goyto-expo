@@ -96,7 +96,7 @@ function Home() {
             <MagnifyingGlass size={24} weight="bold" />
           </TouchableOpacity>
 
-          <LogoSVG width={100} />
+          <LogoSVG width={100} style={{ marginTop: -10 }} />
 
           <View sx={{ flexDirection: 'column', gap: 5 }}>
             <TouchableOpacity
@@ -146,8 +146,8 @@ function Home() {
 
           <TouchableOpacity
             style={{
-              height: 60,
-              width: 60,
+              height: 50,
+              width: 50,
               borderRadius: 100,
               backgroundColor: theme.colors.$primary,
               flexDirection: 'row',
@@ -156,7 +156,7 @@ function Home() {
             }}
           >
             <NavigationArrow
-              size={40}
+              size={30}
               weight="bold"
               color="#fff"
               style={{ transform: [{ rotate: '90deg' }] }}
