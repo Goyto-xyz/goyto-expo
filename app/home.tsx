@@ -25,6 +25,7 @@ import {
 import theme from '@/theme';
 import { useMapNavigation } from '@/hooks/useMapNavigation';
 import Button from './components/Button';
+import { router } from 'expo-router';
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
 
@@ -202,11 +203,7 @@ function Home() {
                 paddingX: '$4'
               }}
             >
-              <Button
-                onPress={() =>
-                  console.log(centerPinLocation?.[0], centerPinLocation?.[1])
-                }
-              >
+              <Button onPress={() => router.push('/place/add/select-category')}>
                 Add place here
               </Button>
             </View>

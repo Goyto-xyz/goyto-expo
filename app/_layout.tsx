@@ -1,7 +1,6 @@
 import { Stack } from 'expo-router';
 import SplashScreen from 'expo-splash-screen';
 import React, { useCallback, useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DripsyProvider } from 'dripsy';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Toasts } from '@backpackapp-io/react-native-toast';
@@ -113,6 +112,12 @@ export default function RootLayout() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="user/welcome" options={{ headerShown: false }} />
+
+          {/* Place */}
+          <Stack.Screen
+            name="place/add/select-category"
+            options={{ headerShown: false, presentation: 'modal' }}
+          />
         </Stack>
         <Toasts />
       </GestureHandlerRootView>
