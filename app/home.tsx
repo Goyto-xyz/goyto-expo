@@ -1,6 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SafeAreaWrapper from './components/SafeAreaWrapper';
-import Mapbox, { Camera, MapView } from '@rnmapbox/maps';
+import Mapbox, {
+  Camera,
+  MapView,
+  PointAnnotation,
+  UserLocation
+} from '@rnmapbox/maps';
 import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import { Alert, Linking, StyleSheet, TouchableOpacity } from 'react-native';
@@ -8,6 +13,7 @@ import LogoSVG from '@/assets/images/logo.svg';
 import { SafeAreaView, View } from 'dripsy';
 import {
   ChatCircleText,
+  Check,
   IdentificationBadge,
   MagnifyingGlass,
   NavigationArrow,
@@ -15,6 +21,7 @@ import {
   Users
 } from 'phosphor-react-native';
 import theme from '@/theme';
+import { useMapNavigation } from '@/hooks/useMapNavigation';
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
 
@@ -31,7 +38,17 @@ const styles = StyleSheet.create({
 });
 
 function Home() {
-  const [location, setLocation] = useState<number[]>([-74.006, 40.7128]);
+  const [location, setLocation] = useState<[number, number]>([
+    -74.006, 40.7128
+  ]);
+  const {
+    cameraRef,
+    isFollowing,
+    isAtUserLocation,
+    moveToUser,
+    handleRegionChange,
+    onRegionIsChanging
+  } = useMapNavigation(location);
 
   useEffect(() => {
     const getCurrentLocation = async () => {
@@ -71,13 +88,24 @@ function Home() {
         style={{
           flex: 1
         }}
+        onRegionIsChanging={onRegionIsChanging}
+        onRegionDidChange={handleRegionChange}
       >
         <Camera
+          ref={cameraRef}
           zoomLevel={14}
           centerCoordinate={location}
-          animationMode="none"
+          animationMode="flyTo"
           animationDuration={0}
+          followUserLocation={isFollowing}
         />
+
+        <UserLocation />
+
+        {/* {location && (
+            <PointAnnotation id="user" coordinate={location}>
+            </PointAnnotation>
+        )} */}
       </MapView>
 
       <SafeAreaView
@@ -154,13 +182,24 @@ function Home() {
               alignItems: 'center',
               justifyContent: 'center'
             }}
+            onPress={() => {
+              if (!isAtUserLocation) {
+                moveToUser();
+              } else {
+                Alert.alert('Check-in', 'You have checked in!');
+              }
+            }}
           >
-            <NavigationArrow
-              size={30}
-              weight="bold"
-              color="#fff"
-              style={{ transform: [{ rotate: '90deg' }] }}
-            />
+            {isAtUserLocation ? (
+              <Check size={30} weight="bold" color="#fff" />
+            ) : (
+              <NavigationArrow
+                size={30}
+                weight="bold"
+                color="#fff"
+                style={{ transform: [{ rotate: '90deg' }] }}
+              />
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity style={{ ...styles.button }}>
