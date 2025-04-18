@@ -1,14 +1,33 @@
 import { useRef, useState } from 'react';
-import { Camera } from '@rnmapbox/maps';
+import { Camera, Location } from '@rnmapbox/maps';
 
 export function useMapNavigation(userLocation: [number, number] | null) {
   const cameraRef = useRef<Camera>(null);
   const [isFollowing, setIsFollowing] = useState(true);
   const [isAtUserLocation, setIsAtUserLocation] = useState(true);
+  const [centerPinLocation, setCenterPinLocation] = useState<
+    [number, number] | null
+  >(null);
 
   const moveToUser = () => {
     if (userLocation && cameraRef.current) {
       cameraRef.current.moveTo(userLocation, 1000);
+    }
+  };
+
+  const onUserLocationUpdate = (e: any) => {
+    const coords = e.geometry?.coordinates;
+    if (!coords) return;
+    const center = [coords[0], coords[1]] as [number, number];
+
+    setCenterPinLocation(center);
+
+    if (isFollowing && cameraRef.current) {
+      cameraRef.current.setCamera({
+        centerCoordinate: center,
+        zoomLevel: 14,
+        animationDuration: 0
+      });
     }
   };
 
@@ -26,7 +45,7 @@ export function useMapNavigation(userLocation: [number, number] | null) {
     setIsAtUserLocation(isNearUser);
   };
 
-  const handleRegionChange = async (e: any) => {
+  const handleRegionChange = (e: any) => {
     if (!userLocation) return;
 
     const coords = e.geometry?.coordinates;
@@ -52,8 +71,10 @@ export function useMapNavigation(userLocation: [number, number] | null) {
     isFollowing,
     isAtUserLocation,
     moveToUser,
+    centerPinLocation,
     handleRegionChange,
-    onRegionIsChanging
+    onRegionIsChanging,
+    onUserLocationUpdate
   };
 }
 
