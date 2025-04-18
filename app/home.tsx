@@ -6,7 +6,14 @@ import * as Location from 'expo-location';
 import { Alert, Linking, StyleSheet, TouchableOpacity } from 'react-native';
 import LogoSVG from '@/assets/images/logo.svg';
 import { SafeAreaView, View } from 'dripsy';
-import { MagnifyingGlass, Plus, Users } from 'phosphor-react-native';
+import {
+  ChatCircleText,
+  IdentificationBadge,
+  MagnifyingGlass,
+  NavigationArrow,
+  Plus,
+  Users
+} from 'phosphor-react-native';
 import theme from '@/theme';
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
@@ -75,7 +82,7 @@ function Home() {
 
       <SafeAreaView
         sx={{ ...StyleSheet.absoluteFillObject }}
-        pointerEvents="none"
+        pointerEvents="box-none"
       >
         <View
           sx={{
@@ -112,19 +119,59 @@ function Home() {
             </TouchableOpacity>
           </View>
         </View>
-      </SafeAreaView>
-      {/* <View
-        sx={{ ...StyleSheet.absoluteFillObject, paddingX: '$6', paddingY: 30 }}
-      >
-        <SafeAreaWrapper
-          backgroundColor="transparent"
-          sx={{ backgroundColor: 'transparent' }}
+
+        <View
+          sx={{
+            position: 'absolute',
+            bottom: 50,
+            alignSelf: 'center',
+            width: 'fit-content',
+            padding: 15,
+            maxHeight: 70,
+            borderRadius: 12,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 30,
+            backgroundColor: '#fff'
+          }}
         >
-          <View sx={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <LogoSVG width={100} />
-          </View>
-        </SafeAreaWrapper>
-      </View> */}
+          <TouchableOpacity style={{ ...styles.button }}>
+            <ChatCircleText
+              size={30}
+              weight="bold"
+              color={theme.colors.$primary}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{
+              height: 60,
+              width: 60,
+              borderRadius: 100,
+              backgroundColor: theme.colors.$primary,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            <NavigationArrow
+              size={40}
+              weight="bold"
+              color="#fff"
+              style={{ transform: [{ rotate: '90deg' }] }}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={{ ...styles.button }}>
+            <IdentificationBadge
+              size={30}
+              weight="bold"
+              color={theme.colors.$primary}
+            />
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
     </View>
   );
 }
