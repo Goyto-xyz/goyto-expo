@@ -7,12 +7,12 @@ jobs:
     params:
       platform: android
       profile: development
-  ios_device_development_build:
-    name: Build iOS device
-    type: build
-    params:
-      platform: ios
-      profile: development
+  # ios_device_development_build:
+  #   name: Build iOS device
+  #   type: build
+  #   params:
+  #     platform: ios
+  #     profile: development
   ios_simulator_development_build:
     name: Build iOS simulator
     type: build
