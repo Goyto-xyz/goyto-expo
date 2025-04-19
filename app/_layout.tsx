@@ -122,6 +122,12 @@ export default function RootLayout() {
             name="place/add/add-name"
             options={{ headerShown: false, presentation: 'modal' }}
           />
+
+          {/* Search */}
+          <Stack.Screen
+            name="search"
+            options={{ headerShown: false, presentation: 'modal' }}
+          />
         </Stack>
         <Toasts />
       </GestureHandlerRootView>

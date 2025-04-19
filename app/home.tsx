@@ -115,7 +115,7 @@ function Home() {
           followUserLocation={isFollowing}
         />
 
-        {!isAdding && <UserLocation />}
+        <UserLocation />
       </MapView>
 
       <SafeAreaView
@@ -130,7 +130,16 @@ function Home() {
             paddingX: '$4'
           }}
         >
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              if (isAdding) {
+                moveToUser();
+              } else {
+                router.push('/search');
+              }
+            }}
+          >
             {isAdding ? (
               <NavigationArrow
                 size={24}
@@ -191,7 +200,7 @@ function Home() {
                 position: 'absolute',
                 top: '50%',
                 left: '50%',
-                transform: [{ translateX: '-50%' }, { translateY: '-50%' }]
+                transform: [{ translateX: '-50%' }]
               }}
             >
               <PinSVG width={40} height={40} />
