@@ -118,6 +118,10 @@ export default function RootLayout() {
             name="place/add/select-category"
             options={{ headerShown: false, presentation: 'modal' }}
           />
+          <Stack.Screen
+            name="place/add/add-name"
+            options={{ headerShown: false, presentation: 'modal' }}
+          />
         </Stack>
         <Toasts />
       </GestureHandlerRootView>

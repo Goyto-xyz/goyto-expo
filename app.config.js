@@ -64,8 +64,8 @@ export default {
       eas: {
         projectId: '60b4bbc6-cbff-473e-98f3-46c93bfb262e'
       },
-      mapboxAccessToken: process.env.MAPBOX_ACCESS_TOKEN,
-      mapboxSecretKey: process.env.MAPBOX_SECRET_KEY
+      mapboxSecretKey: process.env.MAPBOX_SECRET_KEY,
+      pinataGatewayUrl: process.env.PINATA_GATEWAY_URL
     },
     owner: 'goyto'
   }

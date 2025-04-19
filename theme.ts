@@ -7,10 +7,11 @@ const theme = makeTheme({
     $blue100: '#BDE0FE',
     $blue200: '#669BBC',
     $primary200: 'rgba(0, 48, 73, 0.2)',
-    $inputBg: '#f1f1f1',
+    $inputBg: '#efefef',
     $success: '#01B34E',
     $gray: '#fefefe',
-    $gray200: '#dfdfdf'
+    $gray200: '#dfdfdf',
+    $gray300: '#b2b2b2'
   },
   space: {
     $0: 0,

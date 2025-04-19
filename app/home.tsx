@@ -26,6 +26,7 @@ import theme from '@/theme';
 import { useMapNavigation } from '@/hooks/useMapNavigation';
 import Button from './components/Button';
 import { router } from 'expo-router';
+import { useAddPlaceStore } from '@/stores/addPlaceStore';
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
 
@@ -42,6 +43,7 @@ const styles = StyleSheet.create({
 });
 
 function Home() {
+  const { setCoordinates } = useAddPlaceStore();
   const [isAdding, setIsAdding] = useState(false);
   const [location, setLocation] = useState<[number, number]>([
     -74.006, 40.7128
@@ -203,7 +205,17 @@ function Home() {
                 paddingX: '$4'
               }}
             >
-              <Button onPress={() => router.push('/place/add/select-category')}>
+              <Button
+                onPress={() => {
+                  if (centerPinLocation) {
+                    setCoordinates({
+                      latitude: centerPinLocation?.[1],
+                      longitude: centerPinLocation?.[0]
+                    });
+                  }
+                  router.push('/place/add/select-category');
+                }}
+              >
                 Add place here
               </Button>
             </View>

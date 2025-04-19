@@ -15,26 +15,31 @@ import WorkIcon from '@/assets/icons/categories/work.svg';
 import { SvgProps } from 'react-native-svg';
 import { TouchableOpacity } from 'react-native';
 import theme from '@/theme';
+import { router } from 'expo-router';
+import { useAddPlaceStore } from '@/stores/addPlaceStore';
 
 type Category = {
+  id: string;
   label: string;
   Icon: React.FC<SvgProps>;
 };
 
 const CATEGORIES: Category[] = [
-  { label: 'Breathe', Icon: BreatheIcon },
-  { label: 'Eat & Drink', Icon: EatDrinkIcon },
-  { label: 'Explore', Icon: ExploreIcon },
-  { label: 'Party', Icon: PartyIcon },
-  { label: 'Play', Icon: PlayIcon },
-  { label: 'Relax', Icon: RelaxIcon },
-  { label: 'Shop', Icon: ShopIcon },
-  { label: 'Sweat', Icon: SweatIcon },
-  { label: 'Travel', Icon: TravelIcon },
-  { label: 'Work', Icon: WorkIcon }
+  { id: 'breathe', label: 'Breathe', Icon: BreatheIcon },
+  { id: 'eat_drink', label: 'Eat & Drink', Icon: EatDrinkIcon },
+  { id: 'explore', label: 'Explore', Icon: ExploreIcon },
+  { id: 'party', label: 'Party', Icon: PartyIcon },
+  { id: 'play', label: 'Play', Icon: PlayIcon },
+  { id: 'relax', label: 'Relax', Icon: RelaxIcon },
+  { id: 'shop', label: 'Shop', Icon: ShopIcon },
+  { id: 'sweat', label: 'Sweat', Icon: SweatIcon },
+  { id: 'travel', label: 'Travel', Icon: TravelIcon },
+  { id: 'work', label: 'Work', Icon: WorkIcon }
 ];
 
 function SelectCategory() {
+  const { setCategoryId } = useAddPlaceStore();
+
   return (
     <View sx={{ px: '$6' }}>
       <ModalHeader showBackButton={false} title="This is a place to..." />
@@ -53,7 +58,8 @@ function SelectCategory() {
               borderBottomWidth: 1
             }}
             onPress={() => {
-              console.log(item.label);
+              router.dismissTo('/place/add/add-name');
+              setCategoryId(item.id);
             }}
           >
             <item.Icon width={24} height={24} />
