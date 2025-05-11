@@ -5,8 +5,16 @@ import React, { useState } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 import Constants from 'expo-constants';
 import { useAddPlaceStore } from '@/stores/addPlaceStore';
+import { router } from 'expo-router';
 
-const MOCK_MATCHES = [
+type Place = {
+  id: string;
+  name: string;
+  address: string;
+  cid: string;
+};
+
+const MOCK_MATCHES: Place[] = [
   {
     id: '1',
     name: 'Boba Guys',
@@ -35,6 +43,7 @@ function AddName() {
 
   const onAddName = () => {
     setName(placeName);
+    router.dismissTo('/place/add/details');
   };
 
   return (
@@ -94,39 +103,42 @@ function AddName() {
 
       <FlatList
         data={MOCK_MATCHES}
-        keyExtractor={item => item.id}
-        renderItem={({ item, index }) => (
-          <TouchableOpacity
-            onPress={() => handleSelectMatch(item)}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 16,
-              paddingVertical: 12,
-              paddingHorizontal: 24,
-              borderBottomWidth: 1,
-              borderBottomColor: theme.colors.$gray200
-            }}
-          >
-            <Image
-              source={{
-                uri: `${Constants.expoConfig?.extra?.pinataGatewayUrl}/ipfs/${item.cid}`
-              }}
-              resizeMode="contain"
+        keyExtractor={item => (item as Place).id}
+        renderItem={({ item, index }) => {
+          const place = item as Place;
+          return (
+            <TouchableOpacity
+              onPress={() => handleSelectMatch(place)}
               style={{
-                width: 60,
-                height: 60,
-                transform: [{ rotate: index % 2 === 0 ? '10deg' : '-10deg' }]
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 16,
+                paddingVertical: 12,
+                paddingHorizontal: 24,
+                borderBottomWidth: 1,
+                borderBottomColor: theme.colors.$gray200
               }}
-            />
-            <View>
-              <Text sx={{ fontSize: 18, fontWeight: 600 }}>{item.name}</Text>
-              <Text sx={{ fontSize: 14, color: theme.colors.$gray300 }}>
-                {item.address}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        )}
+            >
+              <Image
+                source={{
+                  uri: `${Constants.expoConfig?.extra?.pinataGatewayUrl}/ipfs/${place.cid}`
+                }}
+                resizeMode="contain"
+                style={{
+                  width: 60,
+                  height: 60,
+                  transform: [{ rotate: index % 2 === 0 ? '10deg' : '-10deg' }]
+                }}
+              />
+              <View>
+                <Text sx={{ fontSize: 18, fontWeight: 600 }}>{place.name}</Text>
+                <Text sx={{ fontSize: 14, color: theme.colors.$gray300 }}>
+                  {place.address}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          );
+        }}
       />
     </View>
   );

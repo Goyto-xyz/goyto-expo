@@ -46,26 +46,29 @@ function SelectCategory() {
 
       <FlatList
         data={CATEGORIES}
-        keyExtractor={item => item.label}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 16,
-              paddingVertical: 10,
-              borderBottomColor: theme.colors.$gray200,
-              borderBottomWidth: 1
-            }}
-            onPress={() => {
-              router.dismissTo('/place/add/add-name');
-              setCategoryId(item.id);
-            }}
-          >
-            <item.Icon width={24} height={24} />
-            <Text style={{ fontSize: 16 }}>{item.label}</Text>
-          </TouchableOpacity>
-        )}
+        keyExtractor={item => (item as Category).label}
+        renderItem={({ item }) => {
+          const category = item as Category;
+          return (
+            <TouchableOpacity
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 16,
+                paddingVertical: 10,
+                borderBottomColor: theme.colors.$gray200,
+                borderBottomWidth: 1
+              }}
+              onPress={() => {
+                router.dismissTo('/place/add/add-name');
+                setCategoryId(category.id);
+              }}
+            >
+              <category.Icon width={24} height={24} />
+              <Text style={{ fontSize: 16 }}>{category.label}</Text>
+            </TouchableOpacity>
+          );
+        }}
       />
     </View>
   );
