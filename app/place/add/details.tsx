@@ -4,6 +4,7 @@ import ModalHeader from '@/app/components/ModalHeader';
 import { useCategories } from '@/hooks/useCategories';
 import { useAddPlaceStore } from '@/stores/addPlaceStore';
 import theme from '@/theme';
+import { getBgColor } from '@/utils';
 import { View, Text, ScrollView, TextInput, Pressable } from 'dripsy';
 import { router } from 'expo-router';
 import { Plus } from 'phosphor-react-native';
@@ -12,6 +13,7 @@ import React from 'react';
 function AddDetails() {
   const { data } = useAddPlaceStore();
   const categories = useCategories();
+  const backgroundColor = getBgColor(data.color);
 
   const selectedCategory = categories.find(cat => cat.id === data.categoryId);
 
@@ -20,7 +22,14 @@ function AddDetails() {
       <ModalHeader
         showBackButton={false}
         rightButton={
-          <Button variant="secondary" size="sm">
+          <Button
+            variant="secondary"
+            size="sm"
+            sx={{
+              backgroundColor,
+              color: data.color
+            }}
+          >
             Save
           </Button>
         }
