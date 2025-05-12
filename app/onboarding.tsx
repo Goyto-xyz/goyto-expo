@@ -36,7 +36,7 @@ function Onboarding() {
             display: 'flex',
             flexDirection: 'column',
             gap: '$3',
-            paddingX: '$6',
+            px: '$6',
             width: '100%'
           }}
         >

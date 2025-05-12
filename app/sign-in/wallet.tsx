@@ -28,10 +28,10 @@ function SignInWithWallet() {
           alignItems: 'center',
           justifyContent: 'start',
           paddingTop: 64,
-          paddingX: '$4'
+          px: '$4'
         }}
       >
-        <Text sx={{ marginBottom: '$4' }}>
+        <Text sx={{ mb: '$4' }}>
           Use your Web3 wallet for seamless and secure login
         </Text>
 

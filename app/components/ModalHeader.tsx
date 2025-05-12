@@ -17,9 +17,10 @@ function ModalHeader({
       sx={{
         flexDirection: 'row',
         alignItems: 'center',
-        paddingX: '$4',
+        px: '$4',
         position: 'relative',
-        height: 48
+        height: 48,
+        backgroundColor: '#fff'
       }}
     >
       {showBackButton ? (

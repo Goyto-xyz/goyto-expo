@@ -62,7 +62,7 @@ function EnableNotifications() {
           alignItems: 'center',
           justifyContent: 'start',
           paddingTop: 64,
-          paddingX: '$4',
+          px: '$4',
           position: 'relative'
         }}
       >
@@ -73,7 +73,7 @@ function EnableNotifications() {
             fontSize: 16,
             textAlign: 'center',
             maxWidth: '80%',
-            marginBottom: 32
+            mb: 32
           }}
         >
           Turn on notifications to be sure you get your friend's messages right

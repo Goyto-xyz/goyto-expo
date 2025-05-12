@@ -52,7 +52,7 @@ function CreateAccount() {
           alignItems: 'center',
           justifyContent: 'start',
           paddingTop: 64,
-          paddingX: '$4'
+          px: '$4'
         }}
       >
         <Text>Enter your email address to continue</Text>
@@ -64,7 +64,7 @@ function CreateAccount() {
             padding: '$2',
             width: '100%',
             height: 48,
-            paddingX: '$5'
+            px: '$5'
           }}
           autoFocus
           keyboardType="email-address"

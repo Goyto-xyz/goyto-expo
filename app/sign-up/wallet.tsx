@@ -27,12 +27,10 @@ function SignUpWithWallet() {
           alignItems: 'center',
           justifyContent: 'start',
           paddingTop: 64,
-          paddingX: '$4'
+          px: '$4'
         }}
       >
-        <Text sx={{ marginBottom: '$4' }}>
-          Secure onboarding with your Web3 wallet
-        </Text>
+        <Text sx={{ mb: '$4' }}>Secure onboarding with your Web3 wallet</Text>
 
         <Button
           icon={<ArgentXSVG width={24} height={24} />}

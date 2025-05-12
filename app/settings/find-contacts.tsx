@@ -80,7 +80,7 @@ function FindContacts() {
           alignItems: 'start',
           justifyContent: 'start',
           paddingTop: 32,
-          paddingX: '$4'
+          px: '$4'
         }}
       >
         <Text
@@ -105,7 +105,7 @@ function FindContacts() {
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                paddingY: '$4',
+                py: '$4',
                 borderBottomWidth: 1,
                 borderBottomColor: 'rgba(0, 48, 73,0.3)',
                 width: '100%'

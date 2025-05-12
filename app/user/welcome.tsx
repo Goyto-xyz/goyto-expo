@@ -20,7 +20,7 @@ function Welcome() {
           alignItems: 'center',
           justifyContent: 'start',
           paddingTop: 32,
-          paddingX: '$5'
+          px: '$5'
         }}
       >
         <Text
@@ -28,7 +28,7 @@ function Welcome() {
             fontFamily: 'BalsamiqSans',
             fontSize: 24,
             textTransform: 'uppercase',
-            marginBottom: 50
+            mb: 50
           }}
         >
           Good to go
@@ -39,7 +39,7 @@ function Welcome() {
           Goyoto makes it fun an easy to keep up with your friends in the real
           world. Add your favorite places, check in, and share what's up.
         </Text>
-        <Text sx={{ fontSize: 16, textAlign: 'center', marginBottom: 30 }}>
+        <Text sx={{ fontSize: 16, textAlign: 'center', mb: 30 }}>
           Most of all...have fun
         </Text>
 

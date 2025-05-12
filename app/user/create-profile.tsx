@@ -84,7 +84,7 @@ function CreateProfile() {
           alignItems: 'center',
           justifyContent: 'start',
           paddingTop: 64,
-          paddingX: '$4'
+          px: '$4'
         }}
       >
         <View>
@@ -122,7 +122,7 @@ function CreateProfile() {
           </TouchableOpacity>
         </View>
 
-        <View sx={{ flex: 1, width: '100%', gap: 20, marginTop: 30 }}>
+        <View sx={{ flex: 1, width: '100%', gap: 20, mt: 30 }}>
           <Input
             label="Username"
             icon={<At size={24} weight="bold" />}

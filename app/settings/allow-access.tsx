@@ -121,7 +121,7 @@ function AllowAccess() {
           alignItems: 'center',
           justifyContent: 'start',
           paddingTop: 64,
-          paddingX: '$4'
+          px: '$4'
         }}
       >
         <LocationSVG width="80%" height={300} />
@@ -150,7 +150,7 @@ function AllowAccess() {
         >
           <Text
             sx={{
-              marginLeft: 10,
+              ml: 10,
               color: locationEnabled ? theme.colors.$success : '#fff'
             }}
           >
@@ -166,7 +166,7 @@ function AllowAccess() {
           >
             <Text
               sx={{
-                marginLeft: 10
+                ml: 10
               }}
             >
               Find my friends
@@ -181,7 +181,7 @@ function AllowAccess() {
           >
             <Text
               sx={{
-                marginLeft: 10
+                ml: 10
               }}
             >
               Enable Contacts

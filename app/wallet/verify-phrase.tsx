@@ -57,7 +57,7 @@ function VerifyPhrase() {
           alignItems: 'center',
           justifyContent: 'start',
           paddingTop: 64,
-          paddingX: '$4'
+          px: '$4'
         }}
       >
         <ScrollView>
@@ -80,7 +80,7 @@ function VerifyPhrase() {
                     flexDirection: 'row',
                     alignItems: 'center',
                     gap: 6,
-                    marginBottom: 16
+                    mb: 16
                   }}
                 >
                   <Text sx={{ width: '20%', textAlign: 'right' }}>
@@ -93,7 +93,7 @@ function VerifyPhrase() {
                         backgroundColor: '#fff',
                         borderRadius: 10,
                         textAlign: 'center',
-                        paddingY: 8
+                        py: 8
                       }}
                     />
                   ) : (
@@ -102,7 +102,7 @@ function VerifyPhrase() {
                         flex: 1,
                         backgroundColor: theme.colors.$blue100,
                         borderRadius: 10,
-                        paddingY: 8
+                        py: 8
                       }}
                     >
                       <Text sx={{ textAlign: 'center' }}>{word}</Text>
@@ -113,7 +113,7 @@ function VerifyPhrase() {
             })}
           </View>
 
-          <View sx={{ flex: 1, alignItems: 'center', marginTop: 32 }}>
+          <View sx={{ flex: 1, alignItems: 'center', mt: 32 }}>
             <Button width="80%" onPress={() => router.push('/email/link')}>
               Next
             </Button>

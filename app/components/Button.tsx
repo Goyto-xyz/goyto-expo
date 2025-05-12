@@ -4,31 +4,32 @@ import {
   ActivityIndicator,
   Text,
   useDripsyTheme,
-  View
+  View,
+  type SxProp
 } from 'dripsy';
 
 type ButtonProps = {
   onPress?: () => void;
   variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost';
   size?: 'xs' | 'sm' | 'md' | 'lg';
-  width?: number | string;
   disabled?: boolean;
   loading?: boolean;
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
   children: React.ReactNode;
+  sx?: SxProp;
 };
 
 const Button = ({
   onPress,
   variant = 'primary',
   size = 'md',
-  width = '100%',
   disabled = false,
   loading = false,
   icon,
   iconPosition = 'left',
-  children
+  children,
+  sx
 }: ButtonProps) => {
   const { theme } = useDripsyTheme();
 
@@ -46,36 +47,41 @@ const Button = ({
       color: theme.colors?.primary ?? '#003049'
     },
     ghost: {
-      backgroungColor: 'transparent',
+      backgroundColor: 'transparent',
       color: theme.colors?.primary ?? '#003049'
     }
   };
 
   const stylesBySize = {
     xs: {
-      paddingX: 8,
-      paddingY: 6,
+      px: 8,
+      py: 6,
       fontSize: 12
     },
     sm: {
-      paddingX: 12,
-      paddingY: 8,
+      px: 12,
+      py: 8,
       fontSize: 14
     },
     md: {
-      paddingX: 20,
-      paddingY: 12,
+      px: 20,
+      py: 12,
       fontSize: 16
     },
     lg: {
-      paddingX: 24,
-      paddingY: 16,
+      px: 24,
+      py: 16,
       fontSize: 18
     }
   };
 
   const selectedVariant = stylesByVariant[variant];
   const selectedStyle = stylesBySize[size];
+
+  const textColor = (sx as any)?.color ?? selectedVariant.color;
+  const textTransform = (sx as any)?.textTransform ?? 'uppercase';
+  const fontFamily = (sx as any)?.fontFamily ?? 'BalsamiqSans';
+  const fontSize = (sx as any)?.fontSize ?? selectedStyle.fontSize;
 
   return (
     <Pressable
@@ -84,28 +90,27 @@ const Button = ({
       sx={{
         // @ts-ignore
         backgroundColor: selectedVariant.backgroundColor,
-        paddingY: variant === 'ghost' ? 0 : selectedStyle.paddingY,
-        paddingX: variant === 'ghost' ? 0 : selectedStyle.paddingX,
+        py: variant === 'ghost' ? 0 : selectedStyle.py,
+        px: variant === 'ghost' ? 0 : selectedStyle.px,
         borderRadius: 25,
         alignItems: 'center',
         justifyContent: 'center',
         opacity: disabled ? 0.3 : 1,
-        width
+        width: '100%',
+        ...sx
       }}
     >
       {loading ? (
-        <ActivityIndicator
-          sx={{ color: selectedVariant.color as ColorValue }}
-        />
+        <ActivityIndicator sx={{ color: textColor as ColorValue }} />
       ) : (
-        <View sx={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+        <View sx={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           {icon && iconPosition === 'left' && <>{icon}</>}
           <Text
             sx={{
-              color: selectedVariant.color as ColorValue,
-              textTransform: 'uppercase',
-              fontSize: selectedStyle.fontSize,
-              fontFamily: 'BalsamiqSans'
+              color: textColor as ColorValue,
+              textTransform,
+              fontFamily,
+              fontSize
             }}
           >
             {children}

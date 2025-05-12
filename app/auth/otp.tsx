@@ -70,7 +70,7 @@ function OTPVerification() {
           alignItems: 'center',
           justifyContent: 'start',
           paddingTop: 64,
-          paddingX: '$4'
+          px: '$4'
         }}
       >
         {user && (
@@ -108,7 +108,7 @@ function OTPVerification() {
           Verify
         </Button>
 
-        <Text sx={{ fontSize: 14, marginTop: 20 }}>
+        <Text sx={{ fontSize: 14, mt: 20 }}>
           Didn't receive code?{' '}
           {canResend ? (
             <Text

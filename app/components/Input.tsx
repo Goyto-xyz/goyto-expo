@@ -18,7 +18,7 @@ export default function Input({
   ...props
 }: InputProps) {
   return (
-    <View style={{ marginBottom: 16 }}>
+    <View style={{ mb: 16 }}>
       {label && (
         <View
           sx={{
@@ -26,17 +26,13 @@ export default function Input({
             width: '100%',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: 8
+            mb: 8
           }}
         >
-          <Text sx={{ fontSize: 16, fontWeight: 'bold', marginBottom: 5 }}>
-            {label}
-          </Text>
+          <Text sx={{ fontSize: 16, fontWeight: 'bold', mb: 5 }}>{label}</Text>
 
           {subLabel && (
-            <Text sx={{ marginBottom: 5, color: theme.colors.$blue200 }}>
-              {subLabel}
-            </Text>
+            <Text sx={{ mb: 5, color: theme.colors.$blue200 }}>{subLabel}</Text>
           )}
         </View>
       )}
@@ -50,7 +46,7 @@ export default function Input({
           paddingLeft: 10
         }}
       >
-        {icon && <View style={{ marginRight: 8 }}>{icon}</View>}
+        {icon && <View style={{ mr: 8 }}>{icon}</View>}
         <TextInput
           style={[
             {

@@ -1,11 +1,12 @@
-import Button from '@/app/components/Button';
-import theme from '@/theme';
 import { FlatList, Text, TextInput, View } from 'dripsy';
 import React, { useState } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 import Constants from 'expo-constants';
-import { useAddPlaceStore } from '@/stores/addPlaceStore';
 import { router } from 'expo-router';
+import theme from '@/theme';
+import Button from '@/app/components/Button';
+import { useAddPlaceStore } from '@/stores/addPlaceStore';
+import { getBgColor } from '@/utils';
 
 type Place = {
   id: string;
@@ -31,7 +32,8 @@ const MOCK_MATCHES: Place[] = [
 
 function AddName() {
   const [placeName, setPlaceName] = useState('');
-  const { setName } = useAddPlaceStore();
+  const { setName, data } = useAddPlaceStore();
+  const backgroundColor = getBgColor(data.color);
 
   const handleSelectMatch = (match: (typeof MOCK_MATCHES)[0]) => {
     console.log('Selected match:', match);
@@ -74,9 +76,13 @@ function AddName() {
           <Button
             disabled={!placeName}
             variant="secondary"
-            width="auto"
             size="sm"
             onPress={onAddName}
+            sx={{
+              backgroundColor,
+              color: data.color,
+              width: 'auto'
+            }}
           >
             Add
           </Button>

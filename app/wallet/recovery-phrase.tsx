@@ -66,7 +66,7 @@ function RecoveryPhrase() {
           alignItems: 'center',
           justifyContent: 'start',
           paddingTop: 64,
-          paddingX: '$4'
+          px: '$4'
         }}
       >
         <ScrollView>
@@ -87,7 +87,7 @@ function RecoveryPhrase() {
                     flexDirection: 'row',
                     alignItems: 'center',
                     gap: 6,
-                    marginBottom: 16
+                    mb: 16
                   }}
                 >
                   <Text sx={{ width: '20%', textAlign: 'right' }}>
@@ -98,7 +98,7 @@ function RecoveryPhrase() {
                       flex: 1,
                       backgroundColor: theme.colors.$blue100,
                       borderRadius: 10,
-                      paddingY: 8
+                      py: 8
                     }}
                   >
                     <Text sx={{ textAlign: 'center' }}>{word}</Text>
@@ -119,7 +119,7 @@ function RecoveryPhrase() {
           </View>
 
           <Pressable onPress={handleCopy}>
-            <Text sx={{ textAlign: 'center', fontWeight: 600, marginTop: 20 }}>
+            <Text sx={{ textAlign: 'center', fontWeight: 600, mt: 20 }}>
               {copied ? (
                 <View
                   sx={{
@@ -141,7 +141,7 @@ function RecoveryPhrase() {
             </Text>
           </Pressable>
 
-          <View sx={{ paddingY: 32, maxWidth: '95%', marginX: 'auto' }}>
+          <View sx={{ py: 32, maxWidth: '95%', marginX: 'auto' }}>
             <View sx={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
               <Warning size={24} weight="bold" color="#FB8500" />
               <Text sx={{ fontWeight: 700, color: '#FB8500' }}>

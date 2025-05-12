@@ -28,7 +28,7 @@ function SignIn() {
             flexDirection: 'row',
             alignItems: 'center',
             backgroundColor: theme.colors.$secondary,
-            paddingY: 12,
+            py: 12,
             borderBottomWidth: 1,
             borderBottomColor: theme.colors.$primary200
           }}
@@ -42,7 +42,7 @@ function SignIn() {
           >
             <Wallet size={24} weight="regular" />
           </View>
-          <Text sx={{ fontSize: 16, marginLeft: 12, flex: 1 }}>
+          <Text sx={{ fontSize: 16, ml: 12, flex: 1 }}>
             Sign in with wallet
           </Text>
           <CaretRight size={24} />
@@ -55,7 +55,7 @@ function SignIn() {
             flexDirection: 'row',
             alignItems: 'center',
             backgroundColor: theme.colors.$secondary,
-            paddingY: 12,
+            py: 12,
             borderBottomWidth: 1,
             borderBottomColor: theme.colors.$primary200
           }}
@@ -69,9 +69,7 @@ function SignIn() {
           >
             <EnvelopeOpen size={24} weight="regular" />
           </View>
-          <Text sx={{ fontSize: 16, marginLeft: 12, flex: 1 }}>
-            Sign in with email
-          </Text>
+          <Text sx={{ fontSize: 16, ml: 12, flex: 1 }}>Sign in with email</Text>
           <CaretRight size={24} />
         </Pressable>
       </View>

@@ -38,10 +38,10 @@ function WalletLink() {
           alignItems: 'center',
           justifyContent: 'start',
           paddingTop: 64,
-          paddingX: '$4'
+          px: '$4'
         }}
       >
-        <Text sx={{ textAlign: 'center', maxWidth: '80%', marginBottom: '$4' }}>
+        <Text sx={{ textAlign: 'center', maxWidth: '80%', mb: '$4' }}>
           To fully access Goyto's Web3 features, link your Starknet wallet now.
           Your wallet is needed to claim rewards, check in securely, and verify
           ownership of collectibles.

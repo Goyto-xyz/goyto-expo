@@ -29,7 +29,7 @@ function WalletCreating() {
           alignItems: 'center',
           justifyContent: 'start',
           paddingTop: 64,
-          paddingX: '$4'
+          px: '$4'
         }}
       >
         <Text sx={{ textAlign: 'center', maxWidth: '80%' }}>

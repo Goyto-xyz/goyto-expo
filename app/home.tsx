@@ -97,8 +97,8 @@ function Home() {
         style={{
           flex: 1
         }}
-        onRegionIsChanging={onRegionIsChanging}
-        onRegionDidChange={e => {
+        onCameraChanged={onRegionIsChanging}
+        onMapIdle={e => {
           if (isAdding) {
             onUserLocationUpdate(e);
           } else {
@@ -127,7 +127,7 @@ function Home() {
             flexDirection: 'row',
             alignItems: isAdding ? 'center' : 'flex-start',
             justifyContent: 'space-between',
-            paddingX: '$4'
+            px: '$4'
           }}
         >
           <TouchableOpacity
@@ -154,7 +154,7 @@ function Home() {
           {isAdding ? (
             <Text sx={{ fontSize: 20, fontWeight: 700 }}>Add Place</Text>
           ) : (
-            <LogoSVG width={100} style={{ marginTop: -10 }} />
+            <LogoSVG width={100} style={{ mt: -10 }} />
           )}
 
           <View sx={{ flexDirection: 'column', gap: 5 }}>
@@ -211,7 +211,7 @@ function Home() {
                 bottom: 50,
                 left: 0,
                 right: 0,
-                paddingX: '$4'
+                px: '$4'
               }}
             >
               <Button
