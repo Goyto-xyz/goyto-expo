@@ -7,20 +7,30 @@ import { useAddPlaceStore } from '@/stores/addPlaceStore';
 import theme from '@/theme';
 import { getBgColor } from '@/utils';
 import { FlatList, Pressable, Text, TextInput, View } from 'dripsy';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 
 function AddTags() {
-  const { data } = useAddPlaceStore();
+  const { data, setTagIds } = useAddPlaceStore();
   const tags = useTags('breathe');
   const backgroundColor = getBgColor(data.color);
 
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedTagIds, setSelectedTagIds] = useState<string[]>(data.tagIds);
   const [search, setSearch] = useState('');
 
-  const toggleTag = (tag: string) => {
-    setSelectedTags(prev =>
-      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+  const filteredTags = tags.filter(t =>
+    t.label.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const toggleTag = (tagId: string) => {
+    setSelectedTagIds(prev =>
+      prev.includes(tagId) ? prev.filter(t => t !== tagId) : [...prev, tagId]
     );
+  };
+
+  const onAddTags = () => {
+    setTagIds(selectedTagIds);
+    router.dismiss();
   };
 
   return (
@@ -36,6 +46,7 @@ function AddTags() {
               backgroundColor,
               color: data.color
             }}
+            onPress={onAddTags}
           >
             Add
           </Button>
@@ -45,6 +56,7 @@ function AddTags() {
 
       <View sx={{ px: '$6' }}>
         <TextInput
+          onChangeText={setSearch}
           placeholder="Search tags"
           sx={{
             width: '100%',
@@ -60,9 +72,9 @@ function AddTags() {
         <View
           sx={{ flexDirection: 'row', flexWrap: 'wrap', gap: '$2', py: '$4' }}
         >
-          {selectedTags.length > 0 ? (
+          {selectedTagIds.length > 0 ? (
             <>
-              {selectedTags.map(id => {
+              {selectedTagIds.map(id => {
                 const tag = tags.find(t => t.id === id);
 
                 return (
@@ -98,7 +110,7 @@ function AddTags() {
       </View>
 
       <FlatList
-        data={tags}
+        data={filteredTags}
         keyExtractor={item => (item as Tag).id}
         sx={{ px: '$6', backgroundColor: '#fff' }}
         renderItem={({ item }) => {
@@ -123,7 +135,7 @@ function AddTags() {
               </View>
               <Checkbox
                 color={data.color}
-                checked={selectedTags.includes(tag.id)}
+                checked={selectedTagIds.includes(tag.id)}
                 onChange={() => toggleTag(tag.id)}
               />
             </Pressable>

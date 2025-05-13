@@ -9,10 +9,12 @@ import { View, Text, ScrollView, TextInput, Pressable } from 'dripsy';
 import { router } from 'expo-router';
 import { Plus } from 'phosphor-react-native';
 import React from 'react';
+import { useTags } from '@/hooks/useTags';
 
 function AddDetails() {
-  const { data } = useAddPlaceStore();
+  const data = useAddPlaceStore(state => state.data);
   const categories = useCategories();
+  const tags = useTags('breathe');
   const backgroundColor = getBgColor(data.color);
 
   const selectedCategory = categories.find(cat => cat.id === data.categoryId);
@@ -77,6 +79,33 @@ function AddDetails() {
                 color={selectedCategory.color}
                 sx={{ mb: '$3' }}
               />
+
+              {data.tagIds.length > 0 && (
+                <View
+                  sx={{
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    gap: '$2',
+                    mb: '$3'
+                  }}
+                >
+                  {data.tagIds.map(id => {
+                    const tag = tags.find(t => t.id === id);
+
+                    return (
+                      <>
+                        {tag && (
+                          <Badge
+                            Icon={tag?.Icon}
+                            label={tag?.label}
+                            color={data.color}
+                          />
+                        )}
+                      </>
+                    );
+                  })}
+                </View>
+              )}
 
               <Button
                 icon={<Plus weight="bold" size={20} />}
