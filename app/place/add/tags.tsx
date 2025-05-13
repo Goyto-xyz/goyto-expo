@@ -81,8 +81,8 @@ function AddTags() {
                   <>
                     {tag && (
                       <Badge
-                        Icon={tag?.Icon}
-                        label={tag?.label}
+                        Icon={tag.Icon}
+                        label={tag.label}
                         color={data.color}
                       />
                     )}
