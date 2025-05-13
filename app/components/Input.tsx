@@ -18,7 +18,7 @@ export default function Input({
   ...props
 }: InputProps) {
   return (
-    <View style={{ mb: 16 }}>
+    <View sx={{ mb: 16 }}>
       {label && (
         <View
           sx={{
@@ -46,7 +46,7 @@ export default function Input({
           paddingLeft: 10
         }}
       >
-        {icon && <View style={{ mr: 8 }}>{icon}</View>}
+        {icon && <View sx={{ mr: 8 }}>{icon}</View>}
         <TextInput
           style={[
             {

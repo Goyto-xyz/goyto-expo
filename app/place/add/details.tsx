@@ -1,5 +1,5 @@
 import Button from '@/app/components/Button';
-import CategoryBadge from '@/app/components/CategoryBadge';
+import Badge from '@/app/components/Badge';
 import ModalHeader from '@/app/components/ModalHeader';
 import { useCategories } from '@/hooks/useCategories';
 import { useAddPlaceStore } from '@/stores/addPlaceStore';
@@ -71,7 +71,12 @@ function AddDetails() {
 
           {selectedCategory && (
             <View sx={{ py: '$5' }}>
-              <CategoryBadge category={selectedCategory} />
+              <Badge
+                Icon={selectedCategory.Icon}
+                label={selectedCategory.label}
+                color={selectedCategory.color}
+                sx={{ mb: '$3' }}
+              />
 
               <Button
                 icon={<Plus weight="bold" size={20} />}

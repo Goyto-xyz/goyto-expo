@@ -1,6 +1,6 @@
 import React from 'react';
 import ModalHeader from '@/app/components/ModalHeader';
-import { View, Text, FlatList } from 'dripsy';
+import { View, Text, FlatList, Pressable } from 'dripsy';
 
 import { TouchableOpacity } from 'react-native';
 import theme from '@/theme';
@@ -18,16 +18,16 @@ function SelectCategory() {
 
       <FlatList
         data={categories}
-        keyExtractor={item => (item as Category).label}
+        keyExtractor={item => (item as Category).id}
         renderItem={({ item }) => {
           const category = item as Category;
           return (
-            <TouchableOpacity
-              style={{
+            <Pressable
+              sx={{
                 flexDirection: 'row',
                 alignItems: 'center',
                 gap: 16,
-                paddingVertical: 10,
+                py: 10,
                 borderBottomColor: theme.colors.$gray200,
                 borderBottomWidth: 1
               }}
@@ -39,7 +39,7 @@ function SelectCategory() {
             >
               <category.Icon width={24} height={24} />
               <Text style={{ fontSize: 16 }}>{category.label}</Text>
-            </TouchableOpacity>
+            </Pressable>
           );
         }}
       />

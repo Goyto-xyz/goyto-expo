@@ -68,8 +68,10 @@ function CreateProfile() {
           <Button
             disabled={!isValid}
             size="sm"
-            width="auto"
             onPress={() => router.push('/user/welcome')}
+            sx={{
+              width: 'auto'
+            }}
           >
             Save
           </Button>

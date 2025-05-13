@@ -1,15 +1,17 @@
 import React from 'react';
 import { Pressable, View, Text, Box } from 'dripsy';
-import { ArrowLeft } from 'phosphor-react-native';
+import { ArrowLeft, X } from 'phosphor-react-native';
 import { router } from 'expo-router';
 
 function ModalHeader({
   title,
   showBackButton = true,
+  showCloseButton = false,
   rightButton
 }: {
   title: string;
   showBackButton?: boolean;
+  showCloseButton?: boolean;
   rightButton?: React.ReactNode;
 }) {
   return (
@@ -30,7 +32,17 @@ function ModalHeader({
           </Pressable>
         </View>
       ) : (
-        <Box sx={{ width: 24 }} />
+        <>
+          {showCloseButton ? (
+            <View sx={{ position: 'absolute', left: 16, zIndex: 1 }}>
+              <Pressable onPress={() => router.dismiss()}>
+                <X size={24} />
+              </Pressable>
+            </View>
+          ) : (
+            <Box sx={{ width: 24 }} />
+          )}
+        </>
       )}
       <Text
         sx={{

@@ -68,8 +68,8 @@ function AddName() {
               flex: 1,
               width: '100%',
               fontSize: 16,
-              paddingVertical: 12,
-              paddingRight: 12
+              px: '$4',
+              py: '$3'
             }}
             onChangeText={onChangeName}
           />

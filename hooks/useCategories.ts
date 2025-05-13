@@ -17,6 +17,7 @@ export type Category = {
   Icon: React.FC<SvgProps>;
   color: string;
 };
+
 export function useCategories() {
   const categories = useMemo<Category[]>(
     () => [
