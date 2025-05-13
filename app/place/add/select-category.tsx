@@ -32,7 +32,7 @@ function SelectCategory() {
                 borderBottomWidth: 1
               }}
               onPress={() => {
-                router.dismissTo('/place/add/add-name');
+                router.dismissTo('/place/add/name');
                 setCategoryId(category.id);
                 setColor(category.color);
               }}

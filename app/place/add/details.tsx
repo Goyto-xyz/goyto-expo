@@ -12,12 +12,17 @@ import React from 'react';
 import { useTags } from '@/hooks/useTags';
 
 function AddDetails() {
-  const data = useAddPlaceStore(state => state.data);
+  const { data, setTagIds } = useAddPlaceStore();
   const categories = useCategories();
   const tags = useTags('breathe');
   const backgroundColor = getBgColor(data.color);
 
   const selectedCategory = categories.find(cat => cat.id === data.categoryId);
+
+  const onRemoveTag = (tagId: string) => {
+    const _newTagIds = data.tagIds.filter(t => t !== tagId);
+    setTagIds(_newTagIds);
+  };
 
   return (
     <View sx={{ flex: 1, backgroundColor: theme.colors.$inputBg }}>
@@ -96,9 +101,11 @@ function AddDetails() {
                       <>
                         {tag && (
                           <Badge
-                            Icon={tag?.Icon}
-                            label={tag?.label}
+                            Icon={tag.Icon}
+                            label={tag.label}
                             color={data.color}
+                            showDismiss
+                            onDismiss={() => onRemoveTag(tag.id)}
                           />
                         )}
                       </>
@@ -121,7 +128,7 @@ function AddDetails() {
                   py: '$3'
                 }}
                 onPress={() => {
-                  router.push('/place/add/add-tags');
+                  router.push('/place/add/tags');
                 }}
               >
                 Add Tag

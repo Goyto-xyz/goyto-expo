@@ -119,7 +119,7 @@ export default function RootLayout() {
             options={{ headerShown: false, presentation: 'modal' }}
           />
           <Stack.Screen
-            name="place/add/add-name"
+            name="place/add/name"
             options={{ headerShown: false, presentation: 'modal' }}
           />
           <Stack.Screen
@@ -127,7 +127,11 @@ export default function RootLayout() {
             options={{ headerShown: false, presentation: 'modal' }}
           />
           <Stack.Screen
-            name="place/add/add-tags"
+            name="place/add/tags"
+            options={{ headerShown: false, presentation: 'modal' }}
+          />
+          <Stack.Screen
+            name="place/add/snippet"
             options={{ headerShown: false, presentation: 'modal' }}
           />
 
