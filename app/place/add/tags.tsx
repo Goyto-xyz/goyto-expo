@@ -78,7 +78,7 @@ function AddTags() {
                 const tag = tags.find(t => t.id === id);
 
                 return (
-                  <>
+                  <View key={tag?.id}>
                     {tag && (
                       <Badge
                         Icon={tag.Icon}
@@ -86,7 +86,7 @@ function AddTags() {
                         color={data.color}
                       />
                     )}
-                  </>
+                  </View>
                 );
               })}
             </>

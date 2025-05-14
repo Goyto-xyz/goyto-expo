@@ -3,6 +3,7 @@ import { create } from 'zustand';
 
 type AddPlaceData = {
   name: string;
+  snippet: string;
   categoryId: string | null;
   tagIds: string[];
   color: string;
@@ -15,6 +16,7 @@ type AddPlaceData = {
 type AddPlaceStore = {
   data: AddPlaceData;
   setName: (name: string) => void;
+  setSnippet: (snippet: string) => void;
   setCategoryId: (categoryId: string) => void;
   setTagIds: (tagIds: string[]) => void;
   setColor: (id: string) => void;
@@ -25,12 +27,14 @@ type AddPlaceStore = {
 export const useAddPlaceStore = create<AddPlaceStore>(set => ({
   data: {
     name: '',
+    snippet: '',
     categoryId: null,
     tagIds: [],
     color: theme.colors.$blue100,
     coordinates: null
   },
   setName: name => set(state => ({ data: { ...state.data, name } })),
+  setSnippet: snippet => set(state => ({ data: { ...state.data, snippet } })),
   setCategoryId: categoryId =>
     set(state => ({
       data: {
@@ -63,6 +67,7 @@ export const useAddPlaceStore = create<AddPlaceStore>(set => ({
     set({
       data: {
         name: '',
+        snippet: '',
         categoryId: null,
         tagIds: [],
         color: theme.colors.$blue100,

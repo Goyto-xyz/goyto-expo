@@ -8,8 +8,9 @@ import { getBgColor } from '@/utils';
 import { View, Text, ScrollView, TextInput, Pressable } from 'dripsy';
 import { router } from 'expo-router';
 import { Plus } from 'phosphor-react-native';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useTags } from '@/hooks/useTags';
+import { useActionSheet } from '@expo/react-native-action-sheet';
 
 function AddDetails() {
   const { data, setTagIds } = useAddPlaceStore();
@@ -17,11 +18,28 @@ function AddDetails() {
   const tags = useTags('breathe');
   const backgroundColor = getBgColor(data.color);
 
+  const { showActionSheetWithOptions } = useActionSheet();
+
   const selectedCategory = categories.find(cat => cat.id === data.categoryId);
 
   const onRemoveTag = (tagId: string) => {
     const _newTagIds = data.tagIds.filter(t => t !== tagId);
     setTagIds(_newTagIds);
+  };
+
+  const openEditSnippetSheet = () => {
+    showActionSheetWithOptions(
+      {
+        options: ['Edit Snippet', 'Cancel'],
+        cancelButtonIndex: 1
+      },
+      buttonIndex => {
+        console.log(buttonIndex);
+        if (buttonIndex === 0) {
+          router.push('/place/add/snippet');
+        }
+      }
+    );
   };
 
   return (
@@ -161,10 +179,17 @@ function AddDetails() {
             sx={{
               py: '$4',
               fontSize: 16,
-              fontWeight: 600
+              fontWeight: data.snippet ? 400 : 600
+            }}
+            onPress={() => {
+              if (data.snippet) {
+                openEditSnippetSheet();
+              } else {
+                router.push('/place/add/snippet');
+              }
             }}
           >
-            Add Snippet
+            {data.snippet ? data.snippet : 'Add snippet'}
           </Text>
         </View>
 
