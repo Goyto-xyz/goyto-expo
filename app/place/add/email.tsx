@@ -56,7 +56,7 @@ function AddEmail() {
         />
 
         <Button onPress={onSave} disabled={!emailIsValid}>
-          Save
+          Save Email
         </Button>
       </View>
     </View>

@@ -44,7 +44,7 @@ function AddPhone() {
         />
 
         <Button onPress={onSave} disabled={!phone}>
-          Save
+          Save Phone
         </Button>
       </View>
     </View>
