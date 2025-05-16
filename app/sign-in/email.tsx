@@ -10,16 +10,12 @@ import Button from '../components/Button';
 import { Linking } from 'react-native';
 import { useUserStore } from '@/stores/userStore';
 import Header from '../components/Header';
+import { validateEmail } from '@/utils';
 
 function SignInWithEmail() {
   const { setUser, setAction } = useUserStore();
   const [email, setEmail] = useState('');
   const [emailIsValid, setEmailIsValid] = useState(false);
-
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
 
   const handleEmailChange = (text: string) => {
     setEmail(text);
@@ -73,7 +69,13 @@ function SignInWithEmail() {
           onChangeText={handleEmailChange}
         />
 
-        <Button width="80%" disabled={!emailIsValid} onPress={onContinue}>
+        <Button
+          disabled={!emailIsValid}
+          onPress={onContinue}
+          sx={{
+            width: '80%'
+          }}
+        >
           Continue
         </Button>
 
@@ -86,9 +88,11 @@ function SignInWithEmail() {
         />
 
         <Button
-          width="80%"
           variant="secondary"
           onPress={() => router.push('/sign-in/wallet')}
+          sx={{
+            width: '80%'
+          }}
         >
           Connect wallet
         </Button>

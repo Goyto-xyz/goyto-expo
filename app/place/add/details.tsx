@@ -34,9 +34,36 @@ function AddDetails() {
         cancelButtonIndex: 1
       },
       buttonIndex => {
-        console.log(buttonIndex);
         if (buttonIndex === 0) {
           router.push('/place/add/snippet');
+        }
+      }
+    );
+  };
+
+  const openEditPhoneSheet = () => {
+    showActionSheetWithOptions(
+      {
+        options: ['Edit Phone', 'Cancel'],
+        cancelButtonIndex: 1
+      },
+      buttonIndex => {
+        if (buttonIndex === 0) {
+          router.push('/place/add/phone');
+        }
+      }
+    );
+  };
+
+  const openEditEmailSheet = () => {
+    showActionSheetWithOptions(
+      {
+        options: ['Edit Email', 'Cancel'],
+        cancelButtonIndex: 1
+      },
+      buttonIndex => {
+        if (buttonIndex === 0) {
+          router.push('/place/add/email');
         }
       }
     );
@@ -189,7 +216,7 @@ function AddDetails() {
               }
             }}
           >
-            {data.snippet ? data.snippet : 'Add snippet'}
+            {data.snippet ? data.snippet : 'Add Snippet'}
           </Text>
         </View>
 
@@ -219,19 +246,33 @@ function AddDetails() {
               borderBottomWidth: 1,
               borderBottomColor: '$gray200',
               fontSize: 16,
-              fontWeight: 600
+              fontWeight: data.contact.phone ? 400 : 600
+            }}
+            onPress={() => {
+              if (data.contact.phone) {
+                openEditPhoneSheet();
+              } else {
+                router.push('/place/add/phone');
+              }
             }}
           >
-            Add Phone
+            {data.contact.phone ? data.contact.phone : 'Add Phone'}
           </Text>
           <Text
             sx={{
               py: '$4',
               fontSize: 16,
-              fontWeight: 600
+              fontWeight: data.contact.email ? 400 : 600
+            }}
+            onPress={() => {
+              if (data.contact.email) {
+                openEditEmailSheet();
+              } else {
+                router.push('/place/add/email');
+              }
             }}
           >
-            Add Email
+            {data.contact.email ? data.contact.email : 'Add Email'}
           </Text>
         </View>
 

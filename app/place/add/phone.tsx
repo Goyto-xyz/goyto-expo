@@ -5,18 +5,18 @@ import { View, TextInput } from 'dripsy';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 
-function AddSnippet() {
-  const { data, setSnippet } = useAddPlaceStore();
-  const [snippet, setLocalSnippet] = useState(data.snippet);
+function AddPhone() {
+  const { data, setPhone } = useAddPlaceStore();
+  const [phone, setLocalPhone] = useState(data.contact.phone);
 
   const onSave = () => {
-    setSnippet(snippet);
+    setPhone(phone);
     router.dismiss();
   };
 
   return (
     <View sx={{ flex: 1, backgroundColor: '#fff' }}>
-      <ModalHeader showBackButton={false} showCloseButton title="Add Snippet" />
+      <ModalHeader showBackButton={false} showCloseButton title="Add Phone" />
 
       <View
         sx={{
@@ -30,20 +30,20 @@ function AddSnippet() {
       >
         <TextInput
           autoFocus
-          placeholder="Describe this place in a snippet. Snippets are an informed sentence or two describing the place, about the length of a tweet."
-          multiline
-          defaultValue={data.snippet}
-          onChangeText={setLocalSnippet}
+          placeholder="+01 2345 6789"
+          keyboardType="phone-pad"
+          defaultValue={data.contact.phone}
+          onChangeText={setLocalPhone}
           sx={{
             fontSize: 16,
             textAlignVertical: 'top',
-            pb: '$8',
+            pb: '$3',
             borderBottomWidth: 1,
             borderBottomColor: '$gray200'
           }}
         />
 
-        <Button onPress={onSave} disabled={!snippet}>
+        <Button onPress={onSave} disabled={!phone}>
           Save
         </Button>
       </View>
@@ -51,4 +51,4 @@ function AddSnippet() {
   );
 }
 
-export default AddSnippet;
+export default AddPhone;

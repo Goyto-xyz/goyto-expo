@@ -5,18 +5,29 @@ import { View, TextInput } from 'dripsy';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 
-function AddSnippet() {
-  const { data, setSnippet } = useAddPlaceStore();
-  const [snippet, setLocalSnippet] = useState(data.snippet);
+function AddEmail() {
+  const { data, setEmail } = useAddPlaceStore();
+  const [email, setLocalEmail] = useState(data.contact.email);
+  const [emailIsValid, setEmailIsValid] = useState(false);
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const onEmailChange = (text: string) => {
+    setLocalEmail(text);
+    setEmailIsValid(validateEmail(text));
+  };
 
   const onSave = () => {
-    setSnippet(snippet);
+    setEmail(email);
     router.dismiss();
   };
 
   return (
     <View sx={{ flex: 1, backgroundColor: '#fff' }}>
-      <ModalHeader showBackButton={false} showCloseButton title="Add Snippet" />
+      <ModalHeader showBackButton={false} showCloseButton title="Add Email" />
 
       <View
         sx={{
@@ -30,20 +41,21 @@ function AddSnippet() {
       >
         <TextInput
           autoFocus
-          placeholder="Describe this place in a snippet. Snippets are an informed sentence or two describing the place, about the length of a tweet."
-          multiline
-          defaultValue={data.snippet}
-          onChangeText={setLocalSnippet}
+          placeholder="youremail@example.com"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          defaultValue={data.contact.email}
+          onChangeText={onEmailChange}
           sx={{
             fontSize: 16,
             textAlignVertical: 'top',
-            pb: '$8',
+            pb: '$3',
             borderBottomWidth: 1,
             borderBottomColor: '$gray200'
           }}
         />
 
-        <Button onPress={onSave} disabled={!snippet}>
+        <Button onPress={onSave} disabled={!emailIsValid}>
           Save
         </Button>
       </View>
@@ -51,4 +63,4 @@ function AddSnippet() {
   );
 }
 
-export default AddSnippet;
+export default AddEmail;

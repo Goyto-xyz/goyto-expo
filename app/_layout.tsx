@@ -148,6 +148,14 @@ export default function RootLayout() {
               name="place/add/snippet"
               options={{ headerShown: false, presentation: 'modal' }}
             />
+            <Stack.Screen
+              name="place/add/phone"
+              options={{ headerShown: false, presentation: 'modal' }}
+            />
+            <Stack.Screen
+              name="place/add/email"
+              options={{ headerShown: false, presentation: 'modal' }}
+            />
 
             {/* Search */}
             <Stack.Screen

@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import { toast } from '@backpackapp-io/react-native-toast';
 import { useUserStore } from '@/stores/userStore';
+import { validateEmail } from '@/utils';
 
 function EmailLink() {
   const { setUser, setAction } = useUserStore();
@@ -14,11 +15,6 @@ function EmailLink() {
 
   const [email, setEmail] = useState('');
   const [emailIsValid, setEmailIsValid] = useState(false);
-
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
 
   const handleEmailChange = (e: any) => {
     const email = e.target.value;
@@ -48,8 +44,10 @@ function EmailLink() {
         rightButton={
           <Button
             size="sm"
-            width="auto"
             onPress={() => router.push('/settings/allow-access')}
+            sx={{
+              width: 'auto'
+            }}
           >
             Skip
           </Button>
@@ -86,7 +84,6 @@ function EmailLink() {
         />
 
         <Button
-          width="80%"
           disabled={!emailIsValid}
           onPress={() => router.push('/email/linked-check')}
         >
