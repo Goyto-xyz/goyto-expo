@@ -156,6 +156,10 @@ export default function RootLayout() {
               name="place/add/email"
               options={{ headerShown: false, presentation: 'modal' }}
             />
+            <Stack.Screen
+              name="place/add/social"
+              options={{ headerShown: false, presentation: 'modal' }}
+            />
 
             {/* Search */}
             <Stack.Screen

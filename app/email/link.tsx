@@ -7,7 +7,7 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import { toast } from '@backpackapp-io/react-native-toast';
 import { useUserStore } from '@/stores/userStore';
-import { validateEmail } from '@/utils';
+import { isValidEmail } from '@/utils';
 
 function EmailLink() {
   const { setUser, setAction } = useUserStore();
@@ -19,11 +19,11 @@ function EmailLink() {
   const handleEmailChange = (e: any) => {
     const email = e.target.value;
     setEmail(email);
-    setEmailIsValid(validateEmail(email));
+    setEmailIsValid(isValidEmail(email));
   };
 
   const onContinue = () => {
-    if (validateEmail(email)) {
+    if (isValidEmail(email)) {
       router.push('/auth/otp');
       setUser({ email });
       setAction('linkEmail');

@@ -130,6 +130,7 @@ function CreateProfile() {
             icon={<At size={24} weight="bold" />}
             autoFocus
             autoCapitalize="none"
+            autoCorrect={false}
             onChangeText={onUsernameChange}
           />
           <Input
@@ -137,6 +138,7 @@ function CreateProfile() {
             subLabel="Optional"
             icon={<User size={24} weight="bold" />}
             autoCapitalize="none"
+            autoCorrect={false}
             onChangeText={onDisplayNameChange}
           />
         </View>

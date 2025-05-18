@@ -6,11 +6,11 @@ import { router } from 'expo-router';
 import React, { useState } from 'react';
 
 function AddPhone() {
-  const { data, setPhone } = useAddPlaceStore();
+  const { data, setContact } = useAddPlaceStore();
   const [phone, setLocalPhone] = useState(data.contact.phone);
 
   const onSave = () => {
-    setPhone(phone);
+    setContact({ phone });
     router.dismiss();
   };
 

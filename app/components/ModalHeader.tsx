@@ -48,6 +48,7 @@ function ModalHeader({
         sx={{
           flex: 1,
           textAlign: 'center',
+          textTransform: 'capitalize',
           fontFamily: 'BalsamiqSans',
           fontSize: 18,
           position: 'absolute',

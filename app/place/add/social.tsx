@@ -1,29 +1,37 @@
 import Button from '@/app/components/Button';
 import ModalHeader from '@/app/components/ModalHeader';
 import { useAddPlaceStore } from '@/stores/addPlaceStore';
-import { isValidEmail } from '@/utils';
+import { isValidURL } from '@/utils';
 import { View, TextInput } from 'dripsy';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 
-function AddEmail() {
-  const { data, setContact } = useAddPlaceStore();
-  const [email, setLocalEmail] = useState(data.contact.email);
-  const [emailIsValid, setEmailIsValid] = useState(false);
+function AddSocial() {
+  const { data, setSocial } = useAddPlaceStore();
+  const type = useLocalSearchParams().type as string;
 
-  const onEmailChange = (text: string) => {
-    setLocalEmail(text);
-    setEmailIsValid(isValidEmail(text));
+  const [username, setUsername] = useState(
+    data.social[type as keyof typeof data.social]
+  );
+
+  const onChangeText = (text: string) => {
+    setUsername(text);
   };
 
   const onSave = () => {
-    setContact({ email });
+    setSocial({ [type]: username });
     router.dismiss();
   };
 
+  const isDisabled = !username || (type === 'website' && !isValidURL(username));
+
   return (
     <View sx={{ flex: 1, backgroundColor: '#fff' }}>
-      <ModalHeader showBackButton={false} showCloseButton title="Add Email" />
+      <ModalHeader
+        showBackButton={false}
+        showCloseButton
+        title={`Add ${type}`}
+      />
 
       <View
         sx={{
@@ -37,12 +45,11 @@ function AddEmail() {
       >
         <TextInput
           autoFocus
-          placeholder="youremail@example.com"
-          keyboardType="email-address"
+          placeholder="@username"
           autoCapitalize="none"
           autoCorrect={false}
-          defaultValue={data.contact.email}
-          onChangeText={onEmailChange}
+          defaultValue={data.social[type as keyof typeof data.social]}
+          onChangeText={onChangeText}
           sx={{
             fontSize: 16,
             textAlignVertical: 'top',
@@ -52,12 +59,12 @@ function AddEmail() {
           }}
         />
 
-        <Button onPress={onSave} disabled={!emailIsValid}>
-          Save Email
+        <Button onPress={onSave} disabled={isDisabled}>
+          Save
         </Button>
       </View>
     </View>
   );
 }
 
-export default AddEmail;
+export default AddSocial;

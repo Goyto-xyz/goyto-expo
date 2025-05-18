@@ -10,7 +10,7 @@ import Button from '../components/Button';
 import { Linking } from 'react-native';
 import { useUserStore } from '@/stores/userStore';
 import Header from '../components/Header';
-import { validateEmail } from '@/utils';
+import { isValidEmail } from '@/utils';
 
 function SignInWithEmail() {
   const { setUser, setAction } = useUserStore();
@@ -19,11 +19,11 @@ function SignInWithEmail() {
 
   const handleEmailChange = (text: string) => {
     setEmail(text);
-    setEmailIsValid(validateEmail(text));
+    setEmailIsValid(isValidEmail(text));
   };
 
   const onContinue = () => {
-    if (validateEmail(email)) {
+    if (isValidEmail(email)) {
       setUser({ email });
       setAction('signIn');
       router.push('/auth/otp');
@@ -64,6 +64,7 @@ function SignInWithEmail() {
           autoFocus
           keyboardType="email-address"
           autoCapitalize="none"
+          autoCorrect={false}
           placeholder="hello@goyto.xyz"
           value={email}
           onChangeText={handleEmailChange}

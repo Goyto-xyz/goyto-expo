@@ -7,13 +7,22 @@ import theme from '@/theme';
 import { getBgColor } from '@/utils';
 import { View, Text, ScrollView, TextInput, Pressable } from 'dripsy';
 import { router } from 'expo-router';
-import { Plus } from 'phosphor-react-native';
-import React, { useRef, useState } from 'react';
+import {
+  Compass,
+  FacebookLogo,
+  InstagramLogo,
+  Plus,
+  TiktokLogo,
+  XLogo
+} from 'phosphor-react-native';
+import React from 'react';
 import { useTags } from '@/hooks/useTags';
 import { useActionSheet } from '@expo/react-native-action-sheet';
+import GoytoIcon from '@/assets/icons/socials/goyto.svg';
+import { Alert, Linking } from 'react-native';
 
 function AddDetails() {
-  const { data, setTagIds } = useAddPlaceStore();
+  const { data, setTagIds, setSocial } = useAddPlaceStore();
   const categories = useCategories();
   const tags = useTags('breathe');
   const backgroundColor = getBgColor(data.color);
@@ -21,6 +30,86 @@ function AddDetails() {
   const { showActionSheetWithOptions } = useActionSheet();
 
   const selectedCategory = categories.find(cat => cat.id === data.categoryId);
+
+  const socialConfig = {
+    goyto: {
+      label: 'Goyto',
+      options: ['Edit Goyto', 'Delete Goyto', 'Cancel'],
+      destructiveIndex: 1,
+      cancelIndex: 2,
+      editIndex: 0,
+      openIndex: null,
+      icon: () => <GoytoIcon width={24} height={24} />
+    },
+    facebook: {
+      label: 'Facebook',
+      options: ['Open Facebook', 'Edit Facebook', 'Delete Facebook', 'Cancel'],
+      destructiveIndex: 2,
+      cancelIndex: 3,
+      editIndex: 1,
+      openIndex: 0,
+      openAppLink: (username: string) => `fb://page/${username}`,
+      fallbackLink: (username: string) => `https://facebook.com/${username}`,
+      icon: () => <FacebookLogo size={24} weight="bold" />
+    },
+    instagram: {
+      label: 'Instagram',
+      options: [
+        'Open Instagram',
+        'Edit Instagram',
+        'Delete Instagram',
+        'Cancel'
+      ],
+      destructiveIndex: 2,
+      cancelIndex: 3,
+      editIndex: 1,
+      openIndex: 0,
+      openAppLink: (username: string) =>
+        `instagram://user?username=${username}`,
+      fallbackLink: (username: string) => `https://instagram.com/${username}`,
+      icon: () => <InstagramLogo size={24} weight="bold" />
+    },
+    twitter: {
+      label: 'Twitter / X',
+      options: [
+        'Open Twitter / X',
+        'Edit Twitter / X',
+        'Delete Twitter / X',
+        'Cancel'
+      ],
+      destructiveIndex: 2,
+      cancelIndex: 3,
+      editIndex: 1,
+      openIndex: 0,
+      openAppLink: (username: string) =>
+        `twitter://user?screen_name=${username}`,
+      fallbackLink: (username: string) => `https://twitter.com/${username}`,
+      icon: () => <XLogo size={24} weight="bold" />
+    },
+    tiktok: {
+      label: 'Tiktok',
+      options: ['Open Tiktok', 'Edit Tiktok', 'Delete Tiktok', 'Cancel'],
+      destructiveIndex: 2,
+      cancelIndex: 3,
+      editIndex: 1,
+      openIndex: 0,
+      openAppLink: (username: string) =>
+        `snssdk1233://user/profile/${username}`,
+      fallbackLink: (username: string) => `https://www.tiktok.com/@${username}`,
+      icon: () => <TiktokLogo size={24} weight="bold" />
+    },
+    website: {
+      label: 'Website',
+      options: ['Open Website', 'Edit Website', 'Delete Website', 'Cancel'],
+      destructiveIndex: 2,
+      cancelIndex: 3,
+      editIndex: 1,
+      openIndex: 0,
+      openAppLink: (url: string) => url,
+      fallbackLink: (url: string) => url,
+      icon: () => <Compass size={24} weight="bold" />
+    }
+  };
 
   const onRemoveTag = (tagId: string) => {
     const _newTagIds = data.tagIds.filter(t => t !== tagId);
@@ -64,6 +153,84 @@ function AddDetails() {
       buttonIndex => {
         if (buttonIndex === 0) {
           router.push('/place/add/email');
+        }
+      }
+    );
+  };
+
+  const openAddLinkSheet = () => {
+    const availableSocialKeys = Object.keys(socialConfig).filter(
+      key => !data.social[key as keyof typeof data.social]
+    );
+
+    const optionsLabels = [
+      ...availableSocialKeys.map(
+        key => `Add ${socialConfig[key as keyof typeof socialConfig].label}`
+      ),
+      'Cancel'
+    ];
+
+    const cancelButtonIndex = optionsLabels.length - 1;
+
+    showActionSheetWithOptions(
+      {
+        options: optionsLabels,
+        cancelButtonIndex
+      },
+      buttonIndex => {
+        if (buttonIndex === cancelButtonIndex) return;
+
+        const selectedKey = availableSocialKeys[buttonIndex as number];
+        if (selectedKey) {
+          router.push(`/place/add/social?type=${selectedKey}`);
+        }
+      }
+    );
+  };
+
+  const openEditSocialSheet = (type: keyof typeof socialConfig) => {
+    const config = socialConfig[type];
+    const value = data.social[type];
+
+    showActionSheetWithOptions(
+      {
+        options: config.options,
+        title: value,
+        destructiveButtonIndex: config.destructiveIndex,
+        cancelButtonIndex: config.cancelIndex
+      },
+      buttonIndex => {
+        if (config.openIndex !== null && buttonIndex === config.openIndex) {
+          const appUrl = config.openAppLink?.(value);
+          const fallback = config.fallbackLink?.(value);
+
+          if (appUrl) {
+            Linking.canOpenURL(appUrl)
+              .then(supported => Linking.openURL(supported ? appUrl : fallback))
+              .catch(err => console.error('Failed to open link', err));
+          }
+        }
+
+        if (buttonIndex === config.editIndex) {
+          router.push(`/place/add/social?type=${type}`);
+        }
+
+        if (buttonIndex === config.destructiveIndex) {
+          Alert.alert(
+            `Delete ${config.label}?`,
+            `Are you sure you want to delete this ${config.label} link?`,
+            [
+              { text: 'Cancel', style: 'cancel' },
+              {
+                text: 'Yes',
+                style: 'destructive',
+                onPress: () => {
+                  const newSocial = { ...data.social, [type]: '' };
+                  setSocial(newSocial);
+                }
+              }
+            ]
+          );
         }
       }
     );
@@ -288,6 +455,7 @@ function AddDetails() {
         >
           Links
         </Text>
+
         <View
           sx={{
             mt: '$4',
@@ -295,15 +463,58 @@ function AddDetails() {
             backgroundColor: '#fff'
           }}
         >
-          <Text
-            sx={{
-              py: '$4',
-              fontSize: 16,
-              fontWeight: 600
-            }}
-          >
-            Add Link
-          </Text>
+          {Object.entries(data.social).map(([key, value]) => {
+            if (!value) return null;
+
+            const config = socialConfig[key as keyof typeof socialConfig];
+            if (!config) return null;
+
+            // const Icon
+
+            return (
+              <Pressable
+                key={key}
+                sx={{
+                  py: '$4',
+                  borderBottomWidth: 1,
+                  borderBottomColor: '$gray200',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: '$3'
+                }}
+                onPress={() =>
+                  openEditSocialSheet(key as keyof typeof socialConfig)
+                }
+              >
+                {config.icon()}
+                <Text
+                  sx={{
+                    fontSize: 16,
+                    fontWeight: 400
+                  }}
+                >
+                  {value}
+                </Text>
+              </Pressable>
+            );
+          })}
+
+          {Object.keys(socialConfig).some(
+            key => !data.social[key as keyof typeof data.social]
+          ) && (
+            <View>
+              <Text
+                sx={{
+                  py: '$4',
+                  fontSize: 16,
+                  fontWeight: 600
+                }}
+                onPress={openAddLinkSheet}
+              >
+                Add Link
+              </Text>
+            </View>
+          )}
         </View>
 
         {/* Address */}

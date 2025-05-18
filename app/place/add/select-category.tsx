@@ -2,7 +2,6 @@ import React from 'react';
 import ModalHeader from '@/app/components/ModalHeader';
 import { View, Text, FlatList, Pressable } from 'dripsy';
 
-import { TouchableOpacity } from 'react-native';
 import theme from '@/theme';
 import { router } from 'expo-router';
 import { useAddPlaceStore } from '@/stores/addPlaceStore';

@@ -20,7 +20,15 @@ export default {
         NSLocationAlwaysAndWhenInUseUsageDescription:
           'This app requires access to your location even when closed.',
         NSLocationAlwaysUsageDescription:
-          'This app requires access to your location when open.'
+          'This app requires access to your location when open.',
+        LSApplicationQueriesSchemes: [
+          'fb',
+          'instagram',
+          'twitter',
+          'x',
+          'snssdk1233',
+          'tiktok'
+        ]
       }
     },
     android: {
