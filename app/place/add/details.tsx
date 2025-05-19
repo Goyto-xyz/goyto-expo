@@ -236,6 +236,20 @@ function AddDetails() {
     );
   };
 
+  const openEditAddressSheet = () => {
+    showActionSheetWithOptions(
+      {
+        options: ['Edit Address', 'Cancel'],
+        cancelButtonIndex: 1
+      },
+      buttonIndex => {
+        if (buttonIndex === 0) {
+          router.push('/place/add/address');
+        }
+      }
+    );
+  };
+
   return (
     <View sx={{ flex: 1, backgroundColor: theme.colors.$inputBg }}>
       <ModalHeader
@@ -544,7 +558,9 @@ function AddDetails() {
               pb: 60,
               fontSize: 16
             }}
-            defaultValue={`114 Arkansas St\nSan Francisco CA 94107\nUnited States`}
+            editable={false}
+            defaultValue={data.address.detail}
+            onPress={openEditAddressSheet}
           />
         </View>
       </ScrollView>

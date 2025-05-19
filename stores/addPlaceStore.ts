@@ -16,6 +16,10 @@ type AddPlaceData = {
     tiktok: string;
     website: string;
   };
+  address: {
+    detail: string;
+    letterCode: string;
+  };
   categoryId: string | null;
   tagIds: string[];
   color: string;
@@ -31,6 +35,7 @@ type AddPlaceStore = {
   setSnippet: (snippet: string) => void;
   setContact: (contact: { [key: string]: string }) => void;
   setSocial: (social: { [key: string]: string }) => void;
+  setAddress: (address: { [key: string]: string }) => void;
   setCategoryId: (categoryId: string) => void;
   setTagIds: (tagIds: string[]) => void;
   setColor: (id: string) => void;
@@ -54,6 +59,10 @@ export const useAddPlaceStore = create<AddPlaceStore>(set => ({
       tiktok: '',
       website: ''
     },
+    address: {
+      detail: '',
+      letterCode: ''
+    },
     categoryId: null,
     tagIds: [],
     color: theme.colors.$blue100,
@@ -68,6 +77,10 @@ export const useAddPlaceStore = create<AddPlaceStore>(set => ({
   setSocial: social =>
     set(state => ({
       data: { ...state.data, social: { ...state.data.social, ...social } }
+    })),
+  setAddress: address =>
+    set(state => ({
+      data: { ...state.data, address: { ...state.data.address, ...address } }
     })),
   setCategoryId: categoryId =>
     set(state => ({
@@ -113,6 +126,10 @@ export const useAddPlaceStore = create<AddPlaceStore>(set => ({
           twitter: '',
           tiktok: '',
           website: ''
+        },
+        address: {
+          detail: '',
+          letterCode: ''
         },
         categoryId: null,
         tagIds: [],
