@@ -27,6 +27,8 @@ import { useMapNavigation } from '@/hooks/useMapNavigation';
 import Button from './components/Button';
 import { router } from 'expo-router';
 import { useAddPlaceStore } from '@/stores/addPlaceStore';
+import { generateNearbyCoordinates } from '@/utils';
+import { useNearbyPlaces } from '@/hooks/useNearbyPlaces';
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
 
@@ -48,6 +50,9 @@ function Home() {
   const [location, setLocation] = useState<[number, number]>([
     -74.006, 40.7128
   ]);
+
+  const nearbyPlaces = useNearbyPlaces(location);
+
   const {
     cameraRef,
     isFollowing,
@@ -116,6 +121,31 @@ function Home() {
         />
 
         <UserLocation />
+
+        {nearbyPlaces.map((place, index) => (
+          <PointAnnotation
+            key={`${place.id}`}
+            id={`${place.id}`}
+            coordinate={place.coordinates}
+          >
+            <View
+              sx={{
+                width: 100,
+                height: 100,
+                borderRadius: 100,
+                alignItems: 'center',
+                justifyContent: 'center',
+                shadowColor: 'rgba(0,0,0,0.3)',
+                shadowOffset: { width: 0, height: 0 },
+                shadowOpacity: 1,
+                shadowRadius: 15,
+                elevation: 10
+              }}
+            >
+              <place.Icon width={40} height={40} />
+            </View>
+          </PointAnnotation>
+        ))}
       </MapView>
 
       <SafeAreaView
@@ -154,7 +184,7 @@ function Home() {
           {isAdding ? (
             <Text sx={{ fontSize: 20, fontWeight: 700 }}>Add Place</Text>
           ) : (
-            <LogoSVG width={100} style={{ mt: -10 }} />
+            <LogoSVG width={100} style={{ marginTop: -10 }} />
           )}
 
           <View sx={{ flexDirection: 'column', gap: 5 }}>
@@ -272,6 +302,7 @@ function Home() {
                 }
               }}
             >
+              <>{console.log('isAtUserLocation', isAtUserLocation)}</>
               {isAtUserLocation ? (
                 <Check size={30} weight="bold" color="#fff" />
               ) : (

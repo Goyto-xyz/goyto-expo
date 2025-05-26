@@ -34,7 +34,7 @@ export function useMapNavigation(userLocation: [number, number] | null) {
   const onRegionIsChanging = (e: any) => {
     if (!userLocation) return;
 
-    const coords = e.geometry?.coordinates;
+    const coords = e.properties.center; // e.geometry?.coordinates;
     if (!coords) return;
 
     const center = [coords[0], coords[1]] as [number, number];
