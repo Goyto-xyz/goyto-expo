@@ -1,12 +1,13 @@
 import { FlatList, Text, TextInput, View } from 'dripsy';
 import React, { useState } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
-import Constants from 'expo-constants';
+// import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import theme from '@/theme';
 import Button from '@/app/components/Button';
 import { useAddPlaceStore } from '@/stores/addPlaceStore';
 import { getBgColor } from '@/utils';
+import Constants from 'expo-constants';
 
 type Place = {
   id: string;

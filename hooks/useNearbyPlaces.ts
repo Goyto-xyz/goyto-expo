@@ -16,6 +16,7 @@ export type Place = {
 
 export function useNearbyPlaces(currentLocation: [number, number]) {
   const generated = generateNearbyCoordinates(currentLocation, 5, 300);
+
   const places = useMemo<Place[]>(
     () => [
       {

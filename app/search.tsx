@@ -3,20 +3,21 @@ import { FlatList, Text, TextInput, View } from 'dripsy';
 import React, { useState } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import Constants from 'expo-constants';
 
 const MOCK_MATCHES = [
   {
     id: '1',
     name: 'Boba Guys',
     address: '3491 19th St',
-    cid: 'bafkreier2owjqsk5iwcmhbogaxqndzoevmimrg7prx6b46msiz6ziahr2y',
+    cid: 'bafkreier2owjqsk5iwcmhbogaxqndzoevmimrg7prx6b46msiz6ziahr2y'
   },
   {
     id: '2',
     name: 'The Beehive',
     address: '842 Valencia St',
-    cid: 'bafkreigzh6lcwst3vxblh4il2ls2ysakjl73bqdcr5vj3yv7b4yqqfkm74',
-  },
+    cid: 'bafkreigzh6lcwst3vxblh4il2ls2ysakjl73bqdcr5vj3yv7b4yqqfkm74'
+  }
 ];
 
 function SearchScreen() {
@@ -31,13 +32,10 @@ function SearchScreen() {
             justifyContent: 'space-between',
             borderRadius: 16,
             backgroundColor: theme.colors.$inputBg,
-            px: '$3',
-          }}>
-          <Ionicons
-            name="search"
-            size={24}
-            color="gray"
-          />
+            px: '$3'
+          }}
+        >
+          <Ionicons name="search" size={24} color="gray" />
           <TextInput
             placeholder="Search around here..."
             sx={{
@@ -47,7 +45,7 @@ function SearchScreen() {
               paddingVertical: 12,
               paddingRight: 12,
               paddingLeft: 12,
-              color: theme.colors.$gray300,
+              color: theme.colors.$gray300
             }}
           />
         </View>
@@ -56,20 +54,22 @@ function SearchScreen() {
       <View
         sx={{
           px: '$6',
-          py: '$2',
-        }}>
+          py: '$2'
+        }}
+      >
         <Text
           sx={{
             textTransform: 'uppercase',
             letterSpacing: 2,
-            color: theme.colors.$gray300,
-          }}>
+            color: theme.colors.$gray300
+          }}
+        >
           2 PLACES NEAR BY
         </Text>
       </View>
       <FlatList
         data={places}
-        keyExtractor={(item) => item.id}
+        keyExtractor={item => item.id}
         renderItem={({ item, index }) => (
           <TouchableOpacity
             style={{
@@ -79,15 +79,18 @@ function SearchScreen() {
               paddingVertical: 12,
               paddingHorizontal: 14,
               borderBottomWidth: 1,
-              borderBottomColor: theme.colors.$gray200,
-            }}>
+              borderBottomColor: theme.colors.$gray200
+            }}
+          >
             <Image
-              source={{ uri: `https://ipfs.io/ipfs/${item.cid}` }}
+              source={{
+                uri: `${Constants.expoConfig?.extra?.pinataGatewayUrl}/ipfs/${item.cid}`
+              }}
               resizeMode="contain"
               style={{
                 width: 60,
                 height: 60,
-                transform: [{ rotate: index % 2 === 0 ? '10deg' : '-10deg' }],
+                transform: [{ rotate: index % 2 === 0 ? '10deg' : '-10deg' }]
               }}
             />
             <View>

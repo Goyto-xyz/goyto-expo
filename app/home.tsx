@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import SafeAreaWrapper from './components/SafeAreaWrapper';
+import React, { useEffect, useRef, useState } from 'react';
 import Mapbox, {
   Camera,
   MapView,
@@ -11,7 +10,7 @@ import * as Location from 'expo-location';
 import { Alert, Linking, StyleSheet, TouchableOpacity } from 'react-native';
 import LogoSVG from '@/assets/images/logo.svg';
 import PinSVG from '@/assets/images/pin.svg';
-import { SafeAreaView, Text, View } from 'dripsy';
+import { SafeAreaView, Text, View, Image } from 'dripsy';
 import {
   ChatCircleText,
   Check,
@@ -27,8 +26,8 @@ import { useMapNavigation } from '@/hooks/useMapNavigation';
 import Button from './components/Button';
 import { router } from 'expo-router';
 import { useAddPlaceStore } from '@/stores/addPlaceStore';
-import { generateNearbyCoordinates } from '@/utils';
 import { useNearbyPlaces } from '@/hooks/useNearbyPlaces';
+import { useNearbyFriends } from '@/hooks/useNearbyFriends';
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
 
@@ -52,6 +51,7 @@ function Home() {
   ]);
 
   const nearbyPlaces = useNearbyPlaces(location);
+  const nearbyFriends = useNearbyFriends(location, nearbyPlaces);
 
   const {
     cameraRef,
@@ -122,7 +122,50 @@ function Home() {
 
         <UserLocation />
 
-        {nearbyPlaces.map((place, index) => (
+        {nearbyFriends.map(friend => {
+          const annotationRef = useRef<PointAnnotation>(null);
+          return (
+            <PointAnnotation
+              key={`${friend.id}`}
+              id={`${friend.id}`}
+              coordinate={friend.coordinates}
+              ref={annotationRef}
+            >
+              <View
+                sx={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 100,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  shadowColor: 'rgba(0,0,0,0.3)',
+                  shadowOffset: { width: 0, height: 0 },
+                  shadowOpacity: 1,
+                  shadowRadius: 15,
+                  elevation: 10,
+                  position: 'relative',
+                  zIndex: 9
+                }}
+              >
+                <Image
+                  source={{
+                    uri: `${Constants.expoConfig?.extra?.pinataGatewayUrl}/ipfs/${friend.avatar}`
+                  }}
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 12
+                  }}
+                  resizeMode="contain"
+                  onLoad={() => annotationRef.current?.refresh()}
+                  fadeDuration={0}
+                />
+              </View>
+            </PointAnnotation>
+          );
+        })}
+
+        {nearbyPlaces.map(place => (
           <PointAnnotation
             key={`${place.id}`}
             id={`${place.id}`}
@@ -139,7 +182,9 @@ function Home() {
                 shadowOffset: { width: 0, height: 0 },
                 shadowOpacity: 1,
                 shadowRadius: 15,
-                elevation: 10
+                elevation: 10,
+                position: 'relative',
+                zIndex: 1
               }}
             >
               <place.Icon width={40} height={40} />
@@ -302,7 +347,6 @@ function Home() {
                 }
               }}
             >
-              <>{console.log('isAtUserLocation', isAtUserLocation)}</>
               {isAtUserLocation ? (
                 <Check size={30} weight="bold" color="#fff" />
               ) : (
