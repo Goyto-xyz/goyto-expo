@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Mapbox, {
   Camera,
   MapView,
+  MarkerView,
   PointAnnotation,
   UserLocation
 } from '@rnmapbox/maps';
@@ -103,13 +104,14 @@ function Home() {
           flex: 1
         }}
         onCameraChanged={onRegionIsChanging}
-        onMapIdle={e => {
+        onRegionDidChange={e => {
           if (isAdding) {
             onUserLocationUpdate(e);
           } else {
             handleRegionChange(e);
           }
         }}
+        onMapIdle={e => {}}
       >
         <Camera
           ref={cameraRef}
@@ -124,12 +126,13 @@ function Home() {
 
         {nearbyFriends.map(friend => {
           const annotationRef = useRef<PointAnnotation>(null);
+          console.log('Friend coordinates:', friend.id, friend.coordinates);
           return (
-            <PointAnnotation
+            <MarkerView
               key={`${friend.id}`}
               id={`${friend.id}`}
               coordinate={friend.coordinates}
-              ref={annotationRef}
+              // ref={annotationRef}
             >
               <View
                 sx={{
@@ -142,9 +145,7 @@ function Home() {
                   shadowOffset: { width: 0, height: 0 },
                   shadowOpacity: 1,
                   shadowRadius: 15,
-                  elevation: 10,
-                  position: 'relative',
-                  zIndex: 9
+                  elevation: 10
                 }}
               >
                 <Image
@@ -161,7 +162,7 @@ function Home() {
                   fadeDuration={0}
                 />
               </View>
-            </PointAnnotation>
+            </MarkerView>
           );
         })}
 
@@ -170,6 +171,10 @@ function Home() {
             key={`${place.id}`}
             id={`${place.id}`}
             coordinate={place.coordinates}
+            style={{
+              position: 'relative',
+              zIndex: 1
+            }}
           >
             <View
               sx={{
@@ -182,9 +187,7 @@ function Home() {
                 shadowOffset: { width: 0, height: 0 },
                 shadowOpacity: 1,
                 shadowRadius: 15,
-                elevation: 10,
-                position: 'relative',
-                zIndex: 1
+                elevation: 10
               }}
             >
               <place.Icon width={40} height={40} />

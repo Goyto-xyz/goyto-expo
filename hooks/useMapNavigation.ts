@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Camera, Location } from '@rnmapbox/maps';
+import { Camera } from '@rnmapbox/maps';
 
 export function useMapNavigation(userLocation: [number, number] | null) {
   const cameraRef = useRef<Camera>(null);
@@ -12,6 +12,7 @@ export function useMapNavigation(userLocation: [number, number] | null) {
   const moveToUser = () => {
     if (userLocation && cameraRef.current) {
       cameraRef.current.moveTo(userLocation, 1000);
+      cameraRef.current.zoomTo(15, 1000);
     }
   };
 

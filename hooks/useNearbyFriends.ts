@@ -10,6 +10,34 @@ export type Friend = {
   placeId: string | null;
 };
 
+function offsetCoordinate(
+  coordinate: [number, number],
+  distanceInMeters: number,
+  bearingInDegrees: number
+): [number, number] {
+  const R = 6_378_100; // Earth radius in meters
+  const bearing = (bearingInDegrees * Math.PI) / 180;
+  const lng = coordinate[0];
+  const lat = coordinate[1];
+  console.log(lng, lat);
+
+  const latRad = (lat * Math.PI) / 180;
+  const lngRad = (lng * Math.PI) / 180;
+
+  const newLat = Math.asin(
+    Math.sin(latRad) * Math.cos(distanceInMeters / R) +
+      Math.cos(latRad) * Math.sin(distanceInMeters / R) * Math.cos(bearing)
+  );
+
+  const newLng =
+    lngRad +
+    Math.atan2(
+      Math.sin(bearing) * Math.sin(distanceInMeters / R) * Math.cos(latRad),
+      Math.cos(distanceInMeters / R) - Math.sin(latRad) * Math.sin(newLat)
+    );
+
+  return [(newLng * 180) / Math.PI, (newLat * 180) / Math.PI];
+}
 function generateFriendLocations(
   nearbyPlaces: Place[],
   currentLocation: [number, number],
@@ -26,13 +54,10 @@ function generateFriendLocations(
 
   for (let i = 0; i < numFromPlaces; i++) {
     const place = shuffledPlaces[i];
-    const offsetLat = (Math.random() - 0.5) * 0.0005;
-    const offsetLng = (Math.random() - 0.5) * 0.0005;
+    const offsetCoord = offsetCoordinate(place.coordinates, 25, 135);
+
     friendLocations.push({
-      coordinates: [
-        place.coordinates[0] + offsetLat,
-        place.coordinates[1] + offsetLng
-      ],
+      coordinates: offsetCoord,
       placeId: place.id
     });
   }
