@@ -19,7 +19,6 @@ function offsetCoordinate(
   const bearing = (bearingInDegrees * Math.PI) / 180;
   const lng = coordinate[0];
   const lat = coordinate[1];
-  console.log(lng, lat);
 
   const latRad = (lat * Math.PI) / 180;
   const lngRad = (lng * Math.PI) / 180;

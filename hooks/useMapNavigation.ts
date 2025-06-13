@@ -11,8 +11,7 @@ export function useMapNavigation(userLocation: [number, number] | null) {
 
   const moveToUser = () => {
     if (userLocation && cameraRef.current) {
-      cameraRef.current.moveTo(userLocation, 1000);
-      cameraRef.current.zoomTo(15, 1000);
+      cameraRef.current.flyTo(userLocation, 1000);
     }
   };
 

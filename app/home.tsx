@@ -29,6 +29,7 @@ import { router } from 'expo-router';
 import { useAddPlaceStore } from '@/stores/addPlaceStore';
 import { useNearbyPlaces } from '@/hooks/useNearbyPlaces';
 import { useNearbyFriends } from '@/hooks/useNearbyFriends';
+import NearbyFriendsStack from './components/NearByFriendsStack';
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
 
@@ -111,7 +112,6 @@ function Home() {
             handleRegionChange(e);
           }
         }}
-        onMapIdle={e => {}}
       >
         <Camera
           ref={cameraRef}
@@ -126,7 +126,6 @@ function Home() {
 
         {nearbyFriends.map(friend => {
           const annotationRef = useRef<PointAnnotation>(null);
-          console.log('Friend coordinates:', friend.id, friend.coordinates);
           return (
             <MarkerView
               key={`${friend.id}`}
@@ -270,6 +269,15 @@ function Home() {
             )}
           </View>
         </View>
+
+        <NearbyFriendsStack
+          friends={nearbyFriends}
+          onFriendSelect={friend => {
+            if (cameraRef.current) {
+              cameraRef.current.flyTo(friend.coordinates, 500);
+            }
+          }}
+        />
 
         {isAdding ? (
           <>
