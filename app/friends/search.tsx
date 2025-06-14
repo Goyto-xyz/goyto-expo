@@ -166,23 +166,24 @@ function FriendsSearchScreen() {
                 </Text>
               </View>
 
-              <CaretRight size={20} />
+              <CaretRight weight="bold" size={20} />
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={{
+            <Button
+              sx={{
                 backgroundColor: theme.colors.$gray200,
+                color: '#000',
                 paddingVertical: 14,
                 borderRadius: 999,
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'center',
                 gap: 8
               }}
+              icon={<PaperPlaneTilt weight="bold" size={20} />}
+              onPress={() => {
+                router.push('/friends/share');
+              }}
             >
-              <PaperPlaneTilt size={20} />
               <Text style={{ fontWeight: 'bold' }}>SHARE INVITE LINK</Text>
-            </TouchableOpacity>
+            </Button>
           </View>
         </>
       )}

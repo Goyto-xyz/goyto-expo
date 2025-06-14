@@ -7,7 +7,6 @@ import { View, Text, FlatList, Image } from 'dripsy';
 import Button from '../components/Button';
 import * as SMS from 'expo-sms';
 import { Alert } from 'react-native';
-import { router } from 'expo-router';
 
 function InviteContacts() {
   const contacts = [
