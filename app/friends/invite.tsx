@@ -9,7 +9,7 @@ import * as SMS from 'expo-sms';
 import { Alert } from 'react-native';
 import { router } from 'expo-router';
 
-function FindContacts() {
+function InviteContacts() {
   const contacts = [
     {
       name: 'Dragoslav',
@@ -49,29 +49,8 @@ function FindContacts() {
   };
 
   return (
-    <SafeAreaWrapper
-      backgroundColor={theme.colors.$secondary}
-      sx={{ backgroundColor: '$secondary' }}
-    >
-      <Header
-        title="Find my friends"
-        rightButton={
-          <Button
-            size="sm"
-            variant="tertiary"
-            sx={{ width: 'auto' }}
-            onPress={() => {
-              router.push(
-                notificationsEnabled
-                  ? '/user/create-profile'
-                  : '/settings/notifications'
-              );
-            }}
-          >
-            Done
-          </Button>
-        }
-      />
+    <SafeAreaWrapper>
+      <Header title="Find my friends" />
 
       <View
         sx={{
@@ -123,15 +102,15 @@ function FindContacts() {
                     {item.name}
                   </Text>
 
-                  <Text sx={{ fontSize: 12, color: theme.colors.$blue200 }}>
+                  <Text sx={{ fontSize: 12, color: theme.colors.$gray300 }}>
                     knows {item.numOfContacts} poeple on Goyoto
                   </Text>
                 </View>
               </View>
 
               <Button
-                size="xs"
                 sx={{ width: 'auto' }}
+                size="xs"
                 onPress={() => handleInvite(item.name)}
               >
                 Invite
@@ -144,4 +123,4 @@ function FindContacts() {
   );
 }
 
-export default FindContacts;
+export default InviteContacts;

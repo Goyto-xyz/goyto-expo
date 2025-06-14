@@ -176,6 +176,10 @@ export default function RootLayout() {
               name="friends/search"
               options={{ headerShown: false, presentation: 'modal' }}
             />
+            <Stack.Screen
+              name="friends/invite"
+              options={{ headerShown: false, presentation: 'modal' }}
+            />
 
             {/* Messages Modals */}
             <Stack.Screen

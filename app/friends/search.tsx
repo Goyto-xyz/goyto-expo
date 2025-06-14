@@ -5,6 +5,7 @@ import { TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Button from '../components/Button';
 import { AddressBook, CaretRight, PaperPlaneTilt } from 'phosphor-react-native';
+import { router } from 'expo-router';
 
 function FriendsSearchScreen() {
   const MOCK_FRIENDS = [
@@ -147,6 +148,9 @@ function FriendsSearchScreen() {
                 alignItems: 'center',
                 paddingVertical: 16,
                 justifyContent: 'space-between'
+              }}
+              onPress={() => {
+                router.push('/friends/invite');
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
