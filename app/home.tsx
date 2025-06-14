@@ -30,6 +30,7 @@ import { useAddPlaceStore } from '@/stores/addPlaceStore';
 import { useNearbyPlaces } from '@/hooks/useNearbyPlaces';
 import { useNearbyFriends } from '@/hooks/useNearbyFriends';
 import NearbyFriendsStack from './components/NearByFriendsStack';
+import { useUserStore } from '@/stores/userStore';
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
 
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
 });
 
 function Home() {
+  const { setLocation: setLocationStorage } = useUserStore();
   const { setCoordinates } = useAddPlaceStore();
   const [isAdding, setIsAdding] = useState(false);
   const [location, setLocation] = useState<[number, number]>([
@@ -89,6 +91,11 @@ function Home() {
       }
       let currentLocation = await Location.getCurrentPositionAsync({});
       setLocation([
+        currentLocation.coords.longitude,
+        currentLocation.coords.latitude
+      ]);
+
+      setLocationStorage([
         currentLocation.coords.longitude,
         currentLocation.coords.latitude
       ]);
