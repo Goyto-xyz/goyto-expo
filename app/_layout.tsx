@@ -171,6 +171,12 @@ export default function RootLayout() {
               options={{ headerShown: false, presentation: 'modal' }}
             />
 
+            {/* Friends */}
+            <Stack.Screen
+              name="friends/search"
+              options={{ headerShown: false, presentation: 'modal' }}
+            />
+
             {/* Messages Modals */}
             <Stack.Screen
               name="messages/_modal"

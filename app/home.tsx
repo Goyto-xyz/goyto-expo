@@ -132,13 +132,11 @@ function Home() {
         <UserLocation />
 
         {nearbyFriends.map(friend => {
-          const annotationRef = useRef<PointAnnotation>(null);
           return (
             <MarkerView
               key={`${friend.id}`}
               id={`${friend.id}`}
               coordinate={friend.coordinates}
-              // ref={annotationRef}
             >
               <View
                 sx={{
@@ -164,7 +162,6 @@ function Home() {
                     borderRadius: 12
                   }}
                   resizeMode="contain"
-                  onLoad={() => annotationRef.current?.refresh()}
                   fadeDuration={0}
                 />
               </View>
@@ -259,6 +256,7 @@ function Home() {
                     borderBottomLeftRadius: 6,
                     borderBottomRightRadius: 6
                   }}
+                  onPress={() => router.push('/friends/search')}
                 >
                   <Users size={24} weight="bold" />
                 </TouchableOpacity>
@@ -276,15 +274,6 @@ function Home() {
             )}
           </View>
         </View>
-
-        <NearbyFriendsStack
-          friends={nearbyFriends}
-          onFriendSelect={friend => {
-            if (cameraRef.current) {
-              cameraRef.current.flyTo(friend.coordinates, 500);
-            }
-          }}
-        />
 
         {isAdding ? (
           <>
@@ -323,68 +312,79 @@ function Home() {
             </View>
           </>
         ) : (
-          <View
-            sx={{
-              position: 'absolute',
-              bottom: 50,
-              alignSelf: 'center',
-              width: 'fit-content',
-              padding: 15,
-              maxHeight: 70,
-              borderRadius: 12,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 30,
-              backgroundColor: '#fff'
-            }}
-          >
-            <TouchableOpacity style={{ ...styles.button }}>
-              <ChatCircleText
-                size={30}
-                weight="bold"
-                color={theme.colors.$primary}
-              />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={{
-                height: 50,
-                width: 50,
-                borderRadius: 100,
-                backgroundColor: theme.colors.$primary,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-              onPress={() => {
-                if (!isAtUserLocation) {
-                  moveToUser();
-                } else {
-                  Alert.alert('Check-in', 'You have checked in!');
+          <>
+            <NearbyFriendsStack
+              friends={nearbyFriends}
+              onFriendSelect={friend => {
+                if (cameraRef.current) {
+                  cameraRef.current.flyTo(friend.coordinates, 500);
                 }
               }}
+            />
+
+            <View
+              sx={{
+                position: 'absolute',
+                bottom: 50,
+                alignSelf: 'center',
+                width: 'fit-content',
+                padding: 15,
+                maxHeight: 70,
+                borderRadius: 12,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 30,
+                backgroundColor: '#fff'
+              }}
             >
-              {isAtUserLocation ? (
-                <Check size={30} weight="bold" color="#fff" />
-              ) : (
-                <NavigationArrow
+              <TouchableOpacity style={{ ...styles.button }}>
+                <ChatCircleText
                   size={30}
                   weight="bold"
-                  color="#fff"
-                  style={{ transform: [{ rotate: '90deg' }] }}
+                  color={theme.colors.$primary}
                 />
-              )}
-            </TouchableOpacity>
+              </TouchableOpacity>
 
-            <TouchableOpacity style={{ ...styles.button }}>
-              <IdentificationBadge
-                size={30}
-                weight="bold"
-                color={theme.colors.$primary}
-              />
-            </TouchableOpacity>
-          </View>
+              <TouchableOpacity
+                style={{
+                  height: 50,
+                  width: 50,
+                  borderRadius: 100,
+                  backgroundColor: theme.colors.$primary,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                onPress={() => {
+                  if (!isAtUserLocation) {
+                    moveToUser();
+                  } else {
+                    Alert.alert('Check-in', 'You have checked in!');
+                  }
+                }}
+              >
+                {isAtUserLocation ? (
+                  <Check size={30} weight="bold" color="#fff" />
+                ) : (
+                  <NavigationArrow
+                    size={30}
+                    weight="bold"
+                    color="#fff"
+                    style={{ transform: [{ rotate: '90deg' }] }}
+                  />
+                )}
+              </TouchableOpacity>
+
+              <TouchableOpacity style={{ ...styles.button }}>
+                <IdentificationBadge
+                  size={30}
+                  weight="bold"
+                  color={theme.colors.$primary}
+                />
+              </TouchableOpacity>
+            </View>
+          </>
         )}
       </SafeAreaView>
     </View>
