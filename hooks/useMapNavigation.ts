@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { Camera } from '@rnmapbox/maps';
+import { getDistance } from '@/utils/geo';
 
 export function useMapNavigation(userLocation: [number, number] | null) {
   const cameraRef = useRef<Camera>(null);
@@ -76,25 +77,4 @@ export function useMapNavigation(userLocation: [number, number] | null) {
     onRegionIsChanging,
     onUserLocationUpdate
   };
-}
-
-function getDistance(
-  [lng1, lat1]: [number, number],
-  [lng2, lat2]: [number, number]
-) {
-  const R = 6371e3; // Earth radius in meters
-  const p1 = (lat1 * Math.PI) / 180;
-  const p2 = (lat2 * Math.PI) / 180;
-  const deltaP = ((lat2 - lat1) * Math.PI) / 180;
-  const deltaLambda = ((lng2 - lng1) * Math.PI) / 180;
-
-  const a =
-    Math.sin(deltaP / 2) * Math.sin(deltaP / 2) +
-    Math.cos(p1) *
-      Math.cos(p2) *
-      Math.sin(deltaLambda / 2) *
-      Math.sin(deltaLambda / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-  return R * c;
 }

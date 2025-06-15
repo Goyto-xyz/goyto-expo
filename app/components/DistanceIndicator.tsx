@@ -15,7 +15,7 @@ type Props = {
   placeLocation: [number, number];
 };
 
-export const DistanceIndicator = ({ userLocation, placeLocation }: Props) => {
+function DistanceIndicator({ userLocation, placeLocation }: Props) {
   const [heading, setHeading] = useState<number>(0);
 
   const distance = getDistance(userLocation, placeLocation);
@@ -79,4 +79,6 @@ export const DistanceIndicator = ({ userLocation, placeLocation }: Props) => {
       />
     </View>
   );
-};
+}
+
+export default DistanceIndicator;

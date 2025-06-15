@@ -31,6 +31,7 @@ import { useNearbyPlaces } from '@/hooks/useNearbyPlaces';
 import { useNearbyFriends } from '@/hooks/useNearbyFriends';
 import NearbyFriendsStack from './components/NearByFriendsStack';
 import { useUserStore } from '@/stores/userStore';
+import CheckinBottomSheet, { MyBottomSheetRef } from './bottom-sheet/CheckIn';
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
 
@@ -67,6 +68,8 @@ function Home() {
     onRegionIsChanging,
     onUserLocationUpdate
   } = useMapNavigation(location);
+
+  const checkInSheetRef = useRef<MyBottomSheetRef>(null);
 
   useEffect(() => {
     const getCurrentLocation = async () => {
@@ -351,7 +354,9 @@ function Home() {
                   height: 50,
                   width: 50,
                   borderRadius: 100,
-                  backgroundColor: theme.colors.$primary,
+                  backgroundColor: isAtUserLocation
+                    ? theme.colors.$secondary
+                    : theme.colors.$primary,
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'center'
@@ -360,12 +365,16 @@ function Home() {
                   if (!isAtUserLocation) {
                     moveToUser();
                   } else {
-                    Alert.alert('Check-in', 'You have checked in!');
+                    checkInSheetRef.current?.open();
                   }
                 }}
               >
                 {isAtUserLocation ? (
-                  <Check size={30} weight="bold" color="#fff" />
+                  <Check
+                    size={30}
+                    weight="bold"
+                    color={theme.colors.$primary}
+                  />
                 ) : (
                   <NavigationArrow
                     size={30}
@@ -384,6 +393,8 @@ function Home() {
                 />
               </TouchableOpacity>
             </View>
+
+            <CheckinBottomSheet ref={checkInSheetRef} />
           </>
         )}
       </SafeAreaView>
