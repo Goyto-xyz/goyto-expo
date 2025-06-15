@@ -17,7 +17,7 @@ export type MyBottomSheetRef = {
 
 const CheckinBottomSheet = forwardRef<MyBottomSheetRef>((_, ref) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ['50%'], []);
+  const snapPoints = useMemo(() => [], []);
 
   const { location } = useUserStore();
   const nearbyPlaces = useNearbyPlaces(location || [0, 0]);
