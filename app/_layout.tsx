@@ -184,6 +184,10 @@ export default function RootLayout() {
                 name="search"
                 options={{ headerShown: false, presentation: 'modal' }}
               />
+              <Stack.Screen
+                name="nearby-places"
+                options={{ headerShown: false, presentation: 'modal' }}
+              />
 
               {/* Friends */}
               <Stack.Screen

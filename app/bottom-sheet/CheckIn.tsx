@@ -9,6 +9,7 @@ import DistanceIndicator from '../components/DistanceIndicator';
 import Button from '../components/Button';
 import { CaretRight, Check } from 'phosphor-react-native';
 import theme from '@/theme';
+import { router } from 'expo-router';
 
 export type MyBottomSheetRef = {
   open: () => void;
@@ -102,17 +103,18 @@ const CheckinBottomSheet = forwardRef<MyBottomSheetRef>((_, ref) => {
           sx={{
             backgroundColor: '$gray200',
             color: '#000',
-            width: '80%',
+            width: '70%',
             mb: '$8'
           }}
           icon={<CaretRight weight="bold" size={20} color="#000" />}
           iconPosition="right"
+          onPress={() => router.push('/nearby-places')}
         >
           I'm some where else
         </Button>
 
         <TextInput
-          placeholder="What’s going on?."
+          placeholder="What's going on?."
           placeholderTextColor={theme.colors.$gray300}
           autoComplete="off"
           autoCorrect={false}
