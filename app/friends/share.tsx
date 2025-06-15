@@ -17,7 +17,6 @@ const ShareMyLink = () => {
   const handleCopy = async () => {
     await ClipboardAPI.setStringAsync(inviteLink);
     setCopied(true);
-    Alert.alert('Copied', 'Invite link copied to clipboard!');
   };
 
   const handleShare = async () => {
