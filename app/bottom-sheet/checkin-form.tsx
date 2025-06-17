@@ -11,12 +11,12 @@ import { CaretRight, Check } from 'phosphor-react-native';
 import theme from '@/theme';
 import { router } from 'expo-router';
 
-export type MyBottomSheetRef = {
+export type CheckinBottomSheetRef = {
   open: () => void;
   close: () => void;
 };
 
-const CheckinBottomSheet = forwardRef<MyBottomSheetRef>((_, ref) => {
+const CheckinBottomSheet = forwardRef<CheckinBottomSheetRef>((_, ref) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => [], []);
 
@@ -108,7 +108,7 @@ const CheckinBottomSheet = forwardRef<MyBottomSheetRef>((_, ref) => {
           }}
           icon={<CaretRight weight="bold" size={20} color="#000" />}
           iconPosition="right"
-          onPress={() => router.push('/nearby-places')}
+          onPress={() => router.push('/checkin/nearby-places')}
         >
           I'm some where else
         </Button>

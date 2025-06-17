@@ -185,7 +185,7 @@ export default function RootLayout() {
                 options={{ headerShown: false, presentation: 'modal' }}
               />
               <Stack.Screen
-                name="nearby-places"
+                name="checkin/nearby-places"
                 options={{ headerShown: false, presentation: 'modal' }}
               />
 

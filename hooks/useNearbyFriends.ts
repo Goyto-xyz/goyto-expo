@@ -1,5 +1,5 @@
 import { generateNearbyCoordinates } from '@/utils';
-import { Place } from './useNearbyPlaces';
+import { Place, useNearbyPlaces } from './useNearbyPlaces';
 import { useMemo } from 'react';
 
 export type Friend = {
@@ -79,10 +79,8 @@ function generateFriendLocations(
   return friendLocations;
 }
 
-export function useNearbyFriends(
-  currentLocation: [number, number],
-  nearbyPlaces: Place[]
-) {
+export function useNearbyFriends(currentLocation: [number, number]) {
+  const nearbyPlaces = useNearbyPlaces(currentLocation);
   const locations = useMemo(
     () => generateFriendLocations(nearbyPlaces, currentLocation, 4),
     [currentLocation, nearbyPlaces]

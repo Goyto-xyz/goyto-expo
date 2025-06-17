@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
-import { DistanceIndicator } from './components/DistanceIndicator';
+import DistanceIndicator from './components/DistanceIndicator';
 import { useUserStore } from '@/stores/userStore';
 import { generateNearbyCoordinates } from '@/utils';
 

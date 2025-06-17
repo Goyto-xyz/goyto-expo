@@ -31,7 +31,10 @@ import { useNearbyPlaces } from '@/hooks/useNearbyPlaces';
 import { useNearbyFriends } from '@/hooks/useNearbyFriends';
 import NearbyFriendsStack from './components/NearByFriendsStack';
 import { useUserStore } from '@/stores/userStore';
-import CheckinBottomSheet, { MyBottomSheetRef } from './bottom-sheet/CheckIn';
+import CheckinBottomSheet, {
+  CheckinBottomSheetRef
+} from './bottom-sheet/checkin-form';
+import FriendsCheckinSlider from './checkin/friends-checkin-slider';
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
 
@@ -56,7 +59,7 @@ function Home() {
   ]);
 
   const nearbyPlaces = useNearbyPlaces(location);
-  const nearbyFriends = useNearbyFriends(location, nearbyPlaces);
+  const nearbyFriends = useNearbyFriends(location);
 
   const {
     cameraRef,
@@ -69,7 +72,8 @@ function Home() {
     onUserLocationUpdate
   } = useMapNavigation(location);
 
-  const checkInSheetRef = useRef<MyBottomSheetRef>(null);
+  const checkInSheetRef = useRef<CheckinBottomSheetRef>(null);
+  const [selectedFriendId, setSelectedFriendId] = useState<string | null>(null);
 
   useEffect(() => {
     const getCurrentLocation = async () => {
@@ -115,7 +119,7 @@ function Home() {
           flex: 1
         }}
         onCameraChanged={onRegionIsChanging}
-        onRegionDidChange={e => {
+        onMapIdle={e => {
           if (isAdding) {
             onUserLocationUpdate(e);
           } else {
@@ -141,33 +145,39 @@ function Home() {
               id={`${friend.id}`}
               coordinate={friend.coordinates}
             >
-              <View
-                sx={{
-                  width: 100,
-                  height: 100,
-                  borderRadius: 100,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  shadowColor: 'rgba(0,0,0,0.3)',
-                  shadowOffset: { width: 0, height: 0 },
-                  shadowOpacity: 1,
-                  shadowRadius: 15,
-                  elevation: 10
+              <TouchableOpacity
+                onPress={() => {
+                  setSelectedFriendId(friend.id);
                 }}
               >
-                <Image
-                  source={{
-                    uri: `${Constants.expoConfig?.extra?.pinataGatewayUrl}/ipfs/${friend.avatar}`
-                  }}
+                <View
                   sx={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 12
+                    width: 100,
+                    height: 100,
+                    borderRadius: 100,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    shadowColor: 'rgba(0,0,0,0.3)',
+                    shadowOffset: { width: 0, height: 0 },
+                    shadowOpacity: 1,
+                    shadowRadius: 15,
+                    elevation: 10
                   }}
-                  resizeMode="contain"
-                  fadeDuration={0}
-                />
-              </View>
+                >
+                  <Image
+                    source={{
+                      uri: `${Constants.expoConfig?.extra?.pinataGatewayUrl}/ipfs/${friend.avatar}`
+                    }}
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: 12
+                    }}
+                    resizeMode="contain"
+                    fadeDuration={0}
+                  />
+                </View>
+              </TouchableOpacity>
             </MarkerView>
           );
         })}
@@ -320,7 +330,7 @@ function Home() {
               friends={nearbyFriends}
               onFriendSelect={friend => {
                 if (cameraRef.current) {
-                  cameraRef.current.flyTo(friend.coordinates, 500);
+                  cameraRef.current.moveTo(friend.coordinates, 500);
                 }
               }}
             />
@@ -395,6 +405,14 @@ function Home() {
             </View>
 
             <CheckinBottomSheet ref={checkInSheetRef} />
+
+            <FriendsCheckinSlider
+              selectedId={selectedFriendId}
+              onSlideChange={friend => {
+                setSelectedFriendId(friend.id);
+                cameraRef.current?.moveTo(friend.coordinates, 500);
+              }}
+            />
           </>
         )}
       </SafeAreaView>

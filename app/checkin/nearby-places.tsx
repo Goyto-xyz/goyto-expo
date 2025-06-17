@@ -6,10 +6,10 @@ import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { useUserStore } from '@/stores/userStore';
 import { generateNearbyCoordinates } from '@/utils';
-import DistanceIndicator from './components/DistanceIndicator';
-import SafeAreaWrapper from './components/SafeAreaWrapper';
-import Header from './components/Header';
-import Button from './components/Button';
+import SafeAreaWrapper from '../components/SafeAreaWrapper';
+import Header from '../components/Header';
+import Button from '../components/Button';
+import DistanceIndicator from '../components/DistanceIndicator';
 import { MapPinPlus } from 'phosphor-react-native';
 import { router } from 'expo-router';
 
