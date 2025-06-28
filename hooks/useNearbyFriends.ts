@@ -91,28 +91,28 @@ export function useNearbyFriends(currentLocation: [number, number]) {
       {
         id: '1',
         name: 'Alice Johnson',
-        avatar: 'bafkreibuiu4lnputhft5rxjho2yvakme5kwuhliqey6n6kntscqjzxryu4',
+        avatar: 'bafkreiefyjkizch5bzv7css3cwz6wsix3nxfvo2inxqmazvoufx2ybrvz4',
         coordinates: locations[0].coordinates,
         placeId: locations[0].placeId
       },
       {
         id: '2',
         name: 'Bob Smith',
-        avatar: 'bafkreigvuszwhf2dlyqky2hqvi7klpbin53nzan3v4itlyzbmxoe4ghmii',
+        avatar: 'bafkreies744hij7o5tndy2wpw2zdfdgiro5rmjplbgda7prnux56elc7fe',
         coordinates: locations[1].coordinates,
         placeId: locations[1].placeId
       },
       {
         id: '3',
         name: 'Charlie Brown',
-        avatar: 'bafkreid62rviiyoqbrhk2dm4dy7zpxydl7gwyqqxscdmokqr3chwic4xsy',
+        avatar: 'bafkreiclq7ywxurifcfxvp5dgaxjkxhvyid57hlnmx3o5dskknzdgwrxh4',
         coordinates: locations[2].coordinates,
         placeId: locations[2].placeId
       },
       {
         id: '4',
         name: 'Diana Prince',
-        avatar: 'bafkreici3dgxjjq7hk2nc5otux6dgai6txlk4ougszgm625fq4psulpbii',
+        avatar: 'bafkreihtvrievdsx36afwi6j6x25mlgph5cfkfexx6gvedudatgsnapsyu',
         coordinates: locations[3].coordinates,
         placeId: locations[3].placeId
       }
