@@ -100,7 +100,7 @@ const FriendsCheckinSlider = forwardRef<FriendsCheckinSliderRef, Props>(
           <TouchableOpacity
             style={{
               position: 'absolute',
-              left: 10,
+              left: 15,
               top: '40%',
               zIndex: 10
             }}
@@ -112,7 +112,7 @@ const FriendsCheckinSlider = forwardRef<FriendsCheckinSliderRef, Props>(
           <TouchableOpacity
             style={{
               position: 'absolute',
-              right: 10,
+              right: 15,
               top: '40%',
               zIndex: 10
             }}
