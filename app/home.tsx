@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Mapbox, {
   Camera,
+  MapState,
   MapView,
   MarkerView,
   PointAnnotation,
@@ -34,7 +35,14 @@ import { useUserStore } from '@/stores/userStore';
 import CheckinBottomSheet, {
   CheckinBottomSheetRef
 } from './bottom-sheet/checkin-form';
-import FriendsCheckinSlider from './checkin/friends-checkin-slider';
+import FriendsCheckinSlider, {
+  FriendsCheckinSliderRef
+} from './checkin/friends-checkin-slider';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming
+} from 'react-native-reanimated';
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
 
@@ -61,6 +69,7 @@ function Home() {
   const nearbyPlaces = useNearbyPlaces(location);
   const nearbyFriends = useNearbyFriends(location);
 
+  const mapRef = useRef<MapView | null>(null);
   const {
     cameraRef,
     isFollowing,
@@ -73,7 +82,9 @@ function Home() {
   } = useMapNavigation(location);
 
   const checkInSheetRef = useRef<CheckinBottomSheetRef>(null);
-  const [selectedFriendId, setSelectedFriendId] = useState<string | null>(null);
+
+  const sliderRef = useRef<FriendsCheckinSliderRef>(null);
+  const [activeFriendId, setActiveFriendId] = useState<string | null>(null);
 
   useEffect(() => {
     const getCurrentLocation = async () => {
@@ -114,17 +125,21 @@ function Home() {
   return (
     <View sx={{ flex: 1 }}>
       <MapView
+        ref={mapRef}
         scaleBarEnabled={false}
         style={{
           flex: 1
         }}
         onCameraChanged={onRegionIsChanging}
-        onMapIdle={e => {
+        onRegionDidChange={e => {
           if (isAdding) {
             onUserLocationUpdate(e);
           } else {
             handleRegionChange(e);
           }
+        }}
+        onPress={() => {
+          setActiveFriendId(null);
         }}
       >
         <Camera
@@ -139,6 +154,19 @@ function Home() {
         <UserLocation />
 
         {nearbyFriends.map(friend => {
+          const isActive = activeFriendId === friend.id;
+          const scale = useSharedValue(isActive ? 1.5 : 1);
+
+          useEffect(() => {
+            scale.value = withTiming(activeFriendId === friend.id ? 1.5 : 1, {
+              duration: 300
+            });
+          }, [activeFriendId]);
+
+          const animatedStyle = useAnimatedStyle(() => ({
+            transform: [{ scale: scale.get() }]
+          }));
+
           return (
             <MarkerView
               key={`${friend.id}`}
@@ -147,22 +175,27 @@ function Home() {
             >
               <TouchableOpacity
                 onPress={() => {
-                  setSelectedFriendId(friend.id);
+                  setActiveFriendId(friend.id);
+                  sliderRef.current?.scrollToFriend(friend.id);
+                  cameraRef.current?.moveTo(friend.coordinates, 500);
                 }}
               >
-                <View
-                  sx={{
-                    width: 100,
-                    height: 100,
-                    borderRadius: 100,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    shadowColor: 'rgba(0,0,0,0.3)',
-                    shadowOffset: { width: 0, height: 0 },
-                    shadowOpacity: 1,
-                    shadowRadius: 15,
-                    elevation: 10
-                  }}
+                <Animated.View
+                  style={[
+                    {
+                      width: 100,
+                      height: 100,
+                      borderRadius: 100,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      shadowColor: 'rgba(0,0,0,0.3)',
+                      shadowOffset: { width: 0, height: 0 },
+                      shadowOpacity: 1,
+                      shadowRadius: 15,
+                      elevation: 10
+                    },
+                    animatedStyle
+                  ]}
                 >
                   <Image
                     source={{
@@ -176,7 +209,7 @@ function Home() {
                     resizeMode="contain"
                     fadeDuration={0}
                   />
-                </View>
+                </Animated.View>
               </TouchableOpacity>
             </MarkerView>
           );
@@ -326,14 +359,21 @@ function Home() {
           </>
         ) : (
           <>
-            <NearbyFriendsStack
-              friends={nearbyFriends}
-              onFriendSelect={friend => {
-                if (cameraRef.current) {
-                  cameraRef.current.moveTo(friend.coordinates, 500);
-                }
-              }}
-            />
+            {!activeFriendId && (
+              <NearbyFriendsStack
+                friends={nearbyFriends}
+                activeFriendId={activeFriendId}
+                onFriendSelect={friend => {
+                  if (friend) {
+                    setActiveFriendId(friend.id);
+                    sliderRef.current?.scrollToFriend(friend.id);
+                    cameraRef.current?.moveTo(friend.coordinates, 500);
+                  } else {
+                    setActiveFriendId(null);
+                  }
+                }}
+              />
+            )}
 
             <View
               sx={{
@@ -407,9 +447,11 @@ function Home() {
             <CheckinBottomSheet ref={checkInSheetRef} />
 
             <FriendsCheckinSlider
-              selectedId={selectedFriendId}
+              ref={sliderRef}
+              friends={nearbyFriends}
+              selectedId={activeFriendId}
               onSlideChange={friend => {
-                setSelectedFriendId(friend.id);
+                setActiveFriendId(friend.id);
                 cameraRef.current?.moveTo(friend.coordinates, 500);
               }}
             />

@@ -11,6 +11,7 @@ export type Place = {
   name: string;
   coordinates: [number, number];
   category: string;
+  color: string;
   Icon: React.FC<SvgProps>;
 };
 
@@ -24,6 +25,7 @@ export function useNearbyPlaces(currentLocation: [number, number]) {
         name: 'The Beehive',
         coordinates: generated[0],
         category: 'coffee',
+        color: '#df305f',
         Icon: CoffeeIcon
       },
       {
@@ -31,6 +33,7 @@ export function useNearbyPlaces(currentLocation: [number, number]) {
         name: "John's Grill",
         coordinates: generated[1],
         category: 'restaurant',
+        color: '#df305f',
         Icon: RestaurantIcon
       },
       {
@@ -38,6 +41,7 @@ export function useNearbyPlaces(currentLocation: [number, number]) {
         name: 'The Rotunda',
         coordinates: generated[2],
         category: 'restaurant',
+        color: '#df305f',
         Icon: RestaurantIcon
       },
       {
@@ -45,6 +49,7 @@ export function useNearbyPlaces(currentLocation: [number, number]) {
         name: 'Union Park',
         coordinates: generated[3],
         category: 'park',
+        color: '#62c048',
         Icon: ParkIcon
       },
       {
@@ -52,6 +57,7 @@ export function useNearbyPlaces(currentLocation: [number, number]) {
         name: 'The Boba Guys',
         coordinates: generated[4],
         category: 'coffee',
+        color: '#df305f',
         Icon: CoffeeIcon
       }
     ],

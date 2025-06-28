@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
-import { useNearbyFriends } from './useNearbyFriends';
+import { Friend, useNearbyFriends } from './useNearbyFriends';
 import { Place, useNearbyPlaces } from './useNearbyPlaces';
 
 export type FriendCheckin = {
   id: string;
   name: string;
   avatar: string;
-  location: [number, number];
-  place: string;
+  coordinates: [number, number];
+  place: Place | null;
   timeAgo: string;
   emojiReactions: string[];
 };
@@ -25,25 +25,24 @@ function getRandomReactions(): string[] {
 }
 
 export function useFriendsCheckins(
+  friends: Friend[],
   currentLocation: [number, number]
 ): FriendCheckin[] {
-  const friends = useNearbyFriends(currentLocation);
   const nearbyPlaces = useNearbyPlaces(currentLocation);
 
   const checkins = useMemo<FriendCheckin[]>(() => {
     return friends.map(friend => {
-      const placeName =
+      const place =
         friend.placeId != null
-          ? nearbyPlaces.find(p => p.id === friend.placeId)?.name ??
-            'Unknown Place'
-          : 'Somewhere nearby';
+          ? nearbyPlaces.find(p => p.id === friend.placeId) ?? null
+          : null;
 
       return {
         id: friend.id,
         name: friend.name,
         avatar: friend.avatar,
-        location: friend.coordinates,
-        place: placeName,
+        coordinates: friend.coordinates,
+        place,
         timeAgo: getRandomTimeAgo(),
         emojiReactions: getRandomReactions()
       };

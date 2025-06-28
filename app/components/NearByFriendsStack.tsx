@@ -1,36 +1,57 @@
 import { Friend } from '@/hooks/useNearbyFriends';
 import { View, Image } from 'dripsy';
 import Constants from 'expo-constants';
-import React, { useState } from 'react';
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  Animated,
+  TouchableOpacity,
+  TouchableWithoutFeedback
+} from 'react-native';
+import {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming
+} from 'react-native-reanimated';
 
 type Props = {
   friends: Friend[];
-  onFriendSelect: (friend: Friend) => void;
+  activeFriendId: string | null;
+  onFriendSelect: (friend: Friend | null) => void;
 };
 
-export default function NearbyFriendsStack({ friends, onFriendSelect }: Props) {
-  const [activeFriendId, setActiveFriendId] = useState<string | null>(null);
+export default function NearbyFriendsStack({
+  friends,
+  activeFriendId,
+  onFriendSelect
+}: Props) {
+  const translateY = useSharedValue(0);
 
-  const onFriendSelected = (friend: Friend) => {
-    setActiveFriendId(friend.id);
-    onFriendSelect(friend);
-  };
+  useEffect(() => {
+    translateY.value = withTiming(activeFriendId ? 100 : 0, { duration: 300 });
+  }, [activeFriendId]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: translateY.value }]
+  }));
 
   return (
-    <TouchableWithoutFeedback onPress={() => setActiveFriendId(null)}>
-      <View
-        sx={{
-          position: 'absolute',
-          bottom: 140,
-          left: 0,
-          right: 0,
-          px: '$4',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 10
-        }}
+    <TouchableWithoutFeedback onPress={() => onFriendSelect(null)}>
+      <Animated.View
+        style={[
+          {
+            position: 'absolute',
+            bottom: 140,
+            left: 0,
+            right: 0,
+            paddingLeft: 16,
+            paddingRight: 16,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10
+          },
+          animatedStyle
+        ]}
       >
         {friends.slice(0, 5).map((friend, index) => {
           const isActive = activeFriendId === friend.id;
@@ -55,7 +76,7 @@ export default function NearbyFriendsStack({ friends, onFriendSelect }: Props) {
                 shadowOpacity: 1,
                 shadowRadius: 20
               }}
-              onPress={() => onFriendSelected(friend)}
+              onPress={() => onFriendSelect(friend)}
             >
               <Image
                 source={{
@@ -72,7 +93,7 @@ export default function NearbyFriendsStack({ friends, onFriendSelect }: Props) {
             </TouchableOpacity>
           );
         })}
-      </View>
+      </Animated.View>
     </TouchableWithoutFeedback>
   );
 }

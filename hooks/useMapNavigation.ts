@@ -12,7 +12,7 @@ export function useMapNavigation(userLocation: [number, number] | null) {
 
   const moveToUser = () => {
     if (userLocation && cameraRef.current) {
-      cameraRef.current.flyTo(userLocation, 1000);
+      cameraRef.current.moveTo(userLocation, 500);
     }
   };
 

@@ -27,7 +27,8 @@ const theme = makeTheme({
     $10: 40
   },
   fonts: {
-    body: 'Inter_400Regular'
+    body: 'Inter_400Regular',
+    button: 'BalsamiqSans'
   },
   fontSizes: {
     $0: 12,
