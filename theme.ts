@@ -9,9 +9,12 @@ const theme = makeTheme({
     $primary200: 'rgba(0, 48, 73, 0.2)',
     $inputBg: '#efefef',
     $success: '#01B34E',
+    $failed: '#C1121F',
     $gray: '#fefefe',
+    $gray100: '#f1f1f1',
     $gray200: '#dfdfdf',
-    $gray300: '#b2b2b2'
+    $gray300: '#b2b2b2',
+    $gray400: '#a0a0a0'
   },
   space: {
     $0: 0,

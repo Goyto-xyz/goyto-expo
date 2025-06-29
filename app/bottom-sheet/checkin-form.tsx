@@ -24,31 +24,19 @@ const CheckinBottomSheet = forwardRef<CheckinBottomSheetRef>((_, ref) => {
 
   const nearestPlace = useMemo(() => {
     if (!location || !nearbyPlaces || nearbyPlaces.length === 0) return null;
-    let nearest = nearbyPlaces[0];
-    let minDist = getDistance(
-      [location[0], location[1]],
-      [nearest.coordinates[0], nearest.coordinates[1]]
-    );
-
-    for (let place of nearbyPlaces) {
-      const dist = getDistance(
-        [location[0], location[1]],
-        [place.coordinates[0], place.coordinates[1]]
-      );
-
-      if (dist < minDist) {
-        minDist = dist;
-        nearest = place;
-      }
-    }
-
-    return nearest;
+    return nearbyPlaces.reduce((nearest, place) => {
+      const dist = getDistance(location, place.coordinates);
+      const nearestDist = getDistance(location, nearest.coordinates);
+      return dist < nearestDist ? place : nearest;
+    }, nearbyPlaces[0]);
   }, [location, nearbyPlaces]);
 
   useImperativeHandle(ref, () => ({
     open: () => bottomSheetRef.current?.present(),
     close: () => bottomSheetRef.current?.close()
   }));
+
+  if (!nearestPlace) return null;
 
   return (
     <BottomSheetModal

@@ -43,6 +43,7 @@ import Animated, {
   withTiming
 } from 'react-native-reanimated';
 import { wrapAnimatedSvgIcon } from '@/utils';
+import PlaceDetails, { PlaceDetailsRef } from './bottom-sheet/place-details';
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
 
@@ -82,6 +83,7 @@ function Home() {
   } = useMapNavigation(location);
 
   const checkInSheetRef = useRef<CheckinBottomSheetRef>(null);
+  const placeDetailsRef = useRef<PlaceDetailsRef>(null);
 
   const sliderRef = useRef<FriendsCheckinSliderRef>(null);
   const [activeFriendId, setActiveFriendId] = useState<string | null>(null);
@@ -244,7 +246,9 @@ function Home() {
               <TouchableOpacity
                 onPress={() => {
                   setActivePlaceId(place.id);
+                  setActiveFriendId(null);
                   cameraRef.current?.moveTo(place.coordinates, 500);
+                  placeDetailsRef.current?.open();
                 }}
               >
                 <Animated.View
@@ -401,6 +405,7 @@ function Home() {
                 onFriendSelect={friend => {
                   if (friend) {
                     setActiveFriendId(friend.id);
+                    setActivePlaceId(null);
                     sliderRef.current?.scrollToFriend(friend.id);
                     cameraRef.current?.moveTo(friend.coordinates, 500);
                   } else {
@@ -480,6 +485,12 @@ function Home() {
             </View>
 
             <CheckinBottomSheet ref={checkInSheetRef} />
+
+            <PlaceDetails
+              ref={placeDetailsRef}
+              placeId={activePlaceId}
+              onClose={() => setActivePlaceId(null)}
+            />
 
             <FriendsCheckinSlider
               ref={sliderRef}
