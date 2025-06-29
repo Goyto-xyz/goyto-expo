@@ -1,3 +1,6 @@
+import { forwardRef } from 'react';
+import { Animated } from 'react-native';
+import { SvgProps } from 'react-native-svg';
 import tinycolor from 'tinycolor2';
 
 export const getBgColor = (color: string) => {
@@ -41,3 +44,8 @@ export const generateNearbyCoordinates = (
 
   return coords;
 };
+
+export const wrapAnimatedSvgIcon = (Icon: React.FC<SvgProps>) =>
+  Animated.createAnimatedComponent(
+    forwardRef<any, SvgProps>((props, ref) => <Icon {...props} />)
+  );

@@ -2,9 +2,10 @@ import { generateNearbyCoordinates } from '@/utils';
 import { useMemo } from 'react';
 import { SvgProps } from 'react-native-svg';
 
-import CoffeeIcon from '@/assets/map-icons/coffee.svg';
-import ParkIcon from '@/assets/map-icons/park.svg';
-import RestaurantIcon from '@/assets/map-icons/restaurant.svg';
+import CoffeeIcon from '@/assets/map-icons/coffee.png';
+import ParkIcon from '@/assets/map-icons/park.png';
+import RestaurantIcon from '@/assets/map-icons/restaurant.png';
+import { ImageSourcePropType } from 'react-native';
 
 export type Place = {
   id: string;
@@ -12,12 +13,11 @@ export type Place = {
   coordinates: [number, number];
   category: string;
   color: string;
-  Icon: React.FC<SvgProps>;
+  icon: ImageSourcePropType;
 };
 
 export function useNearbyPlaces(currentLocation: [number, number]) {
   const generated = generateNearbyCoordinates(currentLocation, 5, 300);
-
   const places = useMemo<Place[]>(
     () => [
       {
@@ -26,7 +26,7 @@ export function useNearbyPlaces(currentLocation: [number, number]) {
         coordinates: generated[0],
         category: 'coffee',
         color: '#df305f',
-        Icon: CoffeeIcon
+        icon: CoffeeIcon
       },
       {
         id: '2',
@@ -34,7 +34,7 @@ export function useNearbyPlaces(currentLocation: [number, number]) {
         coordinates: generated[1],
         category: 'restaurant',
         color: '#df305f',
-        Icon: RestaurantIcon
+        icon: RestaurantIcon
       },
       {
         id: '3',
@@ -42,7 +42,7 @@ export function useNearbyPlaces(currentLocation: [number, number]) {
         coordinates: generated[2],
         category: 'restaurant',
         color: '#df305f',
-        Icon: RestaurantIcon
+        icon: RestaurantIcon
       },
       {
         id: '4',
@@ -50,7 +50,7 @@ export function useNearbyPlaces(currentLocation: [number, number]) {
         coordinates: generated[3],
         category: 'park',
         color: '#62c048',
-        Icon: ParkIcon
+        icon: ParkIcon
       },
       {
         id: '5',
@@ -58,7 +58,7 @@ export function useNearbyPlaces(currentLocation: [number, number]) {
         coordinates: generated[4],
         category: 'coffee',
         color: '#df305f',
-        Icon: CoffeeIcon
+        icon: CoffeeIcon
       }
     ],
     [currentLocation]

@@ -179,7 +179,13 @@ const FriendsCheckinSlider = forwardRef<FriendsCheckinSliderRef, Props>(
                           elevation: 1
                         }}
                       >
-                        <item.place.Icon width={40} height={40} />
+                        <Image
+                          source={item.place.icon}
+                          style={{
+                            width: 40,
+                            height: 40
+                          }}
+                        />
                       </View>
                       <Text
                         style={{

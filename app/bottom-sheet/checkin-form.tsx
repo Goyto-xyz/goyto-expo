@@ -1,6 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useRef, useMemo } from 'react';
-import { StyleSheet } from 'react-native';
-import { View, Text, TextInput } from 'dripsy';
+import { View, Text, TextInput, Image } from 'dripsy';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { useNearbyPlaces } from '@/hooks/useNearbyPlaces';
 import { useUserStore } from '@/stores/userStore';
@@ -69,17 +68,26 @@ const CheckinBottomSheet = forwardRef<CheckinBottomSheetRef>((_, ref) => {
         >
           {location && nearestPlace && (
             <>
-              <nearestPlace.Icon
-                width={60}
-                height={60}
-                color="black"
+              <View
                 style={{
-                  shadowColor: 'rgba(0, 0, 0, 0.3)',
+                  borderRadius: 100,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  shadowColor: 'rgba(0,0,0,0.3)',
                   shadowOffset: { width: 0, height: 0 },
                   shadowOpacity: 1,
-                  shadowRadius: 4
+                  shadowRadius: 2,
+                  elevation: 1
                 }}
-              />
+              >
+                <Image
+                  source={nearestPlace.icon}
+                  style={{
+                    width: 60,
+                    height: 60
+                  }}
+                />
+              </View>
               <View>
                 <Text
                   sx={{

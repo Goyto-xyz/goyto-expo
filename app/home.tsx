@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Mapbox, {
   Camera,
-  MapState,
   MapView,
   MarkerView,
-  PointAnnotation,
   UserLocation
 } from '@rnmapbox/maps';
 import Constants from 'expo-constants';
@@ -39,10 +37,12 @@ import FriendsCheckinSlider, {
   FriendsCheckinSliderRef
 } from './checkin/friends-checkin-slider';
 import Animated, {
+  useAnimatedProps,
   useAnimatedStyle,
   useSharedValue,
   withTiming
 } from 'react-native-reanimated';
+import { wrapAnimatedSvgIcon } from '@/utils';
 
 Mapbox.setAccessToken(Constants.expoConfig?.extra?.mapboxSecretKey || '');
 
@@ -85,6 +85,7 @@ function Home() {
 
   const sliderRef = useRef<FriendsCheckinSliderRef>(null);
   const [activeFriendId, setActiveFriendId] = useState<string | null>(null);
+  const [activePlaceId, setActivePlaceId] = useState<string | null>(null);
 
   useEffect(() => {
     const getCurrentLocation = async () => {
@@ -140,6 +141,7 @@ function Home() {
         }}
         onPress={() => {
           setActiveFriendId(null);
+          setActivePlaceId(null);
         }}
       >
         <Camera
@@ -158,7 +160,7 @@ function Home() {
           const scale = useSharedValue(isActive ? 1.5 : 1);
 
           useEffect(() => {
-            scale.value = withTiming(activeFriendId === friend.id ? 1.5 : 1, {
+            scale.value = withTiming(isActive ? 1.5 : 1, {
               duration: 300
             });
           }, [activeFriendId]);
@@ -215,34 +217,67 @@ function Home() {
           );
         })}
 
-        {nearbyPlaces.map(place => (
-          <PointAnnotation
-            key={`${place.id}`}
-            id={`${place.id}`}
-            coordinate={place.coordinates}
-            style={{
-              position: 'relative',
-              zIndex: 1
-            }}
-          >
-            <View
-              sx={{
-                width: 100,
-                height: 100,
-                borderRadius: 100,
-                alignItems: 'center',
-                justifyContent: 'center',
-                shadowColor: 'rgba(0,0,0,0.3)',
-                shadowOffset: { width: 0, height: 0 },
-                shadowOpacity: 1,
-                shadowRadius: 15,
-                elevation: 10
+        {nearbyPlaces.map(place => {
+          const isActive = activePlaceId === place.id;
+          const scale = useSharedValue(isActive ? 1.5 : 1);
+
+          useEffect(() => {
+            scale.value = withTiming(isActive ? 1.5 : 1, {
+              duration: 300
+            });
+          }, [activePlaceId]);
+
+          const animatedStyle = useAnimatedStyle(() => ({
+            transform: [{ scale: scale.get() }]
+          }));
+
+          return (
+            <MarkerView
+              key={`${place.id}`}
+              id={`${place.id}`}
+              coordinate={place.coordinates}
+              style={{
+                position: 'relative',
+                zIndex: 1
               }}
             >
-              <place.Icon width={40} height={40} />
-            </View>
-          </PointAnnotation>
-        ))}
+              <TouchableOpacity
+                onPress={() => {
+                  setActivePlaceId(place.id);
+                  cameraRef.current?.moveTo(place.coordinates, 500);
+                }}
+              >
+                <Animated.View
+                  style={[
+                    {
+                      width: 100,
+                      height: 100,
+                      borderRadius: 100,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      shadowColor: 'rgba(0,0,0,0.3)',
+                      shadowOffset: { width: 0, height: 0 },
+                      shadowOpacity: 1,
+                      shadowRadius: 15,
+                      elevation: 10
+                    },
+                    animatedStyle
+                  ]}
+                >
+                  <Image
+                    source={place.icon}
+                    style={[
+                      {
+                        width: 40,
+                        height: 40
+                      }
+                    ]}
+                  />
+                </Animated.View>
+              </TouchableOpacity>
+            </MarkerView>
+          );
+        })}
       </MapView>
 
       <SafeAreaView
