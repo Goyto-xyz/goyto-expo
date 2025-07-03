@@ -19,6 +19,7 @@ import CheckinsIcon from '@/assets/icons/place/checkins.svg';
 import FavesIcon from '@/assets/icons/place/faves.svg';
 import { useTags } from '@/hooks/useTags';
 import { useCategories } from '@/hooks/useCategories';
+import Constants from 'expo-constants';
 
 export type PlaceDetailsRef = {
   open: () => void;
@@ -258,11 +259,57 @@ const PlaceDetails = forwardRef<PlaceDetailsRef, Props>(
                     }}
                   >
                     <tag.Icon width={24} height={24} />
-                    <Text sx={{ fontSize: 18 }}>{tag.label}</Text>
+                    <Text sx={{ fontSize: 16 }}>{tag.label}</Text>
                   </View>
                 );
               })}
             </View>
+
+            {/* Friends */}
+            {selectedPlace.friends && selectedPlace.friends?.length > 0 && (
+              <View
+                sx={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '$2'
+                }}
+              >
+                <View sx={{ flexDirection: 'row' }}>
+                  {selectedPlace.friends.slice(0, 3).map((friend, index) => {
+                    let rotate = '0deg';
+                    if (index === 0) rotate = '-15deg';
+                    if (index === 1)
+                      rotate =
+                        (selectedPlace.friends?.length ?? 0) > 2
+                          ? '0deg'
+                          : '15deg';
+                    if (index === 2) rotate = '15deg';
+
+                    return (
+                      <Image
+                        key={friend.id}
+                        source={{
+                          uri: `${Constants.expoConfig?.extra?.pinataGatewayUrl}/ipfs/${friend.avatar}`
+                        }}
+                        style={{
+                          width: 32,
+                          height: 32,
+                          borderRadius: 8,
+                          borderWidth: 2,
+                          borderColor: '#fff',
+                          marginLeft: -5,
+                          transform: [{ rotate }]
+                        }}
+                      />
+                    );
+                  })}
+                </View>
+                <Text sx={{ color: '$gray500', fontSize: 14 }}>
+                  {selectedPlace.friends.length} friends has been here
+                </Text>
+              </View>
+            )}
 
             <Button
               variant="secondary"

@@ -182,6 +182,7 @@ function Home() {
                   setActiveFriendId(friend.id);
                   sliderRef.current?.scrollToFriend(friend.id);
                   cameraRef.current?.moveTo(friend.coordinates, 500);
+                  placeDetailsRef.current?.close();
                 }}
               >
                 <Animated.View

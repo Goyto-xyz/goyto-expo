@@ -7,7 +7,7 @@ export type Friend = {
   name: string;
   avatar: string;
   coordinates: [number, number];
-  placeId: string | null;
+  placeId?: string | null;
 };
 
 function offsetCoordinate(
@@ -92,29 +92,25 @@ export function useNearbyFriends(currentLocation: [number, number]) {
         id: '1',
         name: 'Alice Johnson',
         avatar: 'bafkreiefyjkizch5bzv7css3cwz6wsix3nxfvo2inxqmazvoufx2ybrvz4',
-        coordinates: locations[0].coordinates,
-        placeId: locations[0].placeId
+        coordinates: locations[0].coordinates
       },
       {
         id: '2',
         name: 'Bob Smith',
         avatar: 'bafkreies744hij7o5tndy2wpw2zdfdgiro5rmjplbgda7prnux56elc7fe',
-        coordinates: locations[1].coordinates,
-        placeId: locations[1].placeId
+        coordinates: locations[1].coordinates
       },
       {
         id: '3',
         name: 'Charlie Brown',
         avatar: 'bafkreiclq7ywxurifcfxvp5dgaxjkxhvyid57hlnmx3o5dskknzdgwrxh4',
-        coordinates: locations[2].coordinates,
-        placeId: locations[2].placeId
+        coordinates: locations[2].coordinates
       },
       {
         id: '4',
         name: 'Diana Prince',
         avatar: 'bafkreihtvrievdsx36afwi6j6x25mlgph5cfkfexx6gvedudatgsnapsyu',
-        coordinates: locations[3].coordinates,
-        placeId: locations[3].placeId
+        coordinates: locations[3].coordinates
       }
     ],
     [currentLocation]
