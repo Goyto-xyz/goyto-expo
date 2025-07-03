@@ -42,8 +42,8 @@ const CheckinBottomSheet = forwardRef<CheckinBottomSheetRef>((_, ref) => {
     <BottomSheetModal
       ref={bottomSheetRef}
       snapPoints={snapPoints}
-      enablePanDownToClose
       enableDynamicSizing
+      animateOnMount
     >
       <BottomSheetView style={{ paddingHorizontal: 16, paddingBottom: 40 }}>
         <View

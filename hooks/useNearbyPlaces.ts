@@ -20,6 +20,8 @@ export type Place = {
     name: string;
     avatar: string;
   }[];
+  addedBy?: string;
+  addedAt?: number;
 };
 
 export function useNearbyPlaces(currentLocation: [number, number]) {
@@ -58,7 +60,9 @@ export function useNearbyPlaces(currentLocation: [number, number]) {
         tags: ['cafe', 'fastfood'],
         icon: CoffeeIcon,
         address: '123 Coffee St, San Francisco, CA',
-        friends: [allFriends[0], allFriends[1]] // Alice + Bob
+        friends: [allFriends[0], allFriends[1]],
+        addedBy: 'john-doe',
+        addedAt: Date.now() - 1000 * 60 * 60 * 24 * 7 // 1 week ago
       },
       {
         id: '2',
@@ -78,7 +82,6 @@ export function useNearbyPlaces(currentLocation: [number, number]) {
         tags: ['restaurant'],
         icon: RestaurantIcon,
         address: '789 Rotunda Blvd, San Francisco, CA',
-
         friends: [] // no one
       },
       {
@@ -89,7 +92,9 @@ export function useNearbyPlaces(currentLocation: [number, number]) {
         tags: ['park', 'picnic-area'],
         icon: ParkIcon,
         address: '101 Union Park Rd, San Francisco, CA',
-        friends: [allFriends[3]] // Diana
+        friends: [allFriends[3]], // Diana
+        addedBy: 'alice-johnson',
+        addedAt: Date.now() - 1000 * 60 * 60 * 24 * 30 // 1 month ago
       },
       {
         id: '5',

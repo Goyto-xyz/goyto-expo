@@ -144,6 +144,8 @@ function Home() {
         onPress={() => {
           setActiveFriendId(null);
           setActivePlaceId(null);
+          checkInSheetRef.current?.close();
+          placeDetailsRef.current?.close();
         }}
       >
         <Camera
@@ -180,6 +182,7 @@ function Home() {
               <TouchableOpacity
                 onPress={() => {
                   setActiveFriendId(friend.id);
+                  setActivePlaceId(null);
                   sliderRef.current?.scrollToFriend(friend.id);
                   cameraRef.current?.moveTo(friend.coordinates, 500);
                   placeDetailsRef.current?.close();
@@ -248,8 +251,11 @@ function Home() {
                 onPress={() => {
                   setActivePlaceId(place.id);
                   setActiveFriendId(null);
-                  cameraRef.current?.moveTo(place.coordinates, 500);
-                  placeDetailsRef.current?.open();
+                  cameraRef.current?.moveTo(
+                    [place.coordinates[0], place.coordinates[1] - 0.001],
+                    500
+                  );
+                  placeDetailsRef.current?.open(place.id);
                 }}
               >
                 <Animated.View
@@ -489,8 +495,9 @@ function Home() {
 
             <PlaceDetails
               ref={placeDetailsRef}
-              placeId={activePlaceId}
-              onClose={() => setActivePlaceId(null)}
+              onClose={() => {
+                setActivePlaceId(null);
+              }}
             />
 
             <FriendsCheckinSlider

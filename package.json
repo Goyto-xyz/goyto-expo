@@ -27,6 +27,7 @@
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.1.5",
     "@rnmapbox/maps": "^10.1.38",
+    "date-fns": "^4.1.0",
     "dotenv": "^16.5.0",
     "dripsy": "^4.3.8",
     "expo": "~52.0.46",
